@@ -2,9 +2,11 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![Schema](LandBnBSchema.png)
 
 ## API Documentation
+
+
 
 ## USER AUTHENTICATION/AUTHORIZATION
 
