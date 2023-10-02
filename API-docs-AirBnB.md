@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-![Schema](LandBnBSchema.png)
+![Schema](./images/LandBnBSchema.png)
 
 ## API Documentation
 
