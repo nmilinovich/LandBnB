@@ -10,18 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // Spot.hasMany(
-      //   models.Review, {
-      //     foreignKey: 'spotId',
-      //     onDelete: 'CASCADE',
-      //   }
-      // );
-      // Spot.hasMany(
-      //   models.SpotImages, {
-      //     foreignKey: 'spotId',
-      //     onDelete: 'CASCADE',
-      //   }
-      // );
+      Spot.hasMany(
+        models.Review, {
+          foreignKey: 'spotId',
+          onDelete: 'CASCADE',
+        }
+      );
+      Spot.hasMany(
+        models.SpotImages, {
+          foreignKey: 'spotId',
+          onDelete: 'CASCADE',
+        }
+      );
       Spot.belongsTo(
         models.User, {
           foreignKey: 'ownerId'
