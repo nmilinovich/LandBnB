@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Spot.hasMany(
         models.Review, {
+          // as: 'reviews',
           foreignKey: 'spotId',
           onDelete: 'CASCADE',
         }
