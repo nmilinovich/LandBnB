@@ -1,5 +1,5 @@
 const express = require('express');
-const { Spot, Review, SpotImages, sequelize } = require('../../db/models')
+const { Spot, Review, SpotImages, sequelize, User } = require('../../db/models')
 const { requireAuth } = require('../../utils/auth.js')
 const { Op } = require('sequelize');
 
@@ -8,7 +8,7 @@ const router = express.Router();
 router.get(
     '/:spotId',
     async (req, res) => {
-
+        // think i have it needs more spotImages seeds
         const spotId = req.params.spotId ? req.params.spotId : spot;
         const Spots = await Spot.findAll({
             where: {
@@ -16,16 +16,21 @@ router.get(
             },
             include: [{
                 model: Review,
-                attributes: [],
-            }, {
+                attributes: []
+            }, 
+            {
                 model: SpotImages,
-                attributes: {[sequelize.fn('COUNT', sequelize.col('id')), 'numReviews']},
-                
-            }],
+                attributes: ['id', 'url', 'preview']
+            },
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }
+            ],
             attributes: {
                 include: [
+                    [sequelize.fn('COUNT', sequelize.col('userId')), 'numReviews'],
                     [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-                    [sequelize.col('SpotImages.url'), 'previewImage']
                 ]
             },
         });
