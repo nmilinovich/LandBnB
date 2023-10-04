@@ -1,5 +1,5 @@
 const express = require('express');
-const { Spot, Review, SpotImages, sequelize, User } = require('../../db/models')
+const { Spot, Review, SpotImages, sequelize, User, Sequelize } = require('../../db/models')
 const { requireAuth } = require('../../utils/auth.js')
 const { Op } = require('sequelize');
 
@@ -7,22 +7,50 @@ const router = express.Router();
 
 
 router.post(
-    '/spots',
+    '/',
     requireAuth,
-    async (req, res) => {
+    async (req, res, next) => {
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
         const ownerId = req.user.id;
 
-        Spot.create({
-            ownerId: ownerId,
-            address: address,
-            city: city,
-            state: state,
-            country: country,
-            lat: lat,
-        })
+
+        const user = await User.findByPk(ownerId);
+
+        const spot = await Spot.findOne({
+            where: {
+                address: address
+            }
+        });
+
+
+        if (spot) {
+            let err = new Error({ "message": "Bad Request. Spot already exists"});
+            err.status = 400
+            console.log(err)
+            return next(err);
+        };
+
+        if (!spot) {
+            const newSpot = await user.createSpot({
+                ownerId: ownerId,
+                address: address,
+                city: city,
+                state: state,
+                country: country,
+                lat: lat,
+                lng: lng,
+                name: name,
+                description: description,
+                price: price,
+            });
+            console.log(newSpot);
+            return res.status(201).json(newSpot);
+        }
+
+
+
     }
-)
+);
 
 
 router.get(
@@ -46,7 +74,7 @@ router.get(
             {
                 model: User,
                 attributes: ['id', 'firstName', 'lastName'],
-                // as: "Owner"
+                as: "Owner"
             },
             ],
             attributes: 
@@ -59,7 +87,9 @@ router.get(
         });
 
         if (!Spots) {
-            return res.status(404).json({"message": "Spot couldn't be found"})
+            let err = new Error({"message": "Spot couldn't be found"});
+            err.status = 404;
+            return next(err);
         }
 
         return res.json(Spots);
