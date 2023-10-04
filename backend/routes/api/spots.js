@@ -9,14 +9,15 @@ router.get(
     '/:spotId',
     async (req, res) => {
         // think i have it needs more spotImages seeds
-        const spotId = req.params.spotId ? req.params.spotId : spot;
-        const Spots = await Spot.findAll({
-            where: {
-                id: spotId,
-            },
+        
+        const spotId = req.params.spotId;
+        console.log(typeof spotId)
+
+        const Spots = await Spot.findByPk(spotId, {
+            group: ["Reviews.id", "Reviews.stars"],
             include: [{
                 model: Review,
-                attributes: []
+                attributes: [],
             }, 
             {
                 model: SpotImages,
@@ -24,23 +25,24 @@ router.get(
             },
             {
                 model: User,
-                attributes: ['id', 'firstName', 'lastName']
-            }
-            ],
-            attributes: {
-                include: [
-                    [sequelize.fn('COUNT', sequelize.col('userId')), 'numReviews'],
-                    [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-                ]
+                attributes: ['id', 'firstName', 'lastName'],
+                // as: "Owner"
             },
+            ],
+            attributes: 
+                [
+                    'id', 'ownerId', 'address', 'city', 'state', 'country', 'lat',
+                    'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt',
+                    [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
+                    [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
+                ],
         });
 
         if (!Spots) {
             return res.status(404).json({"message": "Spot couldn't be found"})
         }
 
-
-        return res.json(Spots)
+        return res.json(Spots);
 
     }
 );
