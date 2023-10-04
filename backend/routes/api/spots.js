@@ -5,6 +5,26 @@ const { Op } = require('sequelize');
 
 const router = express.Router();
 
+
+router.post(
+    '/spots',
+    requireAuth,
+    async (req, res) => {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        const ownerId = req.user.id;
+
+        Spot.create({
+            ownerId: ownerId,
+            address: address,
+            city: city,
+            state: state,
+            country: country,
+            lat: lat,
+        })
+    }
+)
+
+
 router.get(
     '/:spotId',
     async (req, res) => {
@@ -14,7 +34,7 @@ router.get(
         console.log(typeof spotId)
 
         const Spots = await Spot.findByPk(spotId, {
-            group: ["Reviews.id", "Reviews.stars"],
+            group: ["Reviews.id", "Reviews.stars", "SpotImages.id"],
             include: [{
                 model: Review,
                 attributes: [],
