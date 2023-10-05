@@ -33,42 +33,80 @@ module.exports = (sequelize, DataTypes) => {
     ownerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: true,
+      }
     },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: { msg: 'City is required' },
+        notNull: { msg: 'City is required' },
+      }
     },
     city: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: { msg: 'City is required' },
+        notNull: { msg: 'City is required' },
+      }
     },
     state: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: { msg: 'City is required' },
+        notNull: { msg: 'City is required' },
+      }
     },
     country: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: { msg: 'City is required' },
+        notNull: { msg: 'City is required' },
+      }
     },
     lat: {
       type: DataTypes.DECIMAL,
       allowNull: false,
+      validate: {
+        notEmpty: { msg: 'City is required' },
+        notNull: { msg: 'City is required' },
+      }
     },
     lng: {
       type: DataTypes.DECIMAL,
       allowNull: false,
+      validate: {
+        notEmpty: { msg: 'City is required' },
+        notNull: { msg: 'City is required' },
+      }
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: { msg: 'City is required' },
+        notNull: { msg: 'City is required' },
+      }
     },
     description: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: { msg: 'Description is required' },
+        notNull: { msg: 'Description is required' },
+      }
     },
     price: {
       type: DataTypes.DECIMAL,
       allowNull: false,
+      validate: {
+        notNull: { msg: 'Price per day is required' },
+      }
     },
   }, {
     sequelize,

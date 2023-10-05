@@ -188,7 +188,7 @@ router.post(
 );
 
 router.put(
-    '/spots/:spotId',
+    '/:spotId',
     requireAuth,
     async (req, res, next) => {
         const spotId = req.params.spotId;
