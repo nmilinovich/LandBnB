@@ -179,4 +179,26 @@ router.post(
         }
     }
 );
+
+router.put(
+    '/spots/:spotId',
+    requireAuth,
+    async (req, res, next) => {
+        const spotId = req.params.spotId;
+        const { url, preview } = req.body;
+
+        const spot = await Spot.findByPk(spotId);
+        if(spot && req.user.id !== spot.ownerId) {
+            const err = new Error({"message": "Authentication required"});
+            err.status = 403;
+            return next(err);
+        } else if(!spot) {
+            const err = new Error({"message": "Spot couldn't be found"});
+            err.title = {"message": "Spot couldn't be found"};
+            err.errors = ["The requested resource couldn't be found."];
+            err.status = 404;
+            return next(err);
+        };
+    }
+);
 module.exports = router;
