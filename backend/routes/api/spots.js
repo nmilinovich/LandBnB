@@ -72,7 +72,7 @@ router.get(
     if (!Spots) {
         let err = new Error("Spot couldn't be found");
         err.title = "Spot couldn't be found";
-        err.errors = "Spot couldn't be found"
+        // err.errors = "Spot couldn't be found";
         err.status = 404;
         return next(err);
     }
