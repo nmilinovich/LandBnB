@@ -5,7 +5,9 @@ const { User } = require('../db/models');
 const { secret, expiresIn } = jwtConfig;
 
 const sendAuthorizationError = (_req, res, next) => {
-    const err = new Error({"message": "Authentication required"});
+    const err = new Error({
+        "message": "Forbidden"
+      });
     err.status = 403;
     return err;
 };

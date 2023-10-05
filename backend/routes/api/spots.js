@@ -6,6 +6,35 @@ const { Op } = require('sequelize');
 const router = express.Router();
 
 
+router.get(
+    '/current',
+    requireAuth,
+    async (req, res) => {
+        const userId = req.user.id
+        const Spots = await Spot.findAll({
+            where: {
+                ownerId: userId,
+            },
+            include: [{
+                model: Review,
+                attributes: [],
+            }, {
+                model: SpotImages,
+                where: 'preview' === true,
+                attributes: []
+            }],
+            attributes: {
+                include: [
+                    [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
+                    [sequelize.col('SpotImages.url'), 'previewImage']
+                ]
+            },
+        });
+        
+        return res.json({ Spots })
+        
+    }
+);
 
 
 router.get(
@@ -41,7 +70,9 @@ router.get(
     });
     
     if (!Spots) {
-        let err = new Error({"message": "Spot couldn't be found"});
+        let err = new Error("Spot couldn't be found");
+        err.title = "Spot couldn't be found";
+        err.errors = "Spot couldn't be found"
         err.status = 404;
         return next(err);
     }
@@ -51,35 +82,7 @@ router.get(
 }
 );
 
-router.get(
-    '/current',
-    requireAuth,
-    async (req, res) => {
-        const userId = req.user.id
-        const Spots = await Spot.findAll({
-            where: {
-                ownerId: userId,
-            },
-            include: [{
-                model: Review,
-                attributes: [],
-            }, {
-                model: SpotImages,
-                where: 'preview' === true,
-                attributes: []
-            }],
-            attributes: {
-                include: [
-                    [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-                    [sequelize.col('SpotImages.url'), 'previewImage']
-                ]
-            },
-        });
-        
-        return res.json({ Spots })
-        
-    }
-);
+
     
 router.get(
     '/',
@@ -118,12 +121,15 @@ router.post(
 
         const spot = await Spot.findByPk(spotId);
         if(spot && req.user.id !== spot.ownerId) {
-            const err = new Error({"message": "Authentication required"});
+            const err = new Error("message: Forbidden");
+            err.title = "Spot couldn't be found";
+            err.errors = "Forbidden";
             err.status = 403;
             return next(err);
         } else if(!spot) {
-            const err = new Error({"message": "Spot couldn't be found"});
-            err.errors = [{"message": "Spot couldn't be found"}];
+            const err = new Error("Spot couldn't be found");
+            err.title = "Spot couldn't be found";
+            err.errors = "Spot couldn't be found";
             err.status = 404;
             return next(err);
         };
@@ -156,6 +162,8 @@ router.post(
 
         if (spot) {
             let err = new Error({ "message": "Bad Request. Spot already exists"});
+            err.title = "Bad Request. Spot already exists";
+            err.errors = "Bad Request. Spot already exists";
             err.status = 400
             console.log(err)
             return next(err);
@@ -188,13 +196,15 @@ router.put(
 
         const spot = await Spot.findByPk(spotId);
         if(spot && req.user.id !== spot.ownerId) {
-            const err = new Error({"message": "Authentication required"});
+            const err = new Error("Authentication required");
+            err.title = "Spot couldn't be found";
+            err.errors = "The requested resource couldn't be found.";
             err.status = 403;
             return next(err);
         } else if(!spot) {
-            const err = new Error({"message": "Spot couldn't be found"});
-            err.title = {"message": "Spot couldn't be found"};
-            err.errors = ["The requested resource couldn't be found."];
+            const err = new Error("Spot couldn't be found");
+            err.title = "Spot couldn't be found";
+            err.errors = "The requested resource couldn't be found.";
             err.status = 404;
             return next(err);
         };
