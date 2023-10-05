@@ -4,6 +4,11 @@ const { User } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
+const sendAuthorizationError = (_req, res, next) => {
+    const err = new Error({"message": "Authentication required"});
+    err.status = 403;
+    return err;
+};
 
 const setTokenCookie = (res, user) => {
     const safeUser = {
@@ -67,4 +72,4 @@ const requireAuth = function (req, _res, next) {
     return next(err);
 }
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+module.exports = { setTokenCookie, restoreUser, requireAuth, sendAuthorizationError };

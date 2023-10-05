@@ -1,6 +1,6 @@
 const express = require('express');
 const { Spot, Review, SpotImages, sequelize, User, Sequelize } = require('../../db/models')
-const { requireAuth } = require('../../utils/auth.js')
+const { requireAuth, sendAuthorizationError } = require('../../utils/auth.js')
 const { Op } = require('sequelize');
 
 const router = express.Router();
@@ -14,7 +14,6 @@ router.get(
         // think i have it needs more spotImages seeds
         
         const spotId = req.params.spotId;
-        console.log(typeof spotId)
         
         const Spots = await Spot.findByPk(spotId, {
             group: ["Reviews.id", "Reviews.stars", "SpotImages.id"],
@@ -112,8 +111,31 @@ router.get(
 router.post(
     '/:spotId/images',
     requireAuth,
-    (req, res, next) => {
-        
+    async (req, res, next) => {
+        // console.log(sendAuthorizationError());
+        const spotId = req.params.spotId;
+        const { url, preview } = req.body;
+
+        const spot = await Spot.findByPk(spotId);
+        if(spot && req.user.id !== spot.ownerId) {
+            const err = new Error({"message": "Authentication required"});
+            err.status = 403;
+            return next(err);
+        } else if(!spot) {
+            const err = new Error({"message": "Spot couldn't be found"});
+            err.title = {"message": "Spot couldn't be found"};
+            err.errors = ["The requested resource couldn't be found."];
+            err.status = 404;
+            return next(err);
+        };
+        if (req.user.id === spot.ownerId) {
+            const newSpotImage = await spot.createSpotImage({
+                spotId: spotId,
+                url: url,
+                preview: preview
+        });
+        return res.status(200).json(newSpotImage);
+        }
     }
 );
         
@@ -153,7 +175,6 @@ router.post(
                 description: description,
                 price: price,
             });
-            console.log(newSpot);
             return res.status(201).json(newSpot);
         }
     }
