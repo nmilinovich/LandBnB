@@ -192,22 +192,39 @@ router.put(
     requireAuth,
     async (req, res, next) => {
         const spotId = req.params.spotId;
-        const { url, preview } = req.body;
+
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
         const spot = await Spot.findByPk(spotId);
+
         if(spot && req.user.id !== spot.ownerId) {
-            const err = new Error("Authentication required");
-            err.title = "Spot couldn't be found";
-            err.errors = "The requested resource couldn't be found.";
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
             err.status = 403;
             return next(err);
         } else if(!spot) {
             const err = new Error("Spot couldn't be found");
             err.title = "Spot couldn't be found";
-            err.errors = "The requested resource couldn't be found.";
+            err.errors = "Spot couldn't be found";
             err.status = 404;
             return next(err);
         };
+        if (req.user.id === spot.ownerId) {
+            spot.address = address;
+            spot.city = city;
+            spot.state = state;
+            spot.country = country;
+            spot.lat = lat;
+            spot.lng = lng;
+            spot.name = name;
+            spot.description = description;
+            spot.price = price;
+
+            await spot.save();
+            res.json(spot)
+        };
     }
 );
+
 module.exports = router;
