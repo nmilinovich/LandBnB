@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get(
     '/:spotId',
-    async (req, res) => {
+    async (req, res, next) => {
         // think i have it needs more spotImages seeds
         
         const spotId = req.params.spotId;
@@ -123,8 +123,7 @@ router.post(
             return next(err);
         } else if(!spot) {
             const err = new Error({"message": "Spot couldn't be found"});
-            err.title = {"message": "Spot couldn't be found"};
-            err.errors = ["The requested resource couldn't be found."];
+            err.errors = [{"message": "Spot couldn't be found"}];
             err.status = 404;
             return next(err);
         };
