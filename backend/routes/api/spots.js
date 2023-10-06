@@ -2,6 +2,7 @@ const express = require('express');
 const { Spot, Review, SpotImages, sequelize, User, Sequelize } = require('../../db/models')
 const { requireAuth, sendAuthorizationError } = require('../../utils/auth.js')
 const { Op } = require('sequelize');
+const spotimages = require('../../db/models/spotimages');
 
 const router = express.Router();
 
@@ -121,28 +122,34 @@ router.post(
 
         const spot = await Spot.findByPk(spotId);
         if(spot && req.user.id !== spot.ownerId) {
-            const err = new Error("message: Forbidden");
-            err.title = "Spot couldn't be found";
-            err.errors = "Forbidden";
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
             err.status = 403;
             return next(err);
         } else if(!spot) {
             const err = new Error("Spot couldn't be found");
             err.title = "Spot couldn't be found";
-            err.errors = "Spot couldn't be found";
             err.status = 404;
             return next(err);
         };
         if (req.user.id === spot.ownerId) {
-            const newSpotImage = await spot.createSpotImage({
+            await spot.createSpotImage({
                 spotId: spotId,
                 url: url,
                 preview: preview
         });
-        return res.status(200).json(newSpotImage);
+        const newImage = await SpotImages.findOne({
+            where: {
+                spotId: spotId
+            }
+        })
+        
+        return res.status(200).json(newImage);
         }
     }
 );
+
+
         
 router.post(
     '/',
