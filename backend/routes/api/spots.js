@@ -9,7 +9,7 @@ router.get(
     '/current',
     requireAuth,
     async (req, res) => {
-        const userId = req.user.id
+        const userId = req.user.id;
         const Spots = await Spot.findAll({
             where: {
                 ownerId: userId,
@@ -39,7 +39,6 @@ router.get(
 router.get(
     '/:spotId',
     async (req, res, next) => {
-        // think i have it needs more spotImages seeds
         
         const spotId = req.params.spotId;
         
