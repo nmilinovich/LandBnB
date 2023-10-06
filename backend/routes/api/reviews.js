@@ -20,15 +20,15 @@ router.get(
                 attributes: ['id', 'firstName', 'lastName']
             }, {
                 model: Spot,
-                group: ['SpotImages.url'],
+                group: ['SpotImages.previewImage'],
                 attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
                 include: {
                     model: SpotImages,
                     where: {
-                        '%SpotImages.spotId%': Sequelize.col('Spot.id'),
                         preview: true,
                     },
-                    attributes: [[sequelize.col('url'), 'previewImage']]
+                    as: 'previewImage',
+                    attributes: ['url']
                 }
             }, {
                 model: ReviewImages,

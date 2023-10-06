@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
           onDelete: 'CASCADE',
         }
       );
+      Spot.hasOne(
+        models.SpotImages, {
+          foreignKey: 'spotId',
+          as: 'previewImage'
+        },
+      )
       Spot.belongsTo(
         models.User, {
           foreignKey: 'ownerId',
