@@ -16,19 +16,27 @@ router.get(
                 userId: userId,
             },
             include: [{
-                model: Spot,
-                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price', 'previewImage'],
-            }, {
                 model: User,
                 attributes: ['id', 'firstName', 'lastName']
+            }, {
+                model: Spot,
+                group: ['SpotImages.url'],
+                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price'],
+                include: {
+                    model: SpotImages,
+                    where: {
+                        '%SpotImages.spotId%': Sequelize.col('Spot.id'),
+                        preview: true,
+                    },
+                    attributes: [[sequelize.col('url'), 'previewImage']]
+                }
             }, {
                 model: ReviewImages,
                 attributes: ['id', 'url']
             }],
             // attributes: {
             //     include: [
-            //         [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-            //         [sequelize.col('User.url'), 'User']
+            //         [sequelize.col('SpotImages.url'), 'previewImage']
             //     ]
             // },
         }); 

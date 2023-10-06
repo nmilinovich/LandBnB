@@ -56,8 +56,7 @@ router.get(
                 model: User,
                 attributes: ['id', 'firstName', 'lastName'],
                 as: "Owner"
-            },
-        ],
+            }],
         attributes: 
         [
             'id', 'ownerId', 'address', 'city', 'state', 'country', 'lat',
