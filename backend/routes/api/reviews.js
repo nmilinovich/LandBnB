@@ -34,14 +34,69 @@ router.get(
                 model: ReviewImages,
                 attributes: ['id', 'url']
             }],
-            // attributes: {
-            //     include: [
-            //         [sequelize.col('SpotImages.url'), 'previewImage']
-            //     ]
-            // },
         }); 
 
         return res.json({ Reviews })
+    }
+);
+
+router.post(
+    '/:reviewId/images',
+    requireAuth,
+    async (req, res, next) => {
+        const reviewId = req.params.reviewId;
+
+        const { url } = req.body;
+
+        const review = await Review.findByPk(reviewId);
+
+        if(review && req.user.id !== review.userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else if(!review) {
+            const err = new Error("Review couldn't be found");
+            err.title = "Review couldn't be found";
+            err.errors = "Review couldn't be found";
+            err.status = 404;
+            return next(err);
+        };
+
+        const reviewImages = ReviewImages.findAll({
+            where: {
+                reviewId: reviewId
+            }
+        });
+
+        if(reviewImages[9]) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else {
+            const newReviewImage = await review.createReviewImage({
+                reviewId: reviewId,
+                url: url,
+                // include: [
+                //     { model: ReviewImages.scope('defaultScope') }
+                //   ]
+            });
+
+            const resBody = await ReviewImages.findOne({
+                where: {
+                    reviewId: reviewId,
+                    url: url
+                },
+                attributes: ['id', 'url']
+        });
+
+            return res.status(200).json(resBody);
+        };
+        
+
     }
 );
 

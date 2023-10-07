@@ -81,8 +81,8 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isNumeric: { msg: 'Latitude is not valid' },
         notNull: { msg: 'Latitude is not valid' },
-        max: {args: 180, msg: 'Latitude is not valid'},
-        min: {args: -180, msg: 'Latitude is not valid'},
+        max: {args: 90, msg: 'Latitude is not valid'},
+        min: {args: -90, msg: 'Latitude is not valid'},
       }
     },
     lng: {
