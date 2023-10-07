@@ -143,7 +143,7 @@ router.put(
 );
 
 router.delete(
-    
+    '/:reviewId'
 )
 
 module.exports = router;
