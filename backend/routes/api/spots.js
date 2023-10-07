@@ -35,6 +35,19 @@ router.get(
     }
 );
 
+router.get(
+    '/:spotId/bookings',
+    async (req, res, next) => {
+        const ownerId = req.user.id;
+
+        const spot = await Spot.findOne({
+            where: {
+                ownerId: ownerId
+            }
+        });
+        
+    }
+);
 
 router.get(
     '/:spotId/reviews',
