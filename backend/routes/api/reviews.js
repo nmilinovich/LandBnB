@@ -104,7 +104,41 @@ router.put(
     '/:reviewId',
     requireAuth,
     async (req, res, next) => {
-        
+        const reviewId = req.params.reviewId;
+        console.log(reviewId)
+        const { review, stars } = req.body;
+        // if(!reviewId) {
+        //     const err = new Error("Review couldn't be found");
+        //     err.title = "Review couldn't be found";
+        //     err.errors = "Review couldn't be found";
+        //     err.status = 404;
+        //     return next(err);
+        // };
+
+        const existingReview = await Review.findByPk(reviewId);
+        console.log('###', existingReview);
+        if(existingReview && req.user.id !== existingReview.userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } else if(!existingReview) {
+            const err = new Error("Review couldn't be found");
+            err.title = "Review couldn't be found";
+            err.errors = "Review couldn't be found";
+            err.status = 404;
+            return next(err);
+        };
+        if (req.user.id === existingReview.userId) {
+
+            existingReview.review = review;
+            existingReview.stars = stars;
+            
+            await existingReview.save();
+            
+        };
+        res.json(existingReview);
     }
 );
 
