@@ -100,4 +100,12 @@ router.post(
     }
 );
 
+router.put(
+    '/:reviewId',
+    requireAuth,
+    async (req, res, next) => {
+
+    }
+);
+
 module.exports = router;
