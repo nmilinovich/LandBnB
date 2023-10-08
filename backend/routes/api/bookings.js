@@ -77,6 +77,14 @@ router.delete(
         const userId = req.user.id;
         const { startDate, endDate } = req.body;
 
+        let dateObj = new Date();
+        let month = dateObj.getUTCMonth() + 1; //months from 1-12
+        let day = dateObj.getUTCDate();
+        let year = dateObj.getUTCFullYear();
+
+        if(!day[1]) day.split('').unshift('0').join('')
+        newdate = year + "-" + month + "-" + day;
+        console.log(newDate)
         const booking = Booking.findByPk(userId);
 
         if (booking.userId !== userId) {
@@ -98,11 +106,10 @@ router.delete(
             err.status = 400;
             return next(err);
         } else {
-            booking.startDate = startDate;
-            booking.endDate = endDate;
-            await booking.save();
 
-            res.json(booking)
+            await booking.destroy();
+
+            res.json({"message": "Successfully deleted"});
         }
     }
 );
