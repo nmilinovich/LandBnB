@@ -38,34 +38,74 @@ router.put(
     requireAuth,
     async (req, res, next) => {
         const userId = req.user.id;
-        const { startDate, endDate } = req.body;
+        const startDate = new Date(req.body.startDate);
+        const endDate = new Date(req.body.endDate);
+        const bookingId = req.params.bookingId
 
-        const booking = Booking.findByPk(userId);
+        const currentDate = new Date();
 
-        if (booking.userId !== userId) {
-            const err = new Error("Forbidden");
-            err.title = "Forbidden";
-            err.errors = "Forbidden";
-            err.status = 403;
-            return next(err);
-        } else if(!booking) {
+        const editBooking = await Booking.findByPk(bookingId);
+
+        const bookings = await Booking.findAll({
+            where: {
+                spotId: editBooking.spotId
+            }
+        });
+
+        console.log("###", userId, editBooking)
+
+        if(!editBooking) {
             const err = new Error("Booking couldn't be found");
             err.title = "Booking couldn't be found";
             err.errors = "Booking couldn't be found";
             err.status = 404;
             return next(err);
-        } else if (startDate >= endDate) {
+        }
+        if (editBooking.userId !== userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        }
+        if (editBooking.endDate < currentDate || endDate < currentDate) {
+            const err = new Error("Past bookings can't be modified");
+            err.title = "Past bookings can't be modified";
+            err.errors = "Past bookings can't be modified";
+            err.status = 403;
+            return next(err);
+        }
+        for (let booking of bookings) {
+            console.log(typeof booking.startDate)
+            let oldBookingStartDate = booking.startDate;
+            let oldBookingEndDate = booking.endDate;
+            console.log(startDate, oldBookingStartDate);
+            if (
+                (startDate >= oldBookingStartDate 
+                && startDate <= oldBookingEndDate) 
+                || (endDate <= oldBookingEndDate 
+                && endDate >= oldBookingStartDate)
+            ) {
+                const err = new Error("Sorry, this spot is already booked for the specified dates");
+                err.message = "Sorry, this spot is already booked for the specified dates";
+                err.errors = {"startDate": "Start date conflicts with an existing booking",
+                "endDate": "End date conflicts with an existing booking"};
+                err.status = 403;
+                return next(err);
+            }
+        }
+        if (startDate >= endDate) {
             const err = new Error("Bad Request");
             err.message = "Bad Request";
             err.errors = "endDate cannot be on or before startDate";
             err.status = 400;
             return next(err);
         } else {
-            booking.startDate = startDate;
-            booking.endDate = endDate;
-            await booking.save();
+            editBooking.startDate = startDate;
+            editBooking.endDate = endDate;
+            await editBooking.save();
 
-            res.json(booking)
+            res.json(editBooking);
         }
     }
 );
@@ -75,16 +115,10 @@ router.delete(
     requireAuth,
     async (req, res, next) => {
         const userId = req.user.id;
-        const { startDate, endDate } = req.body;
+        const startDate = new Date(req.body.startDate);
+        const endDate = new Date(req.body.endDate);
+        let currentDate = new Date();
 
-        let dateObj = new Date();
-        let month = dateObj.getUTCMonth() + 1; //months from 1-12
-        let day = dateObj.getUTCDate();
-        let year = dateObj.getUTCFullYear();
-
-        if(!day[1]) day.split('').unshift('0').join('')
-        newdate = year + "-" + month + "-" + day;
-        console.log(newDate)
         const booking = Booking.findByPk(userId);
 
         if (booking.userId !== userId) {

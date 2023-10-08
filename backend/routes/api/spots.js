@@ -221,7 +221,7 @@ router.post(
         for (let booking of bookings) {
             console.log(typeof booking.startDate)
             let oldBookingStartDate = booking.startDate;
-            let oldBookingEndDate = booking.startDate;
+            let oldBookingEndDate = booking.endDate;
             console.log(startDate, oldBookingStartDate);
             if (
                 (startDate >= oldBookingStartDate 
