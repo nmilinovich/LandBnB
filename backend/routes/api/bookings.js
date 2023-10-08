@@ -31,6 +31,9 @@ router.get(
 
         res.json({ Bookings })
     }
-)
+);
+
+
+
 
 module.exports = router;
