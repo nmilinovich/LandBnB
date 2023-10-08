@@ -115,29 +115,30 @@ router.delete(
     requireAuth,
     async (req, res, next) => {
         const userId = req.user.id;
-        const startDate = new Date(req.body.startDate);
-        const endDate = new Date(req.body.endDate);
         let currentDate = new Date();
 
-        const booking = Booking.findByPk(userId);
+        const booking = await Booking.findByPk(userId);
 
+
+        if(!booking) {
+            const err = new Error("Booking couldn't be found");
+            err.title = "Booking couldn't be found";
+            err.errors = "Booking couldn't be found";
+            err.status = 404;
+            return next(err);
+        }
         if (booking.userId !== userId) {
             const err = new Error("Forbidden");
             err.title = "Forbidden";
             err.errors = "Forbidden";
             err.status = 403;
             return next(err);
-        } else if(!booking) {
-            const err = new Error("Booking couldn't be found");
-            err.title = "Booking couldn't be found";
-            err.errors = "Booking couldn't be found";
-            err.status = 404;
-            return next(err);
-        } else if (startDate >= endDate) {
-            const err = new Error("Bad Request");
-            err.message = "Bad Request";
-            err.errors = "endDate cannot be on or before startDate";
-            err.status = 400;
+        } 
+        if (booking.startDate >= currentDate) {
+            const err = new Error("Bookings that have been started can't be deleted");
+            err.message = "Bookings that have been started can't be deleted";
+            err.errors = "Bookings that have been started can't be deleted";
+            err.status = 403;
             return next(err);
         } else {
 
