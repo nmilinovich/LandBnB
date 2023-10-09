@@ -274,61 +274,11 @@ router.get(
             }
         };
 
-
-        // const Spots = await Spot.findAll({
-        //     // where: {
-        //     //     lat: {
-        //     //         [Op.between]: [minLat, maxLat],
-        //     //     },
-        //     //     lng: {
-        //     //         [Op.between]: [minLng, maxLng]
-        //     //     },
-        //     //     price: {
-        //     //         [Op.between]: [minPrice, maxPrice]
-        //     //     }
-        //     // },
-        //     include: [{
-        //         model: Review,
-        //         // as: 'reviews'
-        //         attributes: [],
-        //     }, {
-        //         model: SpotImages,
-        //         where: 'preview' === true,
-        //         attributes: []
-        //     }],
-        //     attributes: {
-        //         include: [
-        //             [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-        //             [sequelize.col('SpotImages.url'), 'previewImage']
-        //         ]
-        //     },
-        //     // limit: query.limit,
-        //     // offest: query.offset
-        // });
-
-        console.log(query)
         const Spots = await Spot.findAll(query);
 
-        // const spotsAggregate = await Spot.findAll({
-        //     include: [{
-        //         model: Review,
-        //         // as: 'reviews'
-        //         attributes: [],
-        //     }, {
-        //         model: SpotImages,
-        //         where: 'preview' === true,
-        //         attributes: []
-        //     }],
-        //     attributes: {
-        //         include: [
-        //             [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-        //             [sequelize.col('SpotImages.url'), 'previewImage']
-        //         ]
-        //     },
-        // })
-        let resSpots = [];
-        const returnedSpots = Spots.forEach(obj => {
-            const spot = obj.toJSON();
+        // let resSpots = [];
+        let returnedSpots = Spots.map(obj => {
+            let spot = obj.toJSON();
             let numStars = 0;
             spot.Reviews.forEach((review) => {
                 numStars += review.stars;
@@ -336,18 +286,14 @@ router.get(
             spot.avgRating = numStars/spot.Reviews.length;
             // delete spot.Reviews;
             console.log(spot)
-            resSpots.push[spot];
-         });
-
-
+            return spot;
         });
 
-        console.log(resSpots)
         return res.json({ 
-           Spots: returnedSpots,
+           "Spots": returnedSpots,
            "page": page,
            "size": size
-        
+        });
         // return res.json({ Spots, "page": page, "size": size })
     }
 );
