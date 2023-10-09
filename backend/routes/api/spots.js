@@ -157,8 +157,11 @@ router.get(
 router.get(
     '/',
     async (req, res) => {
+        const { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+
+
         const Spots = await Spot.findAll({
-            
             // this route for pagination
             include: [{
                 model: Review,
