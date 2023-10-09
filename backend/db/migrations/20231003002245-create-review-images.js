@@ -6,9 +6,6 @@ if(process.env.NODE_ENV === 'production') {
 };
 
 /** @type {import('sequelize-cli').Migration} */
-
-
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('ReviewImages', {
@@ -23,7 +20,7 @@ module.exports = {
         allowNull: false,
       },
       url: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
       createdAt: {

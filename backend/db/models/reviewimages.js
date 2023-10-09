@@ -1,5 +1,6 @@
 'use strict';
 const { Model, Validator } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class ReviewImages extends Model {
     /**
