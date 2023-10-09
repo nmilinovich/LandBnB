@@ -159,28 +159,25 @@ router.get(
     async (req, res, next) => {
 
         let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
-        page = parseInt(page);
-        size = parseInt(size);
-        minLat = parseInt(minLat);
-        maxLat = parseInt(maxLat);
-        minLng = parseInt(minLng);
-        maxLng = parseInt(maxLng);
-        minPrice = parseInt(minPrice);
-        maxPrice = parseInt(maxPrice);
+        if (page) page = parseInt(page);
+        if (size) size = parseInt(size);
+
+        if (minLat) minLat = parseInt(minLat);
+        if (maxLat) maxLat = parseInt(maxLat);
+        if (minLng) minLng = parseInt(minLng);
+        if (maxLng) maxLng = parseInt(maxLng)
+        if (minPrice) minPrice = parseInt(minPrice);
+        if (maxPrice) maxPrice = parseInt(maxPrice);
 
 
-        if (!Number.isInteger(page) || page > 10 || page < 1) {
+        if (!page || !Number.isInteger(page) || page > 10 || page < 1) {
             page = 1;
         } 
-        // else {
-        //     page = parseInt(page);
-        // }
-        if (!Number.isInteger(size) || size > 20 || size < 1) {
+
+        if (!size || !Number.isInteger(size) || size > 20 || size < 1) {
             size = 20;
         } 
-        // else {
-        //     size = parseInt(size);
-        // }
+
 
         let query = {
             where: {
@@ -194,22 +191,20 @@ router.get(
                 where: 'preview' === true,
                 attributes: []
             }],
-            attributes: {
-                include: [
-                    [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-                    [sequelize.col('SpotImages.url'), 'previewImage']
-                ]
-            },
         };
+        
+        query.limit = size;
+        query.offset = size * (page - 1);
+
         if (
             (!Number.isInteger(page) || page > 10 || page < 1) ||
             (!Number.isInteger(size) || size > 20 || size < 1) ||
-            (maxLat > 90 || maxLat < -90) ||
-            (minLat > 90 || minLat < -90) ||
-            (maxLng > 180 || maxLng < -180) ||
-            (minLng > 180 || minLng < -180) ||
-            (minPrice < 0) ||
-            (maxPrice < 0) 
+            (maxLat && (maxLat > 90 || maxLat < -90)) ||
+            (minLat && (minLat > 90 || minLat < -90)) ||
+            (maxLng && (maxLng > 180 || maxLng < -180)) ||
+            (minLng && (minLng > 180 || minLng < -180)) ||
+            (minPrice && minPrice < 0) ||
+            (maxPrice && maxPrice < 0) 
         ) {
             const err = new Error("Bad Request");
             err.message = "Bad Request";
@@ -233,25 +228,62 @@ router.get(
                 [Op.lte]: maxLat,
             };
         };
+        if (minLat && !maxLat) {
+            query.where.lat = {
+                [Op.gte]: minLat,
+            };
+        };
+        if (!minLat && maxLat) {
+            query.where.lat = {
+                [Op.lte]: maxLat,
+            };
+        };
         if (minLng && maxLng) {
             query.where.lng = {
                 [Op.gte]: minLng,
                 [Op.lte]: maxLng,
             };
         };
-        // query.limit = size;
-        // query.offset = size * (page - 1);
-
+        if (minLng && !maxLng) {
+            query.where.lng = {
+                [Op.gte]: minLng,
+            };
+        };
+        if (!minLng && maxLng) {
+            query.where.lng = {
+                [Op.lte]: maxLng,
+            };
+        };
         if (minPrice && maxPrice) {
             query.where.price = {
                 [Op.gte]: minPrice,
                 [Op.lte]: maxPrice
             }
         };
-
+        if (minPrice && !maxPrice) {
+            query.where.price = {
+                [Op.gte]: minPrice,
+            }
+        };
+        if (!minPrice && maxPrice) {
+            query.where.price = {
+                [Op.lte]: maxPrice
+            }
+        };
 
 
         // const Spots = await Spot.findAll({
+        //     // where: {
+        //     //     lat: {
+        //     //         [Op.between]: [minLat, maxLat],
+        //     //     },
+        //     //     lng: {
+        //     //         [Op.between]: [minLng, maxLng]
+        //     //     },
+        //     //     price: {
+        //     //         [Op.between]: [minPrice, maxPrice]
+        //     //     }
+        //     // },
         //     include: [{
         //         model: Review,
         //         // as: 'reviews'
@@ -272,13 +304,9 @@ router.get(
         // });
 
         console.log(query)
-
-        // for (let spot of Spots) {
-        //     if (minLat && spot.lat < minLat)
-        // }
-
         const Spots = await Spot.findAll(query);
-        // Spots.slice()
+
+        // Spots.slice(query.offset, query.limit);
 
 
         
@@ -342,7 +370,6 @@ router.post(
                 return next(err);
             }
         }
-
             const newBooking = await spot.createBooking({ 
                 userId: ownerId,
                 startDate: startDate,
