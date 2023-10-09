@@ -156,13 +156,50 @@ router.get(
     
 router.get(
     '/',
-    async (req, res) => {
+    async (req, res, next) => {
+
         let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 
+        let query = {
+            where: {
 
+            },
+            include: [{
+                model: Review,
+                // as: 'reviews'
+                attributes: [],
+            }, {
+                model: SpotImages,
+                where: 'preview' === true,
+                attributes: []
+            }],
+            attributes: {
+                include: [
+                    [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
+                    [sequelize.col('SpotImages.url'), 'previewImage']
+                ]
+            },
+        };
+        // page: between 1-10 and default 1
+        // size: between 1-20 and default 20
+
+        console.log(query)
+
+        if (!Number.isInteger(page) || page > 10 || page < 1) {
+            page = 1;
+        } else {
+            page = parseInt(page);
+        }
+        if (!Number.isInteger(size) || size > 20 || size < 1) {
+            size = 20;
+        } else {
+            size = parseInt(size);
+        }
+
+        query.limit = size;
+        query.offset = size * (page - 1);
 
         const Spots = await Spot.findAll({
-            // this route for pagination
             include: [{
                 model: Review,
                 // as: 'reviews'
@@ -179,6 +216,34 @@ router.get(
                 ]
             },
         });
+
+        // const Spots = await Spot.findAll({query});
+
+        if (
+            (!Number.isInteger(page) || page > 10 || page < 1) ||
+            (!Number.isInteger(size) || size > 20 || size < 1) ||
+            (maxLat > 90 || maxLat < -90) ||
+            (minLat > 90 || minLat < -90) ||
+            (maxLng > 180 || maxLng < -180) ||
+            (minLng > 180 || minLng < -180) ||
+            (minPrice < 0) ||
+            (maxPrice < 0) 
+        ) {
+            const err = new Error("Bad Request");
+            err.message = "Bad Request";
+            err.errors = {
+                "page": "Page must be greater than or equal to 1",
+                "size": "Size must be greater than or equal to 1",
+                "maxLat": "Maximum latitude is invalid",
+                "minLat": "Minimum latitude is invalid",
+                "minLng": "Maximum longitude is invalid",
+                "maxLng": "Minimum longitude is invalid",
+                "minPrice": "Minimum price must be greater than or equal to 0",
+                "maxPrice": "Maximum price must be greater than or equal to 0"
+            };
+            err.status = 400;
+            return next(err);
+        }
         
         return res.json({ Spots })
     }
