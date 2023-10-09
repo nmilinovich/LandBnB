@@ -40,12 +40,13 @@ router.post(
     async (req, res, next) => {
         const { email, password, username, firstName, lastName } = req.body;
 
-        userEmailUniqueValidation = User.findOne({
+        userEmailUniqueValidation = await User.findOne({
           where: {
             email: email
           }
         });
-        userUsernameUniqueValidation = User.findOne({
+        console.log(userEmailUniqueValidation)
+        userUsernameUniqueValidation = await User.findOne({
           where: {
             username: username
           }
