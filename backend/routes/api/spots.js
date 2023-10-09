@@ -184,7 +184,6 @@ router.get(
 
         let query = {
             where: {
-                // lat: 
             },
             include: [{
                 model: Review,
@@ -195,12 +194,12 @@ router.get(
                 where: 'preview' === true,
                 attributes: []
             }],
-            // attributes: {
-            //     include: [
-            //         [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-            //         [sequelize.col('SpotImages.url'), 'previewImage']
-            //     ]
-            // },
+            attributes: {
+                include: [
+                    [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
+                    [sequelize.col('SpotImages.url'), 'previewImage']
+                ]
+            },
         };
         if (
             (!Number.isInteger(page) || page > 10 || page < 1) ||
@@ -240,8 +239,8 @@ router.get(
                 [Op.lte]: maxLng,
             };
         };
-        query.limit = size;
-        query.offset = size * (page - 1);
+        // query.limit = size;
+        // query.offset = size * (page - 1);
 
         if (minPrice && maxPrice) {
             query.where.price = {
@@ -268,11 +267,18 @@ router.get(
         //             [sequelize.col('SpotImages.url'), 'previewImage']
         //         ]
         //     },
+        //     // limit: query.limit,
+        //     // offest: query.offset
         // });
 
         console.log(query)
 
+        // for (let spot of Spots) {
+        //     if (minLat && spot.lat < minLat)
+        // }
+
         const Spots = await Spot.findAll(query);
+        // Spots.slice()
 
 
         
