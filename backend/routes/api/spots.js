@@ -159,10 +159,34 @@ router.get(
     async (req, res, next) => {
 
         let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+        page = parseInt(page);
+        size = parseInt(size);
+        minLat = parseInt(minLat);
+        maxLat = parseInt(maxLat);
+        minLng = parseInt(minLng);
+        maxLng = parseInt(maxLng);
+        minPrice = parseInt(minPrice);
+        maxPrice = parseInt(maxPrice);
+
+
+        if (!Number.isInteger(page) || page > 10 || page < 1) {
+            page = 1;
+        } 
+        // else {
+        //     page = parseInt(page);
+        // }
+        if (!Number.isInteger(size) || size > 20 || size < 1) {
+            size = 20;
+        } 
+        // else {
+        //     size = parseInt(size);
+        // }
 
         let query = {
             where: {
-
+                page: page,
+                size: size,
+                // lat: 
             },
             include: [{
                 model: Review,
@@ -180,45 +204,6 @@ router.get(
                 ]
             },
         };
-        // page: between 1-10 and default 1
-        // size: between 1-20 and default 20
-
-        console.log(query)
-
-        if (!Number.isInteger(page) || page > 10 || page < 1) {
-            page = 1;
-        } else {
-            page = parseInt(page);
-        }
-        if (!Number.isInteger(size) || size > 20 || size < 1) {
-            size = 20;
-        } else {
-            size = parseInt(size);
-        }
-
-        query.limit = size;
-        query.offset = size * (page - 1);
-
-        const Spots = await Spot.findAll({
-            include: [{
-                model: Review,
-                // as: 'reviews'
-                attributes: [],
-            }, {
-                model: SpotImages,
-                where: 'preview' === true,
-                attributes: []
-            }],
-            attributes: {
-                include: [
-                    [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-                    [sequelize.col('SpotImages.url'), 'previewImage']
-                ]
-            },
-        });
-
-        // const Spots = await Spot.findAll({query});
-
         if (
             (!Number.isInteger(page) || page > 10 || page < 1) ||
             (!Number.isInteger(size) || size > 20 || size < 1) ||
@@ -243,7 +228,35 @@ router.get(
             };
             err.status = 400;
             return next(err);
+        } else {
+            query.limit = size;
+            query.offset = size * (page - 1);
         }
+
+
+        // const Spots = await Spot.findAll({
+        //     include: [{
+        //         model: Review,
+        //         // as: 'reviews'
+        //         attributes: [],
+        //     }, {
+        //         model: SpotImages,
+        //         where: 'preview' === true,
+        //         attributes: []
+        //     }],
+        //     attributes: {
+        //         include: [
+        //             [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
+        //             [sequelize.col('SpotImages.url'), 'previewImage']
+        //         ]
+        //     },
+        // });
+
+        console.log(query)
+
+        const Spots = await Spot.findAll({...query});
+
+
         
         return res.json({ Spots })
     }
