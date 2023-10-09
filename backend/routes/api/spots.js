@@ -16,21 +16,33 @@ router.get(
             },
             include: [{
                 model: Review,
-                attributes: [],
+                attributes: ['stars'],
             }, {
                 model: SpotImages,
-                where: 'preview' === true,
-                attributes: []
+                where: {
+                    'preview': true,
+                },
+                attributes: ['url']
             }],
-            attributes: {
-                include: [
-                    [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-                    [sequelize.col('SpotImages.url'), 'previewImage']
-                ]
-            },
+            // attributes: {
+            //     include: [
+            //         [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
+            //         [sequelize.col('SpotImages.url'), 'previewImage']
+            //     ]
+            // },
         });
-        
-        return res.json({ Spots })
+        let returnedSpots = Spots.map(obj => {
+            let spot = obj.toJSON();
+            let numStars = 0;
+            spot.Reviews.forEach((review) => {
+                numStars += review.stars;
+            });
+            spot.avgRating = numStars/spot.Reviews.length;
+            delete spot.Reviews;
+            console.log(spot)
+            return spot;
+        });
+        return res.json({ Spots: returnedSpots })
         
     }
 );
