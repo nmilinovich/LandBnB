@@ -82,6 +82,15 @@ router.get(
     '/:spotId/reviews',
     async (req, res, next) => {
         const spotId = req.params.spotId;
+
+        const spot = await Spot.findByPk(spotId);
+        if (!spot) {
+            let err = new Error("Spot couldn't be found");
+            err.title = "Spot couldn't be found";
+            // err.errors = "Spot couldn't be found";
+            err.status = 404;
+            return next(err);
+        }
         const Reviews = await Review.findAll({
             where: {
                 spotId: spotId,
@@ -96,13 +105,7 @@ router.get(
             }]
         });
 
-        if (!Reviews[0]) {
-            let err = new Error("Spot couldn't be found");
-            err.title = "Spot couldn't be found";
-            // err.errors = "Spot couldn't be found";
-            err.status = 404;
-            return next(err);
-        }
+
 
         return res.json({ Reviews })
     }
@@ -276,7 +279,6 @@ router.get(
 
         const Spots = await Spot.findAll(query);
 
-        // let resSpots = [];
         let returnedSpots = Spots.map(obj => {
             let spot = obj.toJSON();
             let numStars = 0;
@@ -294,7 +296,6 @@ router.get(
            "page": page,
            "size": size
         });
-        // return res.json({ Spots, "page": page, "size": size })
     }
 );
 
@@ -345,6 +346,8 @@ router.post(
                 && startDate <= oldBookingEndDate) 
                 || (endDate <= oldBookingEndDate 
                 && endDate >= oldBookingStartDate)
+                || (startDate <= oldBookingStartDate
+                && endDate >= oldBookingEndDate)
             ) {
                 const err = new Error("Sorry, this spot is already booked for the specified dates");
                 err.message = "Sorry, this spot is already booked for the specified dates";

@@ -45,7 +45,13 @@ router.put(
         const currentDate = new Date();
 
         const editBooking = await Booking.findByPk(bookingId);
-
+        if(!editBooking) {
+            const err = new Error("Booking couldn't be found");
+            err.title = "Booking couldn't be found";
+            err.errors = "Booking couldn't be found";
+            err.status = 404;
+            return next(err);
+        }
         const bookings = await Booking.findAll({
             where: {
                 spotId: editBooking.spotId
@@ -54,13 +60,7 @@ router.put(
 
         console.log("###", userId, editBooking)
 
-        if(!editBooking) {
-            const err = new Error("Booking couldn't be found");
-            err.title = "Booking couldn't be found";
-            err.errors = "Booking couldn't be found";
-            err.status = 404;
-            return next(err);
-        }
+
         if (editBooking.userId !== userId) {
             const err = new Error("Forbidden");
             err.title = "Forbidden";
@@ -85,19 +85,24 @@ router.put(
                 && startDate <= oldBookingEndDate) 
                 || (endDate <= oldBookingEndDate 
                 && endDate >= oldBookingStartDate)
+                || (startDate <= oldBookingStartDate
+                && endDate >= oldBookingEndDate)
             ) {
-                const err = new Error("Sorry, this spot is already booked for the specified dates");
-                err.message = "Sorry, this spot is already booked for the specified dates";
-                err.errors = {"startDate": "Start date conflicts with an existing booking",
-                "endDate": "End date conflicts with an existing booking"};
-                err.status = 403;
-                return next(err);
+
+                if (booking.id !== editBooking.id) {
+                    const err = new Error("Sorry, this spot is already booked for the specified dates");
+                    err.message = "Sorry, this spot is already booked for the specified dates";
+                    err.errors = {"startDate": "Start date conflicts with an existing booking",
+                    "endDate": "End date conflicts with an existing booking"};
+                    err.status = 403;
+                    return next(err);
+                }
             }
         }
         if (startDate >= endDate) {
             const err = new Error("Bad Request");
             err.message = "Bad Request";
-            err.errors = "endDate cannot be on or before startDate";
+            err.errors = "endDate cannot come on or before startDate";
             err.status = 400;
             return next(err);
         } else {
@@ -115,11 +120,10 @@ router.delete(
     requireAuth,
     async (req, res, next) => {
         const userId = req.user.id;
+        const bookingId = req.params.bookingId
         let currentDate = new Date();
 
-        const booking = await Booking.findByPk(userId);
-
-
+        const booking = await Booking.findByPk(bookingId);
         if(!booking) {
             const err = new Error("Booking couldn't be found");
             err.title = "Booking couldn't be found";
@@ -134,7 +138,9 @@ router.delete(
             err.status = 403;
             return next(err);
         } 
-        if (booking.startDate >= currentDate) {
+
+
+        if (booking.startDate <= currentDate) {
             const err = new Error("Bookings that have been started can't be deleted");
             err.message = "Bookings that have been started can't be deleted";
             err.errors = "Bookings that have been started can't be deleted";
