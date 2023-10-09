@@ -26,8 +26,6 @@ router.delete(
             return next(err);
         }
 
-        console.log("###", spotImage.Spot.ownerId)
-
         if(spotImage.Spot.ownerId !== userId) {
             const err = new Error("Forbidden");
             err.title = "Forbidden";
