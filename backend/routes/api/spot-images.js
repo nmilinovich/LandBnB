@@ -18,25 +18,23 @@ router.delete(
             }
         });
 
+        if(spotImage && spotImage.Spot.ownerId !== userId) {
+            const err = new Error("Forbidden");
+            err.title = "Forbidden";
+            err.errors = "Forbidden";
+            err.status = 403;
+            return next(err);
+        } 
         if(!spotImage) {
             const err = new Error("Spot Image couldn't be found");
             err.title = "Spot Image couldn't be found";
             err.errors = "Spot Image couldn't be found";
             err.status = 404;
             return next(err);
-        }
-
-        if(spotImage.Spot.ownerId !== userId) {
-            const err = new Error("Forbidden");
-            err.title = "Forbidden";
-            err.errors = "Forbidden";
-            err.status = 403;
-            return next(err);
         } else {
             await spotImage.destroy();
             res.json({ "message": "Successfully deleted" })
         }
-        
     }
 );
 

@@ -149,13 +149,14 @@ router.delete(
         const reviewId = req.params.reviewId;
 
         const existingReview = await Review.findByPk(reviewId);
-        if(existingReview && req.user.id !== existingReview.userId) {
+        if(existingReview && (req.user.id !== existingReview.userId)) {
             const err = new Error("Forbidden");
             err.title = "Forbidden";
             err.errors = "Forbidden";
             err.status = 403;
             return next(err);
-        } else if(!existingReview) {
+        } 
+        if(!existingReview) {
             const err = new Error("Review couldn't be found");
             err.title = "Review couldn't be found";
             err.errors = "Review couldn't be found";
@@ -164,9 +165,9 @@ router.delete(
         };
         if (req.user.id === existingReview.userId) {
             await existingReview.destroy();
-            
+            res.json({ "message": "Successfully deleted"});
         };
-        res.json({ "message": "Successfully deleted"});
+        
     }
 )
 
