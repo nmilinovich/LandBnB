@@ -18,6 +18,14 @@ router.delete(
             }
         });
 
+        if(!spotImage) {
+            const err = new Error("Spot Image couldn't be found");
+            err.title = "Spot Image couldn't be found";
+            err.errors = "Spot Image couldn't be found";
+            err.status = 404;
+            return next(err);
+        }
+
         console.log("###", spotImage.Spot.ownerId)
 
         if(spotImage.Spot.ownerId !== userId) {
