@@ -64,16 +64,16 @@ router.post(
             return next(err);
         };
 
-        const reviewImages = ReviewImages.findAll({
+        const reviewImages = await ReviewImages.findAll({
             where: {
                 reviewId: reviewId
             }
         });
 
-        if(reviewImages[9]) {
-            const err = new Error("Forbidden");
-            err.title = "Forbidden";
-            err.errors = "Forbidden";
+        if(reviewImages.length >= 10) {
+            const err = new Error("Maximum number of images for this resource was reached");
+            err.title = "Maximum number of images for this resource was reached";
+            err.errors = "Maximum number of images for this resource was reached";
             err.status = 403;
             return next(err);
         } else {

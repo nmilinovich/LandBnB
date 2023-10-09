@@ -109,7 +109,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true,
         notNull: true,
-        len: { args: [1, 50], msg: 'Name must be less than 50' },
+        len: { args: [1, 50], msg: 'Name must be less than 50 characters' },
       }
     },
     description: {

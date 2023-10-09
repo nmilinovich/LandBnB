@@ -135,7 +135,7 @@ router.get(
             'id', 'ownerId', 'address', 'city', 'state', 'country', 'lat',
             'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt',
             [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
-            [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
+            [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
         ],
     });
     
@@ -447,7 +447,7 @@ router.post(
             }
         });
         
-        return res.status(200).json(newReview);
+        return res.status(201).json(newReview);
     }
 );
         
