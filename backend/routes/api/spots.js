@@ -131,7 +131,7 @@ router.get(
         const spotId = req.params.spotId;
         
         const Spots = await Spot.findByPk(spotId, {
-            group: ["Reviews.id", "Reviews.stars", "SpotImages.id", "Spot.id"],
+            group: ["Reviews.id", "Reviews.stars", "SpotImages.id", "Spot.id", "Owner.id"],
             include: [{
                 model: Review,
                 attributes: [],
