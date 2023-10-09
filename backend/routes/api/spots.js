@@ -185,11 +185,14 @@ router.get(
             include: [{
                 model: Review,
                 // as: 'reviews'
-                attributes: [],
+                attributes: ['stars'],
             }, {
                 model: SpotImages,
-                where: 'preview' === true,
-                attributes: []
+                where: {
+                    'preview': true,
+                },
+                attributes: ['url'],
+                as: 'previewImage'
             }],
         };
         
@@ -306,11 +309,46 @@ router.get(
         console.log(query)
         const Spots = await Spot.findAll(query);
 
-        // Spots.slice(query.offset, query.limit);
+        // const spotsAggregate = await Spot.findAll({
+        //     include: [{
+        //         model: Review,
+        //         // as: 'reviews'
+        //         attributes: [],
+        //     }, {
+        //         model: SpotImages,
+        //         where: 'preview' === true,
+        //         attributes: []
+        //     }],
+        //     attributes: {
+        //         include: [
+        //             [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
+        //             [sequelize.col('SpotImages.url'), 'previewImage']
+        //         ]
+        //     },
+        // })
+        let resSpots = [];
+        const returnedSpots = Spots.forEach(obj => {
+            const spot = obj.toJSON();
+            let numStars = 0;
+            spot.Reviews.forEach((review) => {
+                numStars += review.stars;
+            });
+            spot.avgRating = numStars/spot.Reviews.length;
+            // delete spot.Reviews;
+            console.log(spot)
+            resSpots.push[spot];
+         });
 
 
+        });
+
+        console.log(resSpots)
+        return res.json({ 
+           Spots: returnedSpots,
+           "page": page,
+           "size": size
         
-        return res.json({ Spots, "page": page, "size": size })
+        // return res.json({ Spots, "page": page, "size": size })
     }
 );
 
