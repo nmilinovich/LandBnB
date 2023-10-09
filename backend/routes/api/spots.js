@@ -204,7 +204,7 @@ router.get(
             }, {
                 model: SpotImages,
                 where: {
-                    'preview': true,
+                    preview: true,
                 },
                 attributes: ['url'],
                 as: 'previewImage'
