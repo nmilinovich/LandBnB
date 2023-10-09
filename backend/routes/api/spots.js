@@ -284,7 +284,7 @@ router.get(
                 numStars += review.stars;
             });
             spot.avgRating = numStars/spot.Reviews.length;
-            // delete spot.Reviews;
+            delete spot.Reviews;
             console.log(spot)
             return spot;
         });
