@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     await User.bulkCreate([
@@ -31,6 +32,13 @@ module.exports = {
         email: 'user2@user.io',
         username: 'FakeUser2',
         hashedPassword: bcrypt.hashSync('password3')
+      },
+      {
+        firstName: 'Fsdds',
+        lastName: 'User',
+        email: 'user4@user.io',
+        username: 'Fakesdfsd1',
+        hashedPassword: bcrypt.hashSync('password4')
       }
     ], { validate: true });
   },
@@ -39,7 +47,7 @@ module.exports = {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2', 'Fakesdfsd1'] }
     }, {});
   }
 };

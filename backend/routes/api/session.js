@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
 const { User } = require('../../db/models');
 const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation')
+const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -14,10 +14,10 @@ const validateLogin = [
     check('credential')
         .exists({ checkFalsy: true })
         .notEmpty()
-        .withMessage('Please provide a valid email or username.'),
+        .withMessage("Email or username is required"),
     check('password')
         .exists({ checkFalsy: true })
-        .withMessage('Please provide a password.'),
+        .withMessage("Password is required"),
     handleValidationErrors
 ];
 
@@ -30,6 +30,8 @@ router.get(
                 id: user.id,
                 email: user.email,
                 username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName
             };
             return res.json({
                 user: safeUser
@@ -57,7 +59,7 @@ router.post(
             const err = new Error('Login failed');
             err.status = 401;
             err.title = 'Login failed';
-            err.errors = { credential: 'The provided credentials were invalid.'};
+            err.message = "Invalid credentials"
             return next(err);
         };
 

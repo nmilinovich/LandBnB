@@ -12,7 +12,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await Spot.bulkCreate([
       {
-        ownerId: "1",
+        ownerId: 1,
         address: "123 Disney Lane",
         city: 'San Francisco',
         state: "California",
@@ -22,9 +22,18 @@ module.exports = {
         name: "App Academy",
         description: "Place where web developers are created",
         price: 123,
-        createdAt: "2021-11-19 20:39:36",
-        updatedAt: "2021-11-19 20:39:36",
-        previewImage: "image url"
+      },
+      {
+        ownerId: 2,
+        address: "123 Farm Lane",
+        city: 'San Francisco',
+        state: "California",
+        country: 'United States of America',
+        lat: 37.7645358,
+        lng: 35.4730327,
+        name: "App Academy",
+        description: "Place where web developers are created",
+        price: 78,
       }
     ], { validate: true });
   },
