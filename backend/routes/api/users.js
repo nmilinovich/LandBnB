@@ -45,7 +45,6 @@ router.post(
             email: email
           }
         });
-        console.log(userEmailUniqueValidation)
         userUsernameUniqueValidation = await User.findOne({
           where: {
             username: username

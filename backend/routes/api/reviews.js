@@ -34,7 +34,7 @@ router.get(
                 model: ReviewImages,
                 attributes: ['id', 'url']
             }],
-        }); 
+        });
 
         return res.json({ Reviews })
     }
@@ -95,7 +95,7 @@ router.post(
 
             return res.status(200).json(resBody);
         };
-        
+
 
     }
 );
@@ -105,7 +105,6 @@ router.put(
     requireAuth,
     async (req, res, next) => {
         const reviewId = req.params.reviewId;
-        console.log(reviewId)
         const { review, stars } = req.body;
         // if(!reviewId) {
         //     const err = new Error("Review couldn't be found");
@@ -116,7 +115,6 @@ router.put(
         // };
 
         const existingReview = await Review.findByPk(reviewId);
-        console.log('###', existingReview);
         if(existingReview && req.user.id !== existingReview.userId) {
             const err = new Error("Forbidden");
             err.title = "Forbidden";
@@ -134,9 +132,9 @@ router.put(
 
             existingReview.review = review;
             existingReview.stars = stars;
-            
+
             await existingReview.save();
-            
+
         };
         res.json(existingReview);
     }
@@ -155,7 +153,7 @@ router.delete(
             err.errors = "Forbidden";
             err.status = 403;
             return next(err);
-        } 
+        }
         if(!existingReview) {
             const err = new Error("Review couldn't be found");
             err.title = "Review couldn't be found";
@@ -167,7 +165,7 @@ router.delete(
             await existingReview.destroy();
             res.json({ "message": "Successfully deleted"});
         };
-        
+
     }
 )
 

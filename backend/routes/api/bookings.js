@@ -58,7 +58,6 @@ router.put(
             }
         });
 
-        console.log("###", userId, editBooking)
 
 
         if (editBooking.userId !== userId) {
@@ -76,14 +75,12 @@ router.put(
             return next(err);
         }
         for (let booking of bookings) {
-            console.log(typeof booking.startDate)
             let oldBookingStartDate = booking.startDate;
             let oldBookingEndDate = booking.endDate;
-            console.log(startDate, oldBookingStartDate);
             if (
-                (startDate >= oldBookingStartDate 
-                && startDate <= oldBookingEndDate) 
-                || (endDate <= oldBookingEndDate 
+                (startDate >= oldBookingStartDate
+                && startDate <= oldBookingEndDate)
+                || (endDate <= oldBookingEndDate
                 && endDate >= oldBookingStartDate)
                 || (startDate <= oldBookingStartDate
                 && endDate >= oldBookingEndDate)
@@ -137,7 +134,7 @@ router.delete(
             err.errors = "Forbidden";
             err.status = 403;
             return next(err);
-        } 
+        }
 
 
         if (booking.startDate <= currentDate) {

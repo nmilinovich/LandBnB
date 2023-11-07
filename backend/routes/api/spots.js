@@ -37,11 +37,10 @@ router.get(
             });
             spot.avgRating = numStars/spot.Reviews.length;
             delete spot.Reviews;
-            console.log(spot)
             return spot;
         });
         return res.json({ Spots: returnedSpots })
-        
+
     }
 );
 
@@ -53,7 +52,7 @@ router.get(
         const spotId = req.params.spotId;
 
         const spot = await Spot.findByPk(spotId);
-        
+
         if(!spot) {
             const err = new Error("Spot couldn't be found");
             err.title = "Spot couldn't be found";
@@ -61,7 +60,6 @@ router.get(
             return next(err);
         };
 
-        console.log(spot.dataValues.ownerId)
         if (spot.dataValues.ownerId === ownerId) {
             const Bookings = await Booking.findAll({
                 where: {
@@ -125,15 +123,15 @@ router.get(
 router.get(
     '/:spotId',
     async (req, res, next) => {
-        
+
         const spotId = req.params.spotId;
-        
+
         const Spots = await Spot.findByPk(spotId, {
             group: ["Reviews.id", "Reviews.stars", "SpotImages.id", "Spot.id", "Owner.id"],
             include: [{
                 model: Review,
                 attributes: [],
-            }, 
+            },
             {
                 model: SpotImages,
                 attributes: ['id', 'url', 'preview']
@@ -143,7 +141,7 @@ router.get(
                 attributes: ['id', 'firstName', 'lastName'],
                 as: "Owner"
             }],
-        attributes: 
+        attributes:
         [
             'id', 'ownerId', 'address', 'city', 'state', 'country', 'lat',
             'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt',
@@ -151,7 +149,7 @@ router.get(
             [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
         ],
     });
-    
+
     if (!Spots) {
         let err = new Error("Spot couldn't be found");
         err.title = "Spot couldn't be found";
@@ -159,14 +157,14 @@ router.get(
         err.status = 404;
         return next(err);
     }
-    
+
     return res.json(Spots);
-    
+
 }
 );
 
 
-    
+
 router.get(
     '/',
     async (req, res, next) => {
@@ -185,11 +183,11 @@ router.get(
 
         if (!page || !Number.isInteger(page) || page > 10 || page < 1) {
             page = 1;
-        } 
+        }
 
         if (!size || !Number.isInteger(size) || size > 20 || size < 1) {
             size = 20;
-        } 
+        }
 
 
         let query = {
@@ -205,7 +203,7 @@ router.get(
                 as: 'previewImage'
             }],
         };
-        
+
         query.limit = size;
         query.offset = size * (page - 1);
 
@@ -217,7 +215,7 @@ router.get(
             (maxLng && (maxLng > 180 || maxLng < -180)) ||
             (minLng && (minLng > 180 || minLng < -180)) ||
             (minPrice && minPrice < 0) ||
-            (maxPrice && maxPrice < 0) 
+            (maxPrice && maxPrice < 0)
         ) {
             const err = new Error("Bad Request");
             err.message = "Bad Request";
@@ -233,7 +231,7 @@ router.get(
             };
             err.status = 400;
             return next(err);
-        } 
+        }
 
         if (minLat && maxLat) {
             query.where.lat = {
@@ -294,11 +292,10 @@ router.get(
             });
             spot.avgRating = numStars/spot.Reviews.length;
             delete spot.Reviews;
-            console.log(spot)
             return spot;
         });
 
-        return res.json({ 
+        return res.json({
            "Spots": returnedSpots,
            "page": page,
            "size": size
@@ -322,7 +319,6 @@ router.post(
                 spotId: spotId
             }
         });
-        console.log(bookings)
         if(!spot) {
             const err = new Error("Spot couldn't be found");
             err.title = "Spot couldn't be found";
@@ -344,14 +340,12 @@ router.post(
             };
 
         for (let booking of bookings) {
-            console.log(typeof booking.startDate)
             let oldBookingStartDate = booking.startDate;
             let oldBookingEndDate = booking.endDate;
-            console.log(startDate, oldBookingStartDate);
             if (
-                (startDate >= oldBookingStartDate 
-                && startDate <= oldBookingEndDate) 
-                || (endDate <= oldBookingEndDate 
+                (startDate >= oldBookingStartDate
+                && startDate <= oldBookingEndDate)
+                || (endDate <= oldBookingEndDate
                 && endDate >= oldBookingStartDate)
                 || (startDate <= oldBookingStartDate
                 && endDate >= oldBookingEndDate)
@@ -364,14 +358,14 @@ router.post(
                 return next(err);
             }
         }
-            const newBooking = await spot.createBooking({ 
+            const newBooking = await spot.createBooking({
                 userId: ownerId,
                 startDate: startDate,
                 endDate: endDate,
             });
 
             res.json(newBooking);
-            
+
         };
     }
 );
@@ -380,7 +374,6 @@ router.post(
     '/:spotId/images',
     requireAuth,
     async (req, res, next) => {
-        // console.log(sendAuthorizationError());
         const spotId = req.params.spotId;
         const { url, preview } = req.body;
 
@@ -406,7 +399,7 @@ router.post(
                 spotId: spotId
             }
         })
-        
+
         return res.status(200).json(newImage);
         }
     }
@@ -416,7 +409,6 @@ router.post(
     '/:spotId/reviews',
     requireAuth,
     async (req, res, next) => {
-        // console.log(sendAuthorizationError());
         const spotId = req.params.spotId;
         const { review, stars } = req.body;
 
@@ -447,7 +439,7 @@ router.post(
                 stars: stars,
             });
         }
-        
+
         const newReview = await Review.findOne({
             where: {
                 spotId: spotId,
@@ -456,11 +448,11 @@ router.post(
                 stars: stars,
             }
         });
-        
+
         return res.status(201).json(newReview);
     }
 );
-        
+
 router.post(
     '/',
     requireAuth,
@@ -552,8 +544,6 @@ router.delete(
 
         const spot = await Spot.findByPk(spotId);
 
-        console.log(spot)
-        
         if(spot && req.user.id !== spot.ownerId) {
             const err = new Error("Forbidden");
             err.title = "Forbidden";
