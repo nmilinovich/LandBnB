@@ -4,26 +4,24 @@ export const loadSpots = (payload) => ({
     type: LOAD_SPOTS,
     payload
 });
-export const getSpots = (payload) => async (dispatch) => {
+export const getSpots = () => async (dispatch) => {
     const res = await fetch("/api/spots");
     if (res.ok) {
       const data = await res.json();
       console.log(data);
-    //   dispatch(loadSpots(data));
+      dispatch(loadSpots(data));
       return data;
     }
     return res;
 };
 
-const spotReducer = (state = {}, action) => {
+const spotsReducer = (state = {spots: []}, action) => {
     switch (action.type) {
-        case LOGIN_USER:
-            return { user: action.payload }
-        case LOGOUT_USER:
-            return { user: null }
+        case LOAD_SPOTS:
+            return { spots: action.payload }
         default:
             return state;
     }
 }
 
-export default spotReducer
+export default spotsReducer
