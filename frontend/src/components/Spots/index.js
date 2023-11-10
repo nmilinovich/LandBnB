@@ -7,9 +7,10 @@ const Spots = () => {
     // const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const spots = useSelector((state) => state.spots)
-    console.log(spots)
+    Object.values(spots).map(spot => console.log(spot))
     useEffect(() => {
-        dispatch(getSpots()).then(() => setIsLoading(false))
+        dispatch(getSpots())
+        .then(() => setIsLoading(false));
     }, [dispatch])
     return (
         <section>

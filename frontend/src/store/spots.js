@@ -25,9 +25,12 @@ const spotsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_SPOTS:
             const spotsState = {};
-            action.spots.forEach((spot) => {
+            action.payload.Spots.forEach((spot) => {
               spotsState[spot.id] = spot;
             });
+            spotsState.page = action.payload.page;
+            spotsState.size = action.payload.size;
+            console.log(spotsState)
             return spotsState
         default:
             return state;

@@ -3,22 +3,25 @@ import {useDispatch} from 'react-redux';
 
 const SpotDetails = ({ spot }) => {
     const dispatch = useDispatch();
-    // return (
-    //     <li>
-    //     <div className="li-contents-flex">
-    //       <Link to={`/reports/${spot.id}`}>Report #{report.id}</Link>
-    //       <div className="buttons-container">
-    //         <Link
-    //           className="edit-link"
-    //           to={`/reports/${report.id}/edit`}
-    //         >
-    //           Edit
-    //         </Link>
-    //         <button onClick={handleDelete}>Delete</button>
-    //       </div>
-    //     </div>
-    //   </li>
-    // );
+    return (
+        <li>
+            <div className="card">
+            <Link to={`/spots/${spot.id}`}>
+                {spot.name}
+                {spot.address}
+                {spot.country}
+                {spot.state}
+                {spot.city}
+                {spot.avgRating}
+                {spot.description}
+                {spot.lat}
+                {spot.lng}
+                {spot.price}
+                {/* {spot.previewImage.url} */}
+            </Link>
+            </div>
+      </li>
+    );
 }
 
 export default SpotDetails;
