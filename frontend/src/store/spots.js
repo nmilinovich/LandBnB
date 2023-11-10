@@ -1,9 +1,14 @@
 const LOAD_SPOTS = 'load/spots';
 
+
+// action creators
 export const loadSpots = (payload) => ({
     type: LOAD_SPOTS,
     payload
 });
+
+
+// thunks
 export const getSpots = () => async (dispatch) => {
     const res = await fetch("/api/spots");
     if (res.ok) {
@@ -15,10 +20,15 @@ export const getSpots = () => async (dispatch) => {
     return res;
 };
 
-const spotsReducer = (state = {spots: []}, action) => {
+//reducer
+const spotsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_SPOTS:
-            return { spots: action.payload }
+            const spotsState = {};
+            action.spots.forEach((spot) => {
+              spotsState[spot.id] = spot;
+            });
+            return spotsState
         default:
             return state;
     }

@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getSpots } from '../../store/spots';
 import { useDispatch, useSelector } from "react-redux";
-
+import SpotDetails from './SpotDetails';
 const Spots = () => {
     const dispatch = useDispatch();
     // const [errors, setErrors] = useState({});
-    const spots = useSelector
+    const [isLoading, setIsLoading] = useState(true);
+    const spots = useSelector((state) => state.spots)
+    console.log(spots)
     useEffect(() => {
-        const spots = dispatch(getSpots())
+        dispatch(getSpots()).then(() => setIsLoading(false))
     }, [dispatch])
     return (
-        <div>
-            {spots}
-        </div>
+        <section>
+            <ul>
+                {Object.values(spots).map((spot) => (
+                <SpotDetails
+                    spot={spot}
+                    key={spot.id}
+                />
+                ))}
+            </ul>
+        </section>
     );
 }
-
 export default Spots
