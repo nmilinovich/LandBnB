@@ -7,7 +7,6 @@ const Spots = () => {
     // const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const spots = useSelector((state) => state.spots)
-    Object.values(spots).map(spot => console.log(spot))
     useEffect(() => {
         dispatch(getSpots())
         .then(() => setIsLoading(false));
@@ -16,10 +15,9 @@ const Spots = () => {
         <section>
             <ul>
                 {Object.values(spots).map((spot) => (
-                <SpotDetails
-                    spot={spot}
-                    key={spot.id}
-                />
+                    // let {name, city, address, state, country, lng, lat, price} = spot;
+                    <h2>{spot.city}</h2>
+
                 ))}
             </ul>
         </section>

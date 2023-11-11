@@ -1,13 +1,26 @@
-import { Link } from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react'
+import { getSpotDetails } from '../../store/spots';
 
-const SpotDetails = ({ spot }) => {
+const SpotDetails = () => {
     const dispatch = useDispatch();
+    const {spotId} = useParams();
+    console.log(spotId)
+    const [isLoaded, setIsLoaded] = useState(true);
+    const spot = useSelector((state) => state.spots.parseInt(spotId))
+    console.log(spot);
+    // useEffect(() => {
+    //     dispatch(getSpotDetails(spotId));
+    //     setIsLoaded(false);
+    //     if(!isLoaded) console.log(spot);
+    // }, [dispatch, spotId])
+
     return (
         <li>
             <div className="card">
-            <Link to={`/spots/${spot.id}`}>
-                {spot.name}
+            {/* <Link to={`/${spotId}`}> */}
+                {/* {spot.name}
                 {spot.address}
                 {spot.country}
                 {spot.state}
@@ -16,9 +29,9 @@ const SpotDetails = ({ spot }) => {
                 {spot.description}
                 {spot.lat}
                 {spot.lng}
-                {spot.price}
+                {spot.price} */}
                 {/* {spot.previewImage.url} */}
-            </Link>
+            {/* </Link> */}
             </div>
       </li>
     );
