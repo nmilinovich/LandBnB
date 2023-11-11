@@ -7,8 +7,7 @@ const Spots = () => {
     const dispatch = useDispatch();
     // const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const spots = useSelector((state) => state.spots)
-    Object.values(spots).map(spot => console.log(spot))
+    const spots = useSelector((state) => state.spots.spots)
     useEffect(() => {
         dispatch(getSpots())
         .then(() => setIsLoading(false));
@@ -17,9 +16,11 @@ const Spots = () => {
     return (
         <section>
             <ul>
-                {Object.values(spots).map((spot) => (
-                    <div>
+                {spots?.map((spot) => {
+                    console.log(spots)
+                    return <div>
                         <Link to={`/spots/${spot.id}`}>
+                            {spot.previewImage['url']}
                             {spot.address}
                             {spot.city}
                             {spot.country}
@@ -30,7 +31,7 @@ const Spots = () => {
                             {spot.lat}
                         </Link>
                     </div>
-                ))}
+                })}
             </ul>
         </section>
     );

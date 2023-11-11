@@ -1,0 +1,16 @@
+.profile-container {
+    display: flexbox;
+    justify-content: right;
+}
+
+.fas {
+    display: flexbox;
+    justify-content: right;
+
+}
+
+.button {
+    display: flexbox;
+    justify-content: right;
+
+}

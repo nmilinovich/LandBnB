@@ -19,7 +19,7 @@ function App() {
       {isLoaded &&
         <Switch>
           <Route path = '/spots/:spotId' component={SpotDetails} />
-          <Route path = '/spots' component={Spots}/>
+          <Route path = {'/' || 'spots'}component={Spots}/>
         </Switch>}
     </>
   );

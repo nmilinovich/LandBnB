@@ -19,28 +19,22 @@ const SpotDetails = () => {
     }
 
     return (
-        <li>
+        <section>
             {!isLoading ?
-            <div className="card">
-                {spot.SpotImages.forEach(img => {
-                    return <img src={`${img['url']}`} />
-                })
-                }
-                {spot.address}
-                {spot.country}
-                {spot.state}
-                {spot.city}
-                {spot.avgStarRating}
-                {spot.description}
-                {spot.lat}
-                {spot.lng}
-                {spot.price}
+                <div className="card">
+                    <h2>{spot.name}</h2>
+                    Location: {spot.city}, {spot.state}, {spot.country}
 
-                {spot.Owner.firstName}
+                    {spot.SpotImages.map(img => {
+                        return <img className={img['previewImage'] ? 'previewImg' : 'img'} src={`${img['url']}`} alt='image'/>
+                    })
+                    }
+                    <div>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</div>
+                    {spot.avgStarRating}
+                    <p>{spot.description}</p>
                 </div>
             : <div>Loading</div>}
-
-      </li>
+      </section>
     );
 }
 

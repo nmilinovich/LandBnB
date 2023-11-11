@@ -18,9 +18,7 @@ export const getSpots = () => async (dispatch) => {
     const res = await csrfFetch("/api/spots");
     if (res.ok) {
       const data = await res.json();
-
       dispatch(loadSpots(data));
-      console.log(data);
       return data;
     }
     return res;
@@ -38,13 +36,15 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
     return res;
 }
 
+// {Spots: []}
 //reducer
 const spotsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_SPOTS:
             const spotsState = {...state};
+            spotsState.spots = []
             action.payload.Spots.forEach((spot) => {
-              spotsState[spot.id] = spot;
+              spotsState.spots.push(spot);
             });
             spotsState.page = action.payload.page;
             spotsState.size = action.payload.size;

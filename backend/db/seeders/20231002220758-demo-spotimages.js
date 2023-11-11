@@ -14,13 +14,13 @@ module.exports = {
     await SpotImages.bulkCreate([
       {
         spotId: 1,
-        url: "image url",
+        url: "https://images.app.goo.gl/vunhhXNPcB5xLKnR7",
         preview: true,
       },
       {
-        spotId: 1,
-        url: "image url",
-        preview: false,
+        spotId: 2,
+        url: "https://images.app.goo.gl/TLqBineSjwHvewaDA",
+        preview: true,
       }
     ], { validate: true });
   },
