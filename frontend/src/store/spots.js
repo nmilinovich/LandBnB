@@ -15,22 +15,24 @@ export const loadSpot = (spot) => ({
 
 // thunks
 export const getSpots = () => async (dispatch) => {
-    const res = await fetch("/api/spots");
+    const res = await csrfFetch("/api/spots");
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
+
       dispatch(loadSpots(data));
+      console.log(data);
       return data;
     }
     return res;
 };
 
 export const getSpotDetails = (spotId) => async (dispatch) => {
-    const res = await csrfFetch(`api/spots/${spotId}`);
+    const res = await csrfFetch(`/api/spots/${spotId}`);
     if (res.ok) {
         const data = await res.json();
         console.log(data);
         dispatch(loadSpot(data));
+        console.log(data);
         return data;
     }
     return res;
@@ -40,7 +42,7 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
 const spotsReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_SPOTS:
-            const spotsState = {};
+            const spotsState = {...state};
             action.payload.Spots.forEach((spot) => {
               spotsState[spot.id] = spot;
             });
@@ -49,7 +51,9 @@ const spotsReducer = (state = {}, action) => {
             console.log(spotsState);
             return spotsState;
         case LOAD_SPOT:
-            return { ...state, [action.spot.id]: action.spot }
+            const newState = {[action.spot.id]: action.spot }
+            console.log(newState)
+            return newState
         default:
             return state;
     }
