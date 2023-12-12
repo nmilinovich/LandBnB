@@ -1,16 +1,20 @@
+.nav {
+    display: flex;
+    align-content: end;
+    flex-direction: row;
+}
 .profile-container {
-    display: flexbox;
-    justify-content: right;
+    display: flex;
+    flex-direction: column;
 }
 
+.home {
+    display: flex;
+    justify-self: right;
+}
 .fas {
-    display: flexbox;
+    display: flex;
     justify-content: right;
-
-}
-
-.button {
-    display: flexbox;
-    justify-content: right;
-
+    max-height: 2vh;
+    max-width: 1vw;
 }

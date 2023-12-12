@@ -14,12 +14,12 @@ module.exports = {
     await SpotImages.bulkCreate([
       {
         spotId: 1,
-        url: "https://images.app.goo.gl/vunhhXNPcB5xLKnR7",
+        url: "https://images.unsplash.com/photo-1598228723793-52759bba239c?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTR8fHxlbnwwfHx8fHw%3D",
         preview: true,
       },
       {
         spotId: 2,
-        url: "https://images.app.goo.gl/TLqBineSjwHvewaDA",
+        url: "https://images.unsplash.com/photo-1598228723793-52759bba239c?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTR8fHxlbnwwfHx8fHw%3D",
         preview: true,
       }
     ], { validate: true });

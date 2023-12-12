@@ -298,7 +298,7 @@ router.get(
         return res.json({
            "Spots": returnedSpots,
            "page": page,
-           "size": size
+           "size": size,
         });
     }
 );

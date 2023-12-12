@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getSpots } from '../../store/spots';
 import { useDispatch, useSelector } from "react-redux";
 import SpotDetails from './SpotDetails';
+
 const Spots = () => {
     const dispatch = useDispatch();
     // const [errors, setErrors] = useState({});
@@ -16,22 +17,26 @@ const Spots = () => {
     return (
         <section>
             <ul>
-                {spots?.map((spot) => {
-                    console.log(spots)
-                    return <div>
+                {spots?.map((spot) =>
+                    <div className='tile'>
                         <Link to={`/spots/${spot.id}`}>
-                            {spot.previewImage['url']}
-                            {spot.address}
-                            {spot.city}
-                            {spot.country}
-                            {spot.price}
-                            {spot.name}
-                            {spot.state}
-                            {spot.lng}
-                            {spot.lat}
+
+                            {<img src={spot.previewImage['url']} alt='preview'/>}
+                            {spot.avgRating ? spot.avgRating.toFixed(1)+' ' : 'new '}
+                            {spot.address + ' '}
+                            {spot.city + ', '}
+                            {spot.state + ' '}
+                            {spot.country + ' '}
+                            <div>
+                                {spot.price + ' '}
+                                <label>night</label>
+                            </div>
+
+
+
                         </Link>
                     </div>
-                })}
+                )}
             </ul>
         </section>
     );
