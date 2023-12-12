@@ -31,9 +31,6 @@ const Spots = () => {
                                 {spot.price + ' '}
                                 <label>night</label>
                             </div>
-
-
-
                         </Link>
                     </div>
                 )}
