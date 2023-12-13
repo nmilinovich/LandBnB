@@ -17,3 +17,13 @@ section {
 button {
     margin: 2px 10px;
 }
+
+.previewImg {
+    height:40vh;
+    width: 40vw;
+}
+
+.otherImg {
+    height:20vh;
+    width: 20vh;
+}

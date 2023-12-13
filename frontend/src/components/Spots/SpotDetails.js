@@ -25,8 +25,8 @@ const SpotDetails = () => {
                     <h1>{spot.name}</h1>
                     <h3>{spot.city}, {spot.state}, {spot.country}</h3>
 
-                    {spot.SpotImages.map(img => {
-                        return <img className={img['previewImage'] ? 'previewImg' : 'otherImg'} src={`${img['url']}`} alt='image'/>
+                    {spot.SpotImages.map(image => {
+                        return <img className={image['preview'] ? 'previewImg' : 'otherImg'} src={`${image['url']}`} alt='image'/>
                     })
                     }
                     <div>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</div>
@@ -34,11 +34,10 @@ const SpotDetails = () => {
                     <p>{spot.description}</p>
 
                     <div className='infoBox'>
-                        <div className='info'>{'$'+spot.price+'night'}</div>
-                        <button>Reserve</button>
+                        <div className='info'>{'$'+spot.price+'night'} <i class="fa-solid fa-star"> {spot.avgStarRating?.toFixed(1) ?? 'new'} {spot.numReviews}</i></div>
+                        <button onClick={() => alert('Feature coming soon.')}>Reserve</button>
                     </div>
                 </div>
-
             : <div>Loading</div>}
       </section>
     );

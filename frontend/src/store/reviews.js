@@ -1,20 +1,20 @@
 import { csrfFetch } from "./csrf";
-const LOAD_SPOTS = 'load/spots';
-const LOAD_SPOT = 'load/spot';
+const LOAD_REVIEWS = 'load/reviews';
+const LOAD_REVIEW = 'load/review';
 
 // action creators
-export const loadSpots = (payload) => ({
-    type: LOAD_SPOTS,
+export const loadReviews = (payload) => ({
+    type: LOAD_REVIEWS,
     payload
 });
 
-export const loadSpot = (spot) => ({
-    type: LOAD_SPOT,
-    spot
+export const loadReview = (review) => ({
+    type: LOAD_REVIEW,
+    review
 });
 
 // thunks
-export const getSpots = () => async (dispatch) => {
+export const getReviews = () => async (dispatch) => {
     const res = await csrfFetch("/api/spots");
     if (res.ok) {
       const data = await res.json();
