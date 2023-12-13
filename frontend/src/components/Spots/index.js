@@ -9,12 +9,14 @@ const Spots = () => {
     const dispatch = useDispatch();
     // const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const spots = useSelector((state) => state.spots.spots)
+    const spots = useSelector((state) => Object.values(state.spots))
     useEffect(() => {
         dispatch(getSpots())
-        .then(() => setIsLoading(false));
-
+        console.log(spots)
     }, [dispatch])
+    if (!spots.length) {
+        return <div>Loading...</div>
+    }
     return (
         <section>
             <ul>
@@ -22,8 +24,8 @@ const Spots = () => {
                     <div >
                         <Link className='tile' to={`/spots/${spot.id}`}>
 
-                            {<img src={spot.previewImage['url']} alt='preview'/>}
-                            {/* {spot.name} */}
+                            {spot.previewImage && <img src={spot.previewImage['url']} alt='preview'/>}
+                            {spot.name}
                             <div className='location'>
                                 {spot.city + ', '}
                                 {spot.state + ' '}

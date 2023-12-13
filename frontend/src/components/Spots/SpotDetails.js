@@ -7,7 +7,6 @@ const SpotDetails = () => {
     const dispatch = useDispatch();
     const {spotId} = useParams();
     const id = parseInt(spotId);
-
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         dispatch(getSpotDetails(id))

@@ -36,23 +36,24 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
     return res;
 }
 
+// {Spots: []}
 //reducer
 const spotsReducer = (state = {}, action) => {
+    const newState = {...state}
     switch (action.type) {
         case LOAD_SPOTS:
-            const spotsState = {...state};
-            spotsState.spots = []
+            // spotsState.spots = []
             action.payload.Spots.forEach((spot) => {
-              spotsState.spots.push(spot);
+            //   spotsState.spots.push(spot);
+            newState[spot.id] = spot
             });
-            spotsState.page = action.payload.page;
-            spotsState.size = action.payload.size;
-            console.log(spotsState);
-            return spotsState;
+            // spotsState.page = action.payload.page;
+            // spotsState.size = action.payload.size;
+            console.log(newState);
+            return newState;
         case LOAD_SPOT:
-            const newState = {[action.spot.id]: action.spot }
-            console.log(newState)
-            return newState
+            newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
+            return newState;
         default:
             return state;
     }
