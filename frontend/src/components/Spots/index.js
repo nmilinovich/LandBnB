@@ -8,7 +8,6 @@ import './Spots.css'
 const Spots = () => {
     const dispatch = useDispatch();
     // const [errors, setErrors] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
     const spots = useSelector((state) => Object.values(state.spots))
     useEffect(() => {
         dispatch(getSpots())
@@ -25,7 +24,6 @@ const Spots = () => {
                         <Link className='tile' to={`/spots/${spot.id}`}>
 
                             {spot.previewImage && <img src={spot.previewImage['url']} alt='preview'/>}
-                            {spot.name}
                             <div className='location'>
                                 {spot.city + ', '}
                                 {spot.state + ' '}

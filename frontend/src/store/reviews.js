@@ -1,31 +1,31 @@
-// import { csrfFetch } from "./csrf";
-// const LOAD_REVIEWS = 'load/reviews';
-// const LOAD_REVIEW = 'load/review';
+import { csrfFetch } from "./csrf";
+const LOAD_SPOT_REVIEWS = 'load/reviews';
+const LOAD_USER_REVIEWs = 'load/reviews';
 
 // // action creators
-// export const loadReviews = (payload) => ({
-//     type: LOAD_REVIEWS,
-//     payload
-// });
+export const loadSpotReviews = (spotReviews) => ({
+    type: LOAD_SPOT_REVIEWS,
+    spotReviews
+});
 
-// export const loadReview = (review) => ({
-//     type: LOAD_REVIEW,
-//     review
+// export const loadUserReviews = (user) => ({
+//     type: LOAD_USER_REVIEWS,
+//     userReviews
 // });
 
 // // thunks
-// export const getReviews = () => async (dispatch) => {
-//     const res = await csrfFetch("/api/spots");
-//     if (res.ok) {
-//       const data = await res.json();
-//       dispatch(loadSpots(data));
-//       return data;
-//     }
-//     return res;
-// };
+export const getSpotReviews = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(loadSpotReviews(data));
+      return data;
+    }
+    return res;
+};
 
-// export const getSpotDetails = (spotId) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/spots/${spotId}`);
+// export const getUserReviews = (spotId) => async (dispatch) => {
+//     const res = await csrfFetch('/api/spots/current');
 //     if (res.ok) {
 //         const data = await res.json();
 //         console.log(data);
@@ -37,25 +37,21 @@
 // }
 
 // //reducer
-// const spotsReducer = (state = {}, action) => {
-//     switch (action.type) {
-//         case LOAD_SPOTS:
-//             const spotsState = {...state};
-//             spotsState.spots = []
-//             action.payload.Spots.forEach((spot) => {
-//               spotsState.spots.push(spot);
-//             });
-//             spotsState.page = action.payload.page;
-//             spotsState.size = action.payload.size;
-//             console.log(spotsState);
-//             return spotsState;
-//         case LOAD_SPOT:
-//             const newState = {[action.spot.id]: action.spot }
-//             console.log(newState)
-//             return newState
-//         default:
-//             return state;
-//     }
-// }
+const reviewsReducer = (state = {}, action) => {
+    const newState = {...state}
+    switch (action.type) {
+        case LOAD_SPOT_REVIEWS:
+            action.spotReviews.Reviews.forEach((review) => {
+            newState[review.id] = review
+            });
+            console.log(newState);
+            return newState;
+        // case LOAD_USER_REVIEWS:
+        //     newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
+        //     return newState;
+        default:
+            return state;
+    }
+}
 
-// export default spotsReducer
+export default reviewsReducer;
