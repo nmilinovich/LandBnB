@@ -34,14 +34,26 @@ const SpotDetails = () => {
                     {spot.avgStarRating}
                     <p>{spot.description}</p>
                     <div className='infoBox'>
-                        <div className='info'>{'$'+spot.price+'night'} <i class="fa-solid fa-star"> {spot.avgStarRating?.toFixed(1) ?? 'new'} {spot.numReviews}</i></div>
+                        <div className='info'>{'$'+spot.price+'night'} <i class="fa-solid fa-star"> {spot.avgStarRating?.toFixed(1) ?? 'new'} {spot.numReviews === 1 ? 'review' : 'reviews'}</i></div>
                         <button onClick={() => alert('Feature coming soon.')}>Reserve</button>
                     </div>
                 </div>
-                <div>
-                    {spotsReviews?.map(review => {
-                        return (review.User.firstName)
-                    })}
+                <div className='reviewSection'>
+                    <header>
+                        <i class="fa-solid fa-star"> {spot.avgStarRating?.toFixed(1) ?? 'new'} {"˙ " + spot.numReviews === 1 ? 'review' : 'reviews'}</i>
+                    </header>
+                    <section>
+                        {spotsReviews?.map(review => {
+                            return (
+                                <div className='reviewCard'>
+                                    <div className='reviewOwner'>{review.User.firstName}</div>
+                                    <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
+                                    <div className='review'>{review.review}</div>
+                                </div>
+                            )
+                        })}
+                    </section>
+
                 </div>
           </section>
         );
