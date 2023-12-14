@@ -34,16 +34,40 @@ const SpotDetails = () => {
                     {spot.avgStarRating}
                     <p>{spot.description}</p>
                     <div className='infoBox'>
-                        <div className='info'>{'$'+spot.price+'night'} <i class="fa-solid fa-star"> {spot.avgStarRating?.toFixed(1) ?? 'new'} {spot.numReviews === 1 ? 'review' : 'reviews'}</i></div>
+                        <div className='info'>
+                            <span>
+                                {'$'+spot.price.toFixed(2)+' night'}
+                            </span>
+                            {' '}
+                            <i class="fa-solid fa-star" />
+                            {' '}
+                            <span>
+                                {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
+                            </span>
+                            { spot.numReviews ?
+                                <span>
+                                    {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : 's'}
+                                </span>
+                                : null
+                            }
+                        </div>
                         <button onClick={() => alert('Feature coming soon.')}>Reserve</button>
                     </div>
                 </div>
                 <div className='reviewSection'>
                     <header>
-                        <i class="fa-solid fa-star"> {spot.avgStarRating?.toFixed(1) ?? 'new'} {"˙ " + spot.numReviews === 1 ? 'review' : 'reviews'}</i>
+                        <i class="fa-solid fa-star"/>
+                        {' '}
+                        <span>
+                            {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
+                        </span>
+                        { spot.numReviews ?
+                            <span> ˙ {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : 's'}</span>
+                            : null
+                        }
                     </header>
                     <section>
-                        {spotsReviews?.map(review => {
+                        {spotsReviews?.sort().map(review => {
                             return (
                                 <div className='reviewCard'>
                                     <div className='reviewOwner'>{review.User.firstName}</div>
