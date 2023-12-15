@@ -12,6 +12,7 @@ const SpotDetails = () => {
         dispatch(getSpotDetails(id))
         dispatch(getSpotReviews(id))
     }, [dispatch, id]);
+    let user = useSelector((state) => state.session[id]);
     let spot = useSelector((state) => state.spots[id]);
     let reviews = useSelector((state) => Object.values(state.reviews));
     let spotsReviews = reviews.filter(review => review.spotId === id);
@@ -24,12 +25,10 @@ const SpotDetails = () => {
                 <div className="card">
                     <h1>{spot.name}</h1>
                     <h3>{spot.city}, {spot.state}, {spot.country}</h3>
-
                     {spot.SpotImages?.map(image => {
                         return <img className={image['preview'] ? 'previewImg' : 'otherImg'} src={`${image['url']}`} alt='image'/>
                     })
                     }
-
                     <div>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</div>
                     {spot.avgStarRating}
                     <p>{spot.description}</p>
@@ -39,7 +38,7 @@ const SpotDetails = () => {
                                 {'$'+spot.price.toFixed(2)+' night'}
                             </span>
                             {' '}
-                            <i class="fa-solid fa-star" />
+                            <i className="fa-solid fa-star" />
                             {' '}
                             <span>
                                 {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
@@ -54,32 +53,34 @@ const SpotDetails = () => {
                         <button onClick={() => alert('Feature coming soon.')}>Reserve</button>
                     </div>
                 </div>
-                <div className='reviewSection'>
-                    <header>
-                        <i class="fa-solid fa-star"/>
-                        {' '}
-                        <span>
-                            {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
-                        </span>
-                        {spot.numReviews ?
-                            <span> ˙ {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : 's'}</span>
-                            : null
-                        }
-                    </header>
-                    <section>
-                        {spotsReviews?.map(review => {
-                            return (
-                                <div className='reviewCard'>
-                                    <div className='reviewOwner'>{review.User.firstName}</div>
-                                    <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
-                                    <div className='review'>{review.review}</div>
-                                </div>
-                            )
-                        })}
-                    </section>
-
-                </div>
-          </section>
+                {user !== spot.Owner?.id && spotsReviews.length === 0 ?
+                    <div>Be the first to post a review!</div> :
+                    <div className='reviewSection'>
+                        <header>
+                            <i className="fa-solid fa-star"/>
+                            {' '}
+                            <span>
+                                {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
+                            </span>
+                            {spot.numReviews ?
+                                <span> ˙ {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : 's'}</span>
+                                : null
+                            }
+                        </header>
+                        <section>
+                            {spotsReviews?.map(review => {
+                                return (
+                                    <div className='reviewCard'>
+                                        <div className='reviewOwner'>{review.User.firstName}</div>
+                                        <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
+                                        <div className='review'>{review.review}</div>
+                                    </div>
+                                )
+                            })}
+                        </section>
+                    </div>
+                }
+            </section>
         );
     }
 

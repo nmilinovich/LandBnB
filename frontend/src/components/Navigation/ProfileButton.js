@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import PostSpot from '../Spots/PostSpot'
 import './Navigation.css'
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -47,10 +49,10 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} hidden={!showMenu} ref={ulRef}>
         {user ? (
           <>
-            <li>Hello {user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
+            <li className="name">Hello {user.firstName}</li>
+            <li className="email">{user.email}</li>
+            <Link className="manage" to='/spots/new'>Manage Spots</Link>
+            <li className="logoutButton">
               <button onClick={logout}>Log Out</button>
             </li>
           </>

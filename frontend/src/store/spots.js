@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 const LOAD_SPOTS = 'load/spots';
 const LOAD_SPOT = 'load/spot';
+const CREATE_SPOT = 'create/spot';
 
 // action creators
 export const loadSpots = (payload) => ({
@@ -11,6 +12,11 @@ export const loadSpots = (payload) => ({
 export const loadSpot = (spot) => ({
     type: LOAD_SPOT,
     spot
+});
+
+export const postSpot = (newSpot) => ({
+    type: CREATE_SPOT,
+    newSpot
 });
 
 // thunks
@@ -34,7 +40,27 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
         return data;
     }
     return res;
-}
+};
+
+export const postNewSpot = (newSpot) => async (dispatch) => {
+    const res = await csrffetch("/echo/json/",
+        {
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(newSpot)
+        }
+    );
+    if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+        dispatch(loadSpot(data));
+        console.log(data);
+        return data;
+    }
+    return res;
+};
 
 // {Spots: []}
 //reducer
