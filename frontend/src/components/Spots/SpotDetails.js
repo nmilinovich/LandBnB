@@ -61,13 +61,13 @@ const SpotDetails = () => {
                         <span>
                             {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
                         </span>
-                        { spot.numReviews ?
+                        {spot.numReviews ?
                             <span> ˙ {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : 's'}</span>
                             : null
                         }
                     </header>
                     <section>
-                        {spotsReviews?.sort().map(review => {
+                        {spotsReviews?.map(review => {
                             return (
                                 <div className='reviewCard'>
                                     <div className='reviewOwner'>{review.User.firstName}</div>

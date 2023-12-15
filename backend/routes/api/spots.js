@@ -103,14 +103,17 @@ router.get(
             where: {
                 spotId: spotId,
             },
+            order: [['createdAt', 'DESC']],
             include: [{
                 model: User,
-                attributes: ['id', 'firstName', 'lastName']
+                attributes: ['id', 'firstName', 'lastName'],
+
             },
             {
                 model: ReviewImages,
                 attributes: ['id', 'url']
-            }]
+            }],
+
         });
 
 
