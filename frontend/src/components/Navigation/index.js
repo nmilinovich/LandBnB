@@ -13,8 +13,9 @@ function Navigation({ isLoaded }){
         <NavLink exact to="/">Home</NavLink>
       </button>
       {isLoaded && (
-        <div className='button'>
-          <ProfileButton user={sessionUser} />
+        <div>
+          <NavLink className='spotForm' exact to='/spots/new'>Create a New Spot!</NavLink>
+          <ProfileButton className='button' user={sessionUser} />
         </div>
       )}
     </ul>
