@@ -14,9 +14,9 @@ export const loadSpot = (spot) => ({
     spot
 });
 
-export const postSpot = (newSpot) => ({
+export const postSpot = (spot) => ({
     type: CREATE_SPOT,
-    newSpot
+    spot
 });
 
 // thunks
@@ -42,24 +42,37 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
     return res;
 };
 
-export const postNewSpot = (newSpot) => async (dispatch) => {
-    const res = await csrffetch("/echo/json/",
+export const postNewSpot = (spot, imageURLs) => async (dispatch) => {
+    const resSpots = await csrfFetch("/api/spots",
         {
             headers: {
             'Content-Type': 'application/json'
             },
             method: "POST",
-            body: JSON.stringify(newSpot)
+            body: JSON.stringify(spot)
         }
     );
-    if (res.ok) {
-        const data = await res.json();
-        console.log(data);
-        dispatch(loadSpot(data));
-        console.log(data);
-        return data;
+    const newSpot = await resSpots.json();
+    const spotImgs = [];
+    for (let i = 0; i < imageURLs.length; i++) {
+        const imgURL = imageURLs[i];
+        const newImage = await csrfFetch(`/api/spots/${newSpot.id}/images`,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    url: imgURL,
+                    preview: i === 0,
+                })
+            }
+        );
+        spotImgs.push(newImage);
     }
-    return res;
+    newSpot.SpotImages = spotImgs;
+    dispatch(postSpot(newSpot));
+    return newSpot;
 };
 
 // {Spots: []}
@@ -80,6 +93,8 @@ const spotsReducer = (state = {}, action) => {
         case LOAD_SPOT:
             newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
             return newState;
+        case CREATE_SPOT:
+            newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
         default:
             return state;
     }

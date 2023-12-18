@@ -381,7 +381,7 @@ router.post(
         const { url, preview } = req.body;
 
         const spot = await Spot.findByPk(spotId);
-        if(spot && req.user.id !== spot.ownerId) {
+        if (spot && req.user.id !== spot.ownerId) {
             const err = new Error("Forbidden");
             err.title = "Forbidden";
             err.status = 403;
