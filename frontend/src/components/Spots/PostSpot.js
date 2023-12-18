@@ -41,8 +41,8 @@ function PostSpotForm() {
     <section>
       <h2>Create a new Spot</h2>
       <h3>Where's your place located?</h3>
-      <p>Guests will only get your exact address once they booked a reservation.
-      </p>
+      <caption>Guests will only get your exact address once they booked a reservation.
+      </caption>
       <form onSubmit={onSubmit}>
         <div>
           <label htmlFor='country'>Country:</label>
@@ -98,37 +98,52 @@ function PostSpotForm() {
             value={lng}
           />
         </div>
+        <h2>Describe your place to guests:</h2>
+        <caption>
+            "Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.
+        </caption>
         <div>
-          <label htmlFor='description'>Describe your place to guests:</label>
+          <label htmlFor='description'></label>
           <input
+            placeholder='Please write at least 30 characters'
             id='description'
             type='text'
             onChange={e => setDescription(e.target.value)}
             value={description}
           />
         </div>
+
+        <h2>Create a title for your spot:</h2>
+        <caption>Catch guests' attention with a spot title that highlights what makes your place special.</caption>
         <div>
-          <label htmlFor='name'>Create a title for your spot:</label>
+          <label htmlFor='name'></label>
           <input
+          placeholder='Name of your spot'
             id='name'
             type='text'
             onChange={e => setName(e.target.value)}
             value={name}
           />
         </div>
+        <h2>Set a base price for your spot:</h2>
+        <caption>Competitive pricing can help your listing stand out and rank higher in search results.</caption>
         <div>
-          <label htmlFor='price'>Set a base price for your spot:</label>
+          <label htmlFor='price'></label>
           <input
+            placeholder="Price per night (USD)"
             id='price'
             type='text'
             onChange={e => setPrice(e.target.value)}
             value={price}
           />
         </div>
+        <h2>Liven up your spot with photos</h2>
+        <caption>Submit a link to at least one photo to publish your spot.</caption>
         {[...Array(5)].map((_, i) => (
             <div key={i}>
-                <label htmlFor={`image-${i}`}>{i === 0 ? 'Preview Image URL:' : 'Image URL'}</label>
+                <label htmlFor={`image-${i}`}></label>
                 <input
+                    placeholder={i === 0 ? 'Preview Image URL:' : 'Image URL'}
                     id={`image-${i}`}
                     type='text'
                     onChange={e => setUrlImages(urlImages => {
@@ -139,7 +154,7 @@ function PostSpotForm() {
                 />
             </div>
         ))}
-        <button>Submit</button>
+        <button>Create Spot</button>
       </form>
     </section>
   );
