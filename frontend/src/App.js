@@ -19,6 +19,7 @@ function App() {
       {isLoaded &&
         <Switch>
           <Route exact path = '/spots/new' component={PostSpotForm} />
+          <Route exact path = '/spots/current' component={PostSpotForm} />
           <Route path = '/spots/:spotId' component={SpotDetails} />
           <Route path = {'/' || '/spots'}component={Spots}/>
         </Switch>}

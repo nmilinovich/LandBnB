@@ -1,4 +1,4 @@
-/* .imageTextAreas {
+.imageTextAreas {
     display: flex;
     flex-direction: column;
     padding-top: 3px;
@@ -6,4 +6,8 @@
 
 .imageUrl {
     padding: 5px 0px;
-} */
+}
+
+.error {
+    color: red;
+}

@@ -70,7 +70,7 @@ const SpotDetails = () => {
                         <section>
                             {spotsReviews?.map(review => {
                                 return (
-                                    <div className='reviewCard'>
+                                    <div className='reviewCard' key={review.id}>
                                         <div className='reviewOwner'>{review.User.firstName}</div>
                                         <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
                                         <div className='review'>{review.review}</div>
