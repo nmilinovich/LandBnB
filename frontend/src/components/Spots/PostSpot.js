@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { postNewSpot } from '../../store/spots';
 import { useDispatch } from 'react-redux';
 import './PostSpot.css';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 function PostSpotForm() {
     const dispatch = useDispatch();
     const [country, setCountry] = useState('');
