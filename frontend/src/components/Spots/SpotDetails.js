@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { getSpotDetails } from '../../store/spots';
 import './SpotDetails.css';
 import { getSpotReviews } from '../../store/reviews';
+import CreateReviewButton from '../Navigation/CreateReviewButton';
 const SpotDetails = () => {
     const dispatch = useDispatch();
     const {spotId} = useParams();
@@ -67,6 +68,7 @@ const SpotDetails = () => {
                                 : null
                             }
                         </header>
+                        <CreateReviewButton />
                         <section>
                             {spotsReviews?.map(review => {
                                 return (
