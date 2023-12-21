@@ -12,11 +12,12 @@ const SpotDetails = () => {
     useEffect(() => {
         dispatch(getSpotDetails(id))
         dispatch(getSpotReviews(id))
-    }, [dispatch, id]);
-    let user = useSelector((state) => state.session[id]);
+    }, [dispatch, id,]);
+    let user = useSelector((state) => state.session.user['id']);
     let spot = useSelector((state) => state.spots[id]);
     let reviews = useSelector((state) => Object.values(state.reviews));
     let spotsReviews = reviews.filter(review => review.spotId === id);
+    let userHasReview = Object.values(spotsReviews.filter(review => review.User.id === user)).length > 0;
     if(!spot) {
         return <div>Loading...</div>;
     }
@@ -54,23 +55,26 @@ const SpotDetails = () => {
                         <button onClick={() => alert('Feature coming soon.')}>Reserve</button>
                     </div>
                 </div>
-                {user !== spot.Owner?.id && spotsReviews.length === 0 ?
-                    <div>Be the first to post a review!</div> :
-                    <div className='reviewSection'>
-                        <header>
-                            <i className="fa-solid fa-star"/>
-                            {' '}
-                            <span>
-                                {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
-                            </span>
-                            {spot.numReviews ?
-                                <span> ˙ {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : 's'}</span>
-                                : null
-                            }
-                        </header>
+                <div className='reviewSection'>
+                    <header>
+                        <i className="fa-solid fa-star"/>
+                        {' '}
+                        <span>
+                            {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
+                        </span>
+                        {spot.numReviews ?
+                            <span> ˙ {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : 's'}</span>
+                            : null
+                        }
+                    </header>
+                    <section>
+
+                        {(spot.Owner?.id !== user && !userHasReview) ?
                         <CreateReviewButton />
-                        <section>
-                            {spotsReviews?.map(review => {
+                        : null
+                        }
+                        {spotsReviews?.length ?
+                            spotsReviews.map(review => {
                                 return (
                                     <div className='reviewCard' key={review.id}>
                                         <div className='reviewOwner'>{review.User.firstName}</div>
@@ -78,14 +82,16 @@ const SpotDetails = () => {
                                         <div className='review'>{review.review}</div>
                                     </div>
                                 )
-                            })}
-                        </section>
-                    </div>
-                }
+                            })
+                            :
+                            <div>Be the first to Post a review</div>
+                        }
+                    </section>
+                </div>
+
             </section>
         );
     }
-
 }
 
 export default SpotDetails;
