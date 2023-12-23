@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getSpots } from '../../store/spots';
-import DeleteSpotButton from '../Navigation/UpdateSpotButton';
+import DeleteSpotButton from '../Navigation/DeleteSpotButton';
+import UpdateSpotButton from '../Navigation/UpdateSpotButton';
 const UserSpots = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -25,9 +26,7 @@ const UserSpots = () => {
                             {spot.city + ', '}
                             {spot.state + ' '}
                             <i class="fa-solid fa-star"> {spot.avgRating?.toFixed(1) ?? 'new'}</i>
-                        </div>
-                            <DeleteSpotButton spotId={spot.id}/>
-                        <div>
+
                         </div>
                         {spot.country + ' '}
                         <div className='price'>
@@ -35,7 +34,12 @@ const UserSpots = () => {
                             <label>night</label>
                         </div>
                     </Link>
+
+
                 </div>
+                <UpdateSpotButton spotId={spot.id}/>
+                <DeleteSpotButton spotId={spot.id}/>
+
             </ul>
         )
             : <NavLink to='/spots/new'>Create a New Spot</NavLink>

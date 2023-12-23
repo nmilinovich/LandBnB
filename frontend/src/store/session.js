@@ -13,10 +13,10 @@ export const logoutUser = () => ({
     type: LOGOUT_USER,
 });
 
-export const getUserSpots = (spots) => ({
-    type: GET_USER_SPOTS,
-    spots
-});
+// export const getUserSpots = (spots) => ({
+//     type: GET_USER_SPOTS,
+//     spots
+// });
 
 export const login = (payload) => async (dispatch) => {
     const { credential, password } = payload;
@@ -39,12 +39,12 @@ export const restoreUser = () => async (dispatch) => {
     const res = await csrfFetch("/api/session");
     const data = await res.json();
     dispatch(loginUser(data.user));
-    if (data.user) {
-        const resSpots = await csrfFetch("/api/spots/current");
-        const userSpots = await resSpots.json();
-        dispatch(getUserSpots(userSpots));
-        return data;
-    }
+    // if (data.user) {
+    //     const resSpots = await csrfFetch("/api/spots/current");
+    //     const userSpots = await resSpots.json();
+    //     dispatch(getUserSpots(userSpots));
+    //     return data;
+    // }
     return res;
 };
 

@@ -3,47 +3,20 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
-import SpotDeleteFormModal from "../Spots/SpotDeleteFormModal";
-import PostSpot from '../Spots/PostSpot'
 import './Navigation.css'
-import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-function DeleteSpotButton({ user, spotId }) {
-  const dispatch = useDispatch();
-  const [showMenu, setShowMenu] = useState(false);
+function UpdateSpotButton({ user, spotId }) {
   console.log(spotId)
-  const ulRef = useRef();
-
-  useEffect(() => {
-    if (!showMenu) return;
-
-    const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
-
-    document.addEventListener('click', closeMenu);
-
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
-
-  const closeMenu = () => setShowMenu(false);
-
-
-
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  let history = useHistory();
 
   return (
-          <>
-            <OpenModalMenuItem
-              itemText="Confirm Delete"
-              onItemClick={closeMenu}
-              modalComponent={<SpotDeleteFormModal spotId={spotId} />}
-            />
-          </>
 
+        <button onClick={() => history.push(`/spots/${spotId}/edit`)}>
+            work
+        </button>
   );
 }
 
-export default DeleteSpotButton;
+export default UpdateSpotButton;

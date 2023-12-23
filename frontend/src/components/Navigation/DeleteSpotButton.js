@@ -6,7 +6,6 @@ import OpenModalMenuItem from './OpenModalMenuItem';
 import SpotDeleteFormModal from "../Spots/SpotDeleteFormModal";
 import PostSpot from '../Spots/PostSpot'
 import './Navigation.css'
-import { useParams } from "react-router-dom";
 
 function DeleteSpotButton({ user, spotId }) {
   const dispatch = useDispatch();
@@ -37,12 +36,11 @@ function DeleteSpotButton({ user, spotId }) {
   return (
           <>
             <OpenModalMenuItem
-              itemText="Confirm Delete"
+              itemText="Delete"
               onItemClick={closeMenu}
               modalComponent={<SpotDeleteFormModal spotId={spotId} />}
             />
           </>
-
   );
 }
 

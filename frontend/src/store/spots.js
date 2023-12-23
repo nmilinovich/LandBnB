@@ -3,6 +3,7 @@ const LOAD_SPOTS = 'load/spots';
 const LOAD_SPOT = 'load/spot';
 const CREATE_SPOT = 'create/spot';
 const DELETE_SPOT = 'delete/spot';
+const UPDATE_SPOT = 'update/spot';
 
 // action creators
 export const loadSpots = (payload) => ({
@@ -20,10 +21,15 @@ export const postSpot = (spot) => ({
     spot
 });
 
-export const deleteSpot = (spot) => ({
+export const deleteSpot = (spotId) => ({
     type: DELETE_SPOT,
+    spotId
+});
+
+export const updateSpot = (spot) => ({
+    type: UPDATE_SPOT,
     spot
-})
+});
 
 // thunks
 export const getSpots = () => async (dispatch) => {
@@ -90,8 +96,42 @@ export const removeSpot = (spotId) => async (dispatch) => {
             method: "DELETE",
         }
     );
-    dispatch(deleteSpot(spotId));
+    await dispatch(deleteSpot(spotId));
+    return deletedSpot;
 }
+
+export const editSpot = (spot, imageURLs) => async (dispatch) => {
+    const resSpot = await csrfFetch(`/api/spots/${spot.id}`,
+        {
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            method: "PUT",
+            body: JSON.stringify(spot)
+        }
+    );
+    const editedSpot = await resSpot.json();
+    const spotImgs = [];
+    for (let i = 0; i < imageURLs.length; i++) {
+        const imgURL = imageURLs[i];
+        const newImage = await csrfFetch(`/api/spots/${editedSpot.id}/images`,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    url: imgURL,
+                    preview: i === 0,
+                })
+            }
+        );
+        spotImgs.push(newImage);
+    }
+    editedSpot.SpotImages = spotImgs;
+    dispatch(updateSpot(editedSpot));
+    return editedSpot;
+};
 
 // {Spots: []}
 //reducer
@@ -114,8 +154,12 @@ const spotsReducer = (state = {}, action) => {
         case CREATE_SPOT:
             newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
             // return newState;
+        case UPDATE_SPOT:
+            newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
+            return newState;
         case DELETE_SPOT:
-            delete newState[action.spot.id];
+            console.log(newState[action.spotId])
+            delete newState[action.spotId];
             return newState;
         default:
             return state;

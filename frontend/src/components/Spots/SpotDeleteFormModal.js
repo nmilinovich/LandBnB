@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import { getSpotDetails } from "../../store/spots";
+import { getSpotDetails, getSpots } from "../../store/spots";
 import { removeSpot } from "../../store/spots";
 
 function SpotDeleteFormModal({ spotId }) {
@@ -20,7 +20,7 @@ function SpotDeleteFormModal({ spotId }) {
     console.log(spotId);
     // if (password === confirmPassword) {
       return dispatch(removeSpot(spotId))
-        .then(() => dispatch(getSpotDetails(spotId)))
+        // .then(() => dispatch(getSpots()))
         .then(closeModal)
 
   };
@@ -34,7 +34,7 @@ function SpotDeleteFormModal({ spotId }) {
         <div onClick={handleDelete}>
             Yes (Delete Spot)
         </div>
-        <div onClick={closeModal}>
+        <div >
             No (Keep Spot)
         </div>
     </>
