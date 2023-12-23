@@ -9,15 +9,17 @@ const SpotDetails = () => {
     const dispatch = useDispatch();
     const {spotId} = useParams();
     const id = parseInt(spotId);
-    useEffect(() => {
-        dispatch(getSpotDetails(id))
-        dispatch(getSpotReviews(id))
-    }, [dispatch, id,]);
-    let user = useSelector((state) => state.session.user['id']);
+    let user = useSelector((state) => state.session.user?.['id']);
     let spot = useSelector((state) => state.spots[id]);
     let reviews = useSelector((state) => Object.values(state.reviews));
     let spotsReviews = reviews.filter(review => review.spotId === id);
-    let userHasReview = Object.values(spotsReviews.filter(review => review.User.id === user)).length > 0;
+    console.log(spotsReviews)
+    let userHasReview = Object.values(spotsReviews.filter(review => review.userId === user)).length > 0;
+    useEffect(async () => {
+        dispatch(getSpotDetails(id))
+        dispatch(getSpotReviews(id))
+    }, [dispatch, id,]);
+
     if(!spot) {
         return <div>Loading...</div>;
     }
@@ -28,7 +30,7 @@ const SpotDetails = () => {
                     <h1>{spot.name}</h1>
                     <h3>{spot.city}, {spot.state}, {spot.country}</h3>
                     {spot.SpotImages?.map(image => {
-                        return <img className={image['preview'] ? 'previewImg' : 'otherImg'} src={`${image['url']}`} alt='image'/>
+                        return <img key={image.url} className={image['preview'] ? 'previewImg' : 'otherImg'} src={`${image['url']}`} alt='image'/>
                     })
                     }
                     <div>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</div>
@@ -45,9 +47,10 @@ const SpotDetails = () => {
                             <span>
                                 {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
                             </span>
-                            { spot.numReviews ?
+                            {' '}
+                            {spot.numReviews ?
                                 <span>
-                                    {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : 's'}
+                                    {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : ''}
                                 </span>
                                 : null
                             }
@@ -63,13 +66,13 @@ const SpotDetails = () => {
                             {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
                         </span>
                         {spot.numReviews ?
-                            <span> ˙ {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : 's'}</span>
+                            <span> ˙ {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : ''}</span>
                             : null
                         }
                     </header>
                     <section>
 
-                        {(spot.Owner?.id !== user && !userHasReview) ?
+                        {(user && !userHasReview && user !== spot.Owner?.id) ?
                         <CreateReviewButton />
                         : null
                         }
@@ -77,14 +80,14 @@ const SpotDetails = () => {
                             spotsReviews.map(review => {
                                 return (
                                     <div className='reviewCard' key={review.id}>
-                                        <div className='reviewOwner'>{review.User.firstName}</div>
+                                        <div className='reviewOwner'>{review.userId.firstName}</div>
                                         <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
                                         <div className='review'>{review.review}</div>
                                     </div>
                                 )
                             })
                             :
-                            <div>Be the first to Post a review</div>
+                            user && <div>Be the first to Post a review</div>
                         }
                     </section>
                 </div>

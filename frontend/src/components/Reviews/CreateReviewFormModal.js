@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import { useParams } from "react-router-dom";
-import { postNewReview } from "../../store/reviews";
+import { getSpotReviews, postNewReview } from "../../store/reviews";
+import { getSpotDetails } from "../../store/spots";
 
 function CreateReviewFormModal({ spotId }) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user.id);
+  const user = useSelector((state) => state.session.user?.id);
   console.log(window.location.href);
   spotId = parseInt(spotId);
   console.log(spotId);
@@ -23,6 +24,7 @@ function CreateReviewFormModal({ spotId }) {
       setErrors({});
       return dispatch(postNewReview(review, stars, user, spotId))
         .then(closeModal)
+        .then(() => dispatch(getSpotDetails(spotId)))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) {
@@ -33,12 +35,12 @@ function CreateReviewFormModal({ spotId }) {
 
   return (
     <>
-      <h1>Create Your Review</h1>
+      <h1>How was Your Stay?</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Review:
           <input
-            placeholder=""
+            placeholder="Leave your review here..."
             type="text"
             value={review}
             onChange={(e) => setReview(e.target.value)}
@@ -57,7 +59,7 @@ function CreateReviewFormModal({ spotId }) {
           />
         </label>
         {errors.stars && <p>{errors.stars}</p>}
-        <button type="submit">Create Review</button>
+        <button type="submit" disabled={review.length < 10 || !stars}>Submit Your Review</button>
       </form>
     </>
   );

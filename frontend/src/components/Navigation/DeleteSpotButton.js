@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
-import CreateReviewFormModal from '../Reviews/CreateReviewFormModal'
+import SpotDeleteFormModal from "../Spots/SpotDeleteFormModal";
 import PostSpot from '../Spots/PostSpot'
 import './Navigation.css'
 import { useParams } from "react-router-dom";
 
-function CreateReviewButton({ user }) {
+function DeleteSpotButton({ user, spotId }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  let { spotId } = useParams();
+  console.log(spotId)
   const ulRef = useRef();
 
   useEffect(() => {
@@ -30,24 +30,20 @@ function CreateReviewButton({ user }) {
 
   const closeMenu = () => setShowMenu(false);
 
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.logout());
-    closeMenu();
-  };
+
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
           <>
             <OpenModalMenuItem
-              itemText="Create Your Review"
+              itemText="Confirm Delete"
               onItemClick={closeMenu}
-              modalComponent={<CreateReviewFormModal spotId={spotId} />}
+              modalComponent={<SpotDeleteFormModal spotId={spotId} />}
             />
           </>
 
   );
 }
 
-export default CreateReviewButton;
+export default DeleteSpotButton;

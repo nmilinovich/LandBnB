@@ -39,9 +39,12 @@ export const restoreUser = () => async (dispatch) => {
     const res = await csrfFetch("/api/session");
     const data = await res.json();
     dispatch(loginUser(data.user));
-    const resSpots = await csrfFetch("/api/spots/current");
-    const userSpots = await resSpots.json();
-    dispatch(getUserSpots(userSpots));
+    if (data.user) {
+        const resSpots = await csrfFetch("/api/spots/current");
+        const userSpots = await resSpots.json();
+        dispatch(getUserSpots(userSpots));
+        return data;
+    }
     return res;
 };
 
@@ -78,11 +81,6 @@ const sessionReducer = (state = { user: null }, action) => {
             return { user: action.payload }
         case LOGOUT_USER:
             return { user: null }
-        case GET_USER_SPOTS:
-            return {
-                ...state,
-                spots: action.spots,
-            }
         default:
             return state;
     }

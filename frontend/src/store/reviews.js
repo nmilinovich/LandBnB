@@ -44,6 +44,7 @@ export const postNewReview = (review, stars, userId, spotId) => async (dispatch)
     );
     const newReview = await resReview.json();
     dispatch(postReview(newReview));
+    // dispatch(loadSpotReviews(newReview));
     return newReview;
 };
 
@@ -74,6 +75,7 @@ const reviewsReducer = (state = {}, action) => {
         //     return newState;
         case CREATE_REVIEW:
             newState[action.review.id] = {...newState[action.review.id], ...action.review}
+            return newState;
         default:
             return state;
     }

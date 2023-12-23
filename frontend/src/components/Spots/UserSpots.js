@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getSpots } from '../../store/spots';
+import DeleteSpotButton from '../Navigation/UpdateSpotButton';
 const UserSpots = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getSpots())
     }, [dispatch])
-    let user = useSelector((state) => state.session.user.id)
+    let user = useSelector((state) => state.session.user?.id)
     let spots = useSelector((state) => state.spots);
     console.log(spots)
     let userSpots = Object.values(spots).filter((spot) => spot.ownerId === user);
@@ -24,6 +25,9 @@ const UserSpots = () => {
                             {spot.city + ', '}
                             {spot.state + ' '}
                             <i class="fa-solid fa-star"> {spot.avgRating?.toFixed(1) ?? 'new'}</i>
+                        </div>
+                            <DeleteSpotButton spotId={spot.id}/>
+                        <div>
                         </div>
                         {spot.country + ' '}
                         <div className='price'>
