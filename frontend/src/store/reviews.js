@@ -4,9 +4,9 @@ const LOAD_USER_REVIEWs = 'load/reviews';
 const CREATE_REVIEW = 'create/review';
 const DELETE_REVIEW = 'delete/review';
 // // action creators
-export const loadSpotReviews = (spotReviews) => ({
+export const loadSpotReviews = (reviews) => ({
     type: LOAD_SPOT_REVIEWS,
-    spotReviews
+    reviews
 });
 
 export const deleteReview = (reviewId) => ({
@@ -86,7 +86,8 @@ const reviewsReducer = (state = {}, action) => {
     const newState = {...state}
     switch (action.type) {
         case LOAD_SPOT_REVIEWS:
-            action.spotReviews?.Reviews.forEach((review) => {
+            action.reviews?.Reviews.forEach((review) => {
+            console.log(review)
             newState[review.id] = review
             });
             console.log(newState);
@@ -95,7 +96,7 @@ const reviewsReducer = (state = {}, action) => {
         //     newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
         //     return newState;
         case CREATE_REVIEW:
-            newState[action.review.id] = {...newState[action.review.id], ...action.review}
+            newState[action.review.id] = {...action.review}
             return newState;
         case DELETE_REVIEW:
             delete newState[action.reviewId];

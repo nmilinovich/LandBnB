@@ -130,7 +130,7 @@ router.get(
         const spotId = req.params.spotId;
 
         const Spots = await Spot.findByPk(spotId, {
-            group: ["Reviews.id", "Reviews.stars", "SpotImages.id", "Spot.id", "Owner.id"],
+            group: ["SpotImages.id", "Spot.id", "Owner.id"],
             include: [{
                 model: Review,
                 attributes: [],
@@ -144,26 +144,27 @@ router.get(
                 attributes: ['id', 'firstName', 'lastName'],
                 as: "Owner"
             }],
-        attributes:
-        [
-            'id', 'ownerId', 'address', 'city', 'state', 'country', 'lat',
-            'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt',
-            [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
-            [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
-        ],
-    });
+            attributes: [
+                'id', 'ownerId', 'address', 'city', 'state', 'country', 'lat',
+                'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt',
+                [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
+                [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
+            ],
+        });
+        console.log('DERP', Spots);
 
-    if (!Spots) {
-        let err = new Error("Spot couldn't be found");
-        err.title = "Spot couldn't be found";
-        // err.errors = "Spot couldn't be found";
-        err.status = 404;
-        return next(err);
+
+        if (!Spots) {
+            let err = new Error("Spot couldn't be found");
+            err.title = "Spot couldn't be found";
+            // err.errors = "Spot couldn't be found";
+            err.status = 404;
+            return next(err);
+        }
+
+        return res.json(Spots);
+
     }
-
-    return res.json(Spots);
-
-}
 );
 
 

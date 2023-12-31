@@ -48,7 +48,6 @@ export const getSpotDetails = (spotId) => async (dispatch) => {
         const data = await res.json();
         console.log(data);
         dispatch(loadSpot(data));
-        console.log(data);
         return data;
     }
     return res;
@@ -155,7 +154,7 @@ const spotsReducer = (state = {}, action) => {
             return newState;
         case CREATE_SPOT:
             newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
-            // return newState;
+            return newState;
         case UPDATE_SPOT:
             newState[action.spot.id] = {...action.spot}
             return newState;
