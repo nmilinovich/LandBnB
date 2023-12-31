@@ -202,8 +202,10 @@ router.get(
                 attributes: ['stars'],
             }, {
                 model: SpotImages,
+                // where: SpotImages.preview === true,
                 attributes: ['url'],
-                as: 'previewImage'
+                as: 'previewImage',
+
             }],
         };
 

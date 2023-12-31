@@ -3,14 +3,13 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
-import SpotDeleteFormModal from "../Spots/SpotDeleteFormModal";
+import DeleteReviewFormModal from "../Reviews/DeleteReviewFormModal";
 import PostSpot from '../Spots/PostSpot'
 import './Navigation.css'
 
-function DeleteSpotButton({ user, spotId }) {
+function DeleteSpotButton({ reviewId }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  console.log(spotId)
   const ulRef = useRef();
 
   useEffect(() => {
@@ -31,14 +30,14 @@ function DeleteSpotButton({ user, spotId }) {
 
 
 
-//   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
           <>
             <OpenModalMenuItem
               itemText="Delete"
               onItemClick={closeMenu}
-              modalComponent={<SpotDeleteFormModal spotId={spotId} />}
+              modalComponent={<DeleteReviewFormModal reviewId={reviewId} />}
             />
           </>
   );

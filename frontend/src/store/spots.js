@@ -101,6 +101,7 @@ export const removeSpot = (spotId) => async (dispatch) => {
 }
 
 export const editSpot = (spot, imageURLs) => async (dispatch) => {
+    console.log(spot)
     const resSpot = await csrfFetch(`/api/spots/${spot.id}`,
         {
             headers: {
@@ -110,25 +111,26 @@ export const editSpot = (spot, imageURLs) => async (dispatch) => {
             body: JSON.stringify(spot)
         }
     );
+    console.log(resSpot)
     const editedSpot = await resSpot.json();
     const spotImgs = [];
-    for (let i = 0; i < imageURLs.length; i++) {
-        const imgURL = imageURLs[i];
-        const newImage = await csrfFetch(`/api/spots/${editedSpot.id}/images`,
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    url: imgURL,
-                    preview: i === 0,
-                })
-            }
-        );
-        spotImgs.push(newImage);
-    }
-    editedSpot.SpotImages = spotImgs;
+    // for (let i = 0; i < imageURLs.length; i++) {
+    //     const imgURL = imageURLs[i];
+    //     const newImage = await csrfFetch(`/api/spots/${editedSpot.id}/images`,
+    //         {
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             method: "POST",
+    //             body: JSON.stringify({
+    //                 url: imgURL,
+    //                 preview: i === 0,
+    //             })
+    //         }
+    //     );
+    //     spotImgs.push(newImage);
+    // }
+    // editedSpot.SpotImages = spotImgs;
     dispatch(updateSpot(editedSpot));
     return editedSpot;
 };
@@ -144,8 +146,8 @@ const spotsReducer = (state = {}, action) => {
             //   spotsState.spots.push(spot);
             newState[spot.id] = spot
             });
-            // spotsState.page = action.payload.page;
-            // spotsState.size = action.payload.size;
+            newState["page"] = action.payload.page;
+            newState["size"] = action.payload.size;
             console.log(newState);
             return newState;
         case LOAD_SPOT:
@@ -155,10 +157,9 @@ const spotsReducer = (state = {}, action) => {
             newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
             // return newState;
         case UPDATE_SPOT:
-            newState[action.spot.id] = {...newState[action.spot.id], ...action.spot}
+            newState[action.spot.id] = {...action.spot}
             return newState;
         case DELETE_SPOT:
-            console.log(newState[action.spotId])
             delete newState[action.spotId];
             return newState;
         default:

@@ -18,14 +18,14 @@ const UserSpots = () => {
     console.log(userSpots)
     return (
         userSpots.length ? userSpots.map((spot) =>
-            <ul>
-                <div >
+
+                <div key={spot.id}>
                     <Link className='tile' to={`/spots/${spot.id}`}>
                         {spot.previewImage && <img src={spot.previewImage['url']} alt='preview'/>}
                         <div className='location'>
                             {spot.city + ', '}
                             {spot.state + ' '}
-                            <i class="fa-solid fa-star"> {spot.avgRating?.toFixed(1) ?? 'new'}</i>
+                            <i className="fa-solid fa-star"> {spot.avgRating?.toFixed(1) ?? 'new'}</i>
 
                         </div>
                         {spot.country + ' '}
@@ -34,13 +34,14 @@ const UserSpots = () => {
                             <label>night</label>
                         </div>
                     </Link>
-
-
+                    <UpdateSpotButton spotId={spot.id}/>
+                    <button>
+                    <DeleteSpotButton spotId={spot.id}/>
+                    </button>
                 </div>
-                <UpdateSpotButton spotId={spot.id}/>
-                <DeleteSpotButton spotId={spot.id}/>
 
-            </ul>
+
+
         )
             : <NavLink to='/spots/new'>Create a New Spot</NavLink>
     )

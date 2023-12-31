@@ -14,7 +14,7 @@ function UpdateSpotButton({ user, spotId }) {
   return (
 
         <button onClick={() => history.push(`/spots/${spotId}/edit`)}>
-            work
+            Update
         </button>
   );
 }

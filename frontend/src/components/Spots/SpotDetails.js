@@ -5,6 +5,7 @@ import { getSpotDetails } from '../../store/spots';
 import './SpotDetails.css';
 import { getSpotReviews } from '../../store/reviews';
 import CreateReviewButton from '../Navigation/CreateReviewButton';
+import DeleteReviewButton from '../Navigation/DeleteReviewButton';
 const SpotDetails = () => {
     const dispatch = useDispatch();
     const {spotId} = useParams();
@@ -18,7 +19,7 @@ const SpotDetails = () => {
     useEffect(async () => {
         dispatch(getSpotDetails(id))
         dispatch(getSpotReviews(id))
-    }, [dispatch, id,]);
+    }, [dispatch, id]);
 
     if(!spot) {
         return <div>Loading...</div>;
@@ -34,7 +35,6 @@ const SpotDetails = () => {
                     })
                     }
                     <div>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</div>
-                    {spot.avgStarRating}
                     <p>{spot.description}</p>
                     <div className='infoBox'>
                         <div className='info'>
@@ -47,7 +47,7 @@ const SpotDetails = () => {
                             <span>
                                 {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
                             </span>
-                            {' '}
+                            {' ˙ '}
                             {spot.numReviews ?
                                 <span>
                                     {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : ''}
@@ -80,9 +80,11 @@ const SpotDetails = () => {
                             spotsReviews.map(review => {
                                 return (
                                     <div className='reviewCard' key={review.id}>
-                                        <div className='reviewOwner'>{review.userId.firstName}</div>
+                                        <div className='reviewOwner'>{review.User?.firstName}</div>
                                         <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
                                         <div className='review'>{review.review}</div>
+
+                                            {user === review.userId ? <DeleteReviewButton reviewId={review.id} /> : null}
                                     </div>
                                 )
                             })
