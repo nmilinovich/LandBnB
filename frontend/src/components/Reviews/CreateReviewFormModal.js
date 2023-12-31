@@ -5,6 +5,7 @@ import * as sessionActions from "../../store/session";
 import { useParams } from "react-router-dom";
 import { getSpotReviews, postNewReview } from "../../store/reviews";
 import { getSpotDetails } from "../../store/spots";
+import "./CreateReviewFormModal.css";
 
 function CreateReviewFormModal({ spotId }) {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function CreateReviewFormModal({ spotId }) {
             required
           />
         </label>
-        {errors.review && <p>{errors.review}</p>}
+        {errors.review && <p className="error">{errors.review}</p>}
         <label>
           Stars:
           <input
@@ -58,7 +59,7 @@ function CreateReviewFormModal({ spotId }) {
             required
           />
         </label>
-        {errors.stars && <p>{errors.stars}</p>}
+        {errors.stars && <p className="error">{errors.stars}</p>}
         <button type="submit" disabled={review.length < 10 || !stars}>Submit Your Review</button>
       </form>
     </>

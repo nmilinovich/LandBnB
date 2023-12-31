@@ -77,7 +77,7 @@ const SpotDetails = () => {
                         : null
                         }
                         {spotsReviews?.length ?
-                            spotsReviews.map(review => {
+                            spotsReviews.sort((a, b) => a.createdAt < b.createdAt ? 1 : -1).map(review => {
                                 return (
                                     <div className='reviewCard' key={review.id}>
                                         <div className='reviewOwner'>{review.User?.firstName}</div>
@@ -89,7 +89,7 @@ const SpotDetails = () => {
                                 )
                             })
                             :
-                            user && <div>Be the first to Post a review</div>
+                            user && user !== spot.Owner?.id && <div>Be the first to Post a review</div>
                         }
                     </section>
                 </div>

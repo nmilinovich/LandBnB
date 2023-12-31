@@ -49,8 +49,8 @@ function EditSpotForm() {
         };
         return dispatch(editSpot(editedSpot, ))
         .then((editedSpot) => history.push(`/spots/${editedSpot.id}`))
-        // .catch(async (res) => {
-            // const data = await res.json();
+        .catch(async (res) => {
+            const data = await res.json();
             if (!country) {
                 errors.country = "Country is required.";
             }
@@ -63,16 +63,12 @@ function EditSpotForm() {
             if (!state) {
                 errors.state = "State is required.";
             }
-            // if (lat > 90 || lat < -90 || !lat) {
-            //     errors.lat = "Latitude is not valid.";
-            // } else {
-            //     errors.lat = null;
-            // }
-            // if (lng < -180 || lng > 180 || !lng) {
-            //     errors.lng = "Longitude is not valid.";
-            // } else {
-            //     errors.lng = null;
-            // }
+            if (lat > 90 || lat < -90) {
+                errors.lat = "Latitude is not valid.";
+            }
+            if (lng < -180 || lng > 180) {
+                errors.lng = "Longitude is not valid.";
+            }
             if (description.length < 30) {
                 errors.description = "Description must be more than 30 characters.";
             }
@@ -86,19 +82,8 @@ function EditSpotForm() {
             //     errors.urlImages = "You must provide a preview image for your spot."
             // }
             console.log(errors)
-            return setErrors(errors)
-        // });
-
-            setCountry('');
-            setAddress('');
-            setCity('');
-            setState('');
-            setLat(0);
-            setLng(0);
-            setDescription('');
-            setName('');
-            setPrice(0);
-            // setUrlImages([]);
+            return setErrors(errors);
+        });
     };
 
     return (
@@ -163,8 +148,8 @@ function EditSpotForm() {
                 <input
                 id='lat'
                 type='text'
-                onChange={e => setLat(parseFloat(e.target.value))}
-                value={lat ? lat : 0}
+                onChange={e => setLat(parseFloat(e.target.value) || -90)}
+                value={lat}
             />
             </label>
             {errors.lat && <p className='error'>{errors.lat}</p>}
@@ -175,7 +160,7 @@ function EditSpotForm() {
                 <input
                 id='lng'
                 type='text'
-                onChange={e => setLng(parseFloat(e.target.value))}
+                onChange={e => setLng(parseFloat(e.target.value) || -180)}
                 value={lng}
             />
             </label>
@@ -206,7 +191,7 @@ function EditSpotForm() {
                     id='name'
                     type='text'
                     onChange={e => setName(e.target.value)}
-                    value={name ? name : ''}
+                    value={name}
                 />
             </label>
             {errors.name && <p className='error'>{errors.name}</p>}
@@ -219,7 +204,7 @@ function EditSpotForm() {
                     placeholder="Price per night (USD)"
                     id='price'
                     type='text'
-                    onChange={e => setPrice(parseFloat(e.target.value))}
+                    onChange={e => setPrice(parseFloat(e.target.value) || 0)}
                     value={price}
                 />
             </label>
