@@ -9,6 +9,9 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../../config/database.js')[env];
 const db = {};
 
+// this is my line
+Sequelize.postgres.DECIMAL.parse = (value) => parseFloat(value);
+
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);

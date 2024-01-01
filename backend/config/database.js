@@ -17,7 +17,6 @@ module.exports = {
         require: true,
         rejectUnauthorized: false
       },
-      decimalNumbers: true
     },
     define: {
       schema: process.env.SCHEMA
