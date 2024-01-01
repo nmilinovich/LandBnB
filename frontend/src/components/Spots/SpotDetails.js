@@ -10,16 +10,17 @@ const SpotDetails = () => {
     const dispatch = useDispatch();
     const {spotId} = useParams();
     const id = parseInt(spotId);
+
+    useEffect(async () => {
+        await dispatch(getSpotDetails(id));
+        await dispatch(getSpotReviews(id));
+
+    }, [dispatch, id]);
     let user = useSelector((state) => state.session.user?.['id']);
     let spot = useSelector((state) => state.spots[id]);
     let reviews = useSelector((state) => Object.values(state.reviews));
     let spotsReviews = reviews.filter(review => review.spotId === id);
-    console.log(spotsReviews)
     let userHasReview = Object.values(spotsReviews.filter(review => review.userId === user)).length > 0;
-    useEffect(async () => {
-        dispatch(getSpotDetails(id))
-        dispatch(getSpotReviews(id))
-    }, [dispatch, id]);
 
     if(!spot) {
         return <div>Loading...</div>;
@@ -84,7 +85,7 @@ const SpotDetails = () => {
                                         <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
                                         <div className='review'>{review.review}</div>
 
-                                            {user === review.userId ? <DeleteReviewButton reviewId={review.id} /> : null}
+                                            {user === review.userId ? <DeleteReviewButton reviewId={review.id} spotId={id} /> : null}
                                     </div>
                                 )
                             })

@@ -101,91 +101,86 @@ function PostSpotForm() {
             Guests will only get your exact address once they booked a reservation.
         </p>
         <form onSubmit={onSubmit}>
-            <div>
-            <label htmlFor='country'>
-                Country:
-                <input
-                    id='country'
-                    type='text'
-                    onChange={e => setCountry(e.target.value)}
-                    value={country}
-                />
-            </label>
-            {errors.country && <p className='error'>{errors.country}</p>}
+            <div>Country: {errors.country && <p className='error'>{errors.country}</p>}
             </div>
-            <div>
-            <label htmlFor='address'>
-                Street Address:
-                <input
-                id='address'
-                type='text'
-                onChange={e => setAddress(e.target.value)}
-                value={address}
-            />
-            </label>
-            {errors.address && <p className='error'>{errors.address}</p>}
+                <label htmlFor='country'>
+                    <input
+                        placeholder='Country'
+                        id='country'
+                        type='text'
+                        onChange={e => setCountry(e.target.value)}
+                        value={country}
+                    />
+                </label>
+            <div>Street Address: {errors.address && <p className='error'>{errors.address}</p>}
             </div>
-            <div>
+                <label htmlFor='address'>
+
+                    <input
+                        placeholder='Address'
+                        id='address'
+                        type='text'
+                        onChange={e => setAddress(e.target.value)}
+                        value={address}
+                    />
+                </label>
+            <div>City: {errors.city && <p className='error'>{errors.city}</p>}
+                State: {errors.state && <p className='error'>{errors.state}</p>}
+            </div>
             <label htmlFor='city'>
-                City:
                 <input
+                placeholder='City'
                 id='city'
                 type='text'
                 onChange={e => setCity(e.target.value)}
                 value={city}
             />
             </label>
-            {errors.city && <p className='error'>{errors.city}</p>}
-            </div>
-            <div>
+            {','}
             <label htmlFor='state'>
-                State:
                 <input
+                placeholder='State'
                 id='state'
                 type='text'
                 onChange={e => setState(e.target.value)}
                 value={state}
             />
             </label>
-            {errors.state && <p className='error'>{errors.state}</p>}
+            <div>Latitude: {errors.lat && <p className='error'>{errors.lat}</p>}
+                Longitude: {errors.lng && <p className='error'>{errors.lng}</p>}
             </div>
-            <div>
             <label htmlFor='lat'>
-                Latitude:
                 <input
+                placeholder='latitude'
                 id='lat'
                 type='text'
                 onChange={e => setLat(e.target.value)}
                 value={lat}
             />
             </label>
-            {errors.lat && <p className='error'>{errors.lat}</p>}
-            </div>
-            <div>
             <label htmlFor='lng'>
-                Longitude:
                 <input
+                placeholder='longitude'
                 id='lng'
                 type='text'
                 onChange={e => setLng(e.target.value)}
                 value={lng}
             />
             </label>
-            {errors.lng && <p className='error'>{errors.lng}</p>}
-            </div>
             <h2>Describe your place to guests:</h2>
             <p>
                 Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.
             </p>
             <div>
             <label htmlFor='description'>
-            <input
-                placeholder='Please write at least 30 characters'
-                id='description'
-                type='text'
-                onChange={e => setDescription(e.target.value)}
-                value={description}
-            />
+                <textarea
+                    placeholder='Please write at least 30 characters'
+                    id='description'
+                    type='text'
+                    onChange={e => setDescription(e.target.value)}
+                    value={description}
+                >
+                </textarea>
             </label>
             {errors.description && <p className='error'>{errors.description}</p>}
             </div>
@@ -206,12 +201,13 @@ function PostSpotForm() {
             <h2>Set a base price for your spot:</h2>
             <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
             <div>
-            <label htmlFor='price'>
+            <label htmlFor='price' className='$'>
+                $
                 <input
                     placeholder="Price per night (USD)"
                     id='price'
                     type='text'
-                    onChange={e => setPrice(e.target.value)}
+                    onChange={e => setPrice(parseFloat(e.target.value))}
                     value={price}
                 />
             </label>

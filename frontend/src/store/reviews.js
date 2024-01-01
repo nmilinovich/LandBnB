@@ -51,7 +51,7 @@ export const postNewReview = (review, stars, userId, spotId) => async (dispatch)
     const newReview = await resReview.json();
     console.log(newReview);
     dispatch(postReview(newReview));
-    // dispatch(loadSpotReviews(newReview));
+    dispatch(getSpotReviews(spotId));
     return newReview;
 };
 
@@ -65,7 +65,6 @@ export const removeReview = (reviewId) => async (dispatch) => {
         }
     );
     await dispatch(deleteReview(reviewId));
-    // await dispatch(loadSpotReviews())
     return deletedSpot;
 }
 

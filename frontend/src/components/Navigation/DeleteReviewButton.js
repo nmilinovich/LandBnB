@@ -7,7 +7,7 @@ import DeleteReviewFormModal from "../Reviews/DeleteReviewFormModal";
 import PostSpot from '../Spots/PostSpot'
 import './Navigation.css'
 
-function DeleteSpotButton({ reviewId }) {
+function DeleteSpotButton({ reviewId, spotId }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -37,7 +37,7 @@ function DeleteSpotButton({ reviewId }) {
             <OpenModalMenuItem
               itemText="Delete"
               onItemClick={closeMenu}
-              modalComponent={<DeleteReviewFormModal reviewId={reviewId} />}
+              modalComponent={<DeleteReviewFormModal reviewId={reviewId} spotId={spotId} />}
             />
           </>
   );

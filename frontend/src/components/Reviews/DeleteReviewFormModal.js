@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import { getSpotDetails, getSpots } from "../../store/spots";
+import { getSpotReviews } from "../../store/reviews";
 import { removeReview } from "../../store/reviews";
 
-function DeleteReviewFormModal({ reviewId }) {
+function DeleteReviewFormModal({ reviewId, spotId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user?.id);
   const [review, setReview] = useState("");
@@ -15,8 +16,8 @@ function DeleteReviewFormModal({ reviewId }) {
 
   const handleDelete = (e) => {
     // if (password === confirmPassword) {
-      return dispatch(removeReview(reviewId))
-        // .then(() => dispatch(getSpots()))
+      return dispatch(removeReview(reviewId, spotId))
+        .then(() => dispatch(getSpotDetails(spotId)))
         .then(closeModal)
 
   };
