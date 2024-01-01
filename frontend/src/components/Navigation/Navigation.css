@@ -1,0 +1,27 @@
+.nav {
+    display: flex;
+    align-content: end;
+    flex-direction: row;
+}
+.profile-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.home {
+    display: flex;
+    justify-self: right;
+}
+.fas {
+    display: flex;
+    justify-content: right;
+    height: 2vh;
+    width: 1vw;
+}
+
+
+
+.profile-dropdown {
+    border: 2px solid black;
+    border-radius: 5px;
+}

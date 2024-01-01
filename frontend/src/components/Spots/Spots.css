@@ -1,0 +1,17 @@
+.tile {
+    display: flex;
+    flex-direction: column;
+}
+
+.location {
+    display: flex;
+    justify-content: space-between;
+}
+i {
+    align-self: flex-end;
+}
+
+.spots-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%/1, max(250px, 100%/4)), 1fr));
+}

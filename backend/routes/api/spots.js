@@ -103,14 +103,17 @@ router.get(
             where: {
                 spotId: spotId,
             },
+            order: [['createdAt', 'DESC']],
             include: [{
                 model: User,
-                attributes: ['id', 'firstName', 'lastName']
+                attributes: ['id', 'firstName', 'lastName'],
+
             },
             {
                 model: ReviewImages,
                 attributes: ['id', 'url']
-            }]
+            }],
+
         });
 
 
@@ -127,7 +130,7 @@ router.get(
         const spotId = req.params.spotId;
 
         const Spots = await Spot.findByPk(spotId, {
-            group: ["Reviews.id", "Reviews.stars", "SpotImages.id", "Spot.id", "Owner.id"],
+            group: ["SpotImages.id", "Spot.id", "Owner.id"],
             include: [{
                 model: Review,
                 attributes: [],
@@ -141,26 +144,27 @@ router.get(
                 attributes: ['id', 'firstName', 'lastName'],
                 as: "Owner"
             }],
-        attributes:
-        [
-            'id', 'ownerId', 'address', 'city', 'state', 'country', 'lat',
-            'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt',
-            [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
-            [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
-        ],
-    });
+            attributes: [
+                'id', 'ownerId', 'address', 'city', 'state', 'country', 'lat',
+                'lng', 'name', 'description', 'price', 'createdAt', 'updatedAt',
+                [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
+                [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'],
+            ],
+        });
+        console.log('DERP', Spots);
 
-    if (!Spots) {
-        let err = new Error("Spot couldn't be found");
-        err.title = "Spot couldn't be found";
-        // err.errors = "Spot couldn't be found";
-        err.status = 404;
-        return next(err);
+
+        if (!Spots) {
+            let err = new Error("Spot couldn't be found");
+            err.title = "Spot couldn't be found";
+            // err.errors = "Spot couldn't be found";
+            err.status = 404;
+            return next(err);
+        }
+
+        return res.json(Spots);
+
     }
-
-    return res.json(Spots);
-
-}
 );
 
 
@@ -199,8 +203,10 @@ router.get(
                 attributes: ['stars'],
             }, {
                 model: SpotImages,
+                // where: SpotImages.preview === true,
                 attributes: ['url'],
-                as: 'previewImage'
+                as: 'previewImage',
+
             }],
         };
 
@@ -298,7 +304,7 @@ router.get(
         return res.json({
            "Spots": returnedSpots,
            "page": page,
-           "size": size
+           "size": size,
         });
     }
 );
@@ -378,7 +384,7 @@ router.post(
         const { url, preview } = req.body;
 
         const spot = await Spot.findByPk(spotId);
-        if(spot && req.user.id !== spot.ownerId) {
+        if (spot && req.user.id !== spot.ownerId) {
             const err = new Error("Forbidden");
             err.title = "Forbidden";
             err.status = 403;

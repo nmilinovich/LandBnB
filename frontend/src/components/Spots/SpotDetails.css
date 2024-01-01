@@ -1,0 +1,59 @@
+section {
+
+}
+
+.card {
+    margin-bottom: 10px;
+}
+
+.infoBox {
+    border: solid 1px;
+    border-radius: 3px;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    margin: 2px 10px;
+}
+
+button {
+    margin: 2px 10px;
+}
+
+.previewImg {
+    height:40vh;
+    width: 40vw;
+}
+
+.otherImg {
+    height:20vh;
+    width: 20vh;
+}
+
+.reviewSection {
+    border-top: 2px solid black;
+}
+
+header {
+    margin: 10px 0px;
+}
+
+.reviewDate {
+    color: rgba(84, 84, 84, 0.605);
+}
+
+.review {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    margin-top: 3px;
+    padding-top: 2px;
+    border-top: 1px dashed grey ;
+}
+
+.reviewCard {
+    border: 3px solid black;
+    border-radius: 3px;
+    padding: 5px
+}

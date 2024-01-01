@@ -3,19 +3,16 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
+import CreateReviewFormModal from '../Reviews/CreateReviewFormModal'
 import PostSpot from '../Spots/PostSpot'
 import './Navigation.css'
-function ProfileButton({ user }) {
+import { useParams } from "react-router-dom";
+
+function CreateReviewButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  let { spotId } = useParams();
   const ulRef = useRef();
-
-  const openMenu = () => {
-    if (showMenu) return;
-    setShowMenu(true);
-  };
 
   useEffect(() => {
     if (!showMenu) return;
@@ -42,37 +39,15 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <div className="profile-container">
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
-      <ul className={ulClassName} hidden={!showMenu} ref={ulRef}>
-        {user ? (
-          <>
-            <li className="name">Hello {user.firstName}</li>
-            <li className="email">{user.email}</li>
-            <Link className="manage" to='/spots/current'>Manage Spots</Link>
-            <li className="logoutButton">
-              <button onClick={logout}>Log Out</button>
-            </li>
-          </>
-        ) : (
           <>
             <OpenModalMenuItem
-              itemText="Log In"
+              itemText="Create Your Review"
               onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-            <OpenModalMenuItem
-              itemText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
+              modalComponent={<CreateReviewFormModal spotId={spotId} />}
             />
           </>
-        )}
-      </ul>
-    </div>
+
   );
 }
 
-export default ProfileButton;
+export default CreateReviewButton;
