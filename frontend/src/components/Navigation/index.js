@@ -9,11 +9,11 @@ function Navigation({ isLoaded }){
 
   return (
     <ul className='nav'>
-      <button className='home'>
-        <NavLink exact to="/">Home</NavLink>
-      </button>
+      <i className="fa-brands fa-airbnb">
+      <NavLink exact to="/">Home</NavLink>
+      </i>
       {isLoaded && (
-        <div>
+        <div className='createAndButton'>
           <NavLink className='spotForm' exact to='/spots/new'>Create a New Spot!</NavLink>
           <ProfileButton className='button' user={sessionUser} />
         </div>

@@ -2,15 +2,25 @@
     display: flex;
     align-content: end;
     flex-direction: row;
+    justify-content: space-between;
 }
 .profile-container {
     display: flex;
     flex-direction: column;
+    justify-self: flex-end;
+    position: static;
 }
 
-.home {
+.dropdown-button {
+    min-width: 30px
+}
+
+.fa-airbnb {
     display: flex;
-    justify-self: right;
+    align-self:flex-start;
+    height: 50px;
+    width: 75px;
+    position: sticky
 }
 .fas {
     display: flex;
@@ -19,9 +29,21 @@
     width: 1vw;
 }
 
+.createAndButton {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between ;
+}
 
+ProfileButton {
+    width: 60px;
+}
 
 .profile-dropdown {
     border: 2px solid black;
     border-radius: 5px;
+}
+
+.spotForm {
+    max-height: 5px;
 }
