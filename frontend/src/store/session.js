@@ -73,7 +73,6 @@ export const logout = () => async (dispatch) => {
     return res;
 };
 
-
 const sessionReducer = (state = { user: null }, action) => {
     console.log(action)
     switch (action.type) {

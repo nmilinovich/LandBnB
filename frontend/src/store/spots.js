@@ -36,6 +36,7 @@ export const getSpots = () => async (dispatch) => {
     const res = await csrfFetch("/api/spots");
     if (res.ok) {
       const data = await res.json();
+      console.log(data);
       dispatch(loadSpots(data));
       return data;
     }

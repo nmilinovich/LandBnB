@@ -11,7 +11,6 @@ const Spots = () => {
     const spots = useSelector((state) => Object.values(state.spots))
     useEffect(() => {
         dispatch(getSpots())
-        console.log(spots)
     }, [dispatch])
     if (!spots.length) {
         return <div>Loading...</div>

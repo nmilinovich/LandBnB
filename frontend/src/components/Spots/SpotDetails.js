@@ -31,10 +31,13 @@ const SpotDetails = () => {
                 <div className="card">
                     <h1>{spot.name}</h1>
                     <h3>{spot.city}, {spot.state}, {spot.country}</h3>
-                    {spot.SpotImages?.map(image => {
-                        return <img key={image.url} className={image['preview'] ? 'previewImg' : 'otherImg'} src={`${image['url']}`} alt='image'/>
-                    })
-                    }
+                    <ul className='img-container'>
+                        {spot.SpotImages?.map(image => {
+                            return <img key={image.url} className={image['preview'] ? 'previewImg' : 'otherImg'} src={`${image['url']}`} alt='image'/>
+                        })
+                        }
+                    </ul>
+
                     <div>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</div>
                     <p>{spot.description}</p>
                     <div className='infoBox'>
