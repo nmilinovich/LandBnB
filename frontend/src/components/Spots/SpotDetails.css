@@ -12,7 +12,11 @@ section {
 .img-container {
     padding-left: 0px;
     display: flex;
+    grid-auto-flow: column;
+    max-width: fit-content;
 }
+
+
 .infoBox {
     border: solid 1px;
     border-radius: 3px;
@@ -32,10 +36,13 @@ section {
     text-align: start;
     justify-content: start;
     padding-bottom: 5px;
-    min-width: 98vw;
 }
 button {
     margin: 2px 10px;
+}
+
+h3 {
+    width: 98vw;
 }
 
 .previewImg {
@@ -47,6 +54,7 @@ button {
     height:20vh;
     width: 20vh;
     margin: 2px 2px;
+    display: flex;
 }
 
 li {
@@ -61,6 +69,10 @@ li {
 
 .reviewSection {
     border-top: 2px solid black;
+}
+
+h1 {
+    text-align: start;
 }
 
 h3 {
@@ -95,5 +107,9 @@ header {
 .reviewCard {
     border: 3px solid black;
     border-radius: 3px;
-    padding: 5px
+    padding-top: 5px
+}
+
+.review-container {
+    padding-top: 10px;
 }

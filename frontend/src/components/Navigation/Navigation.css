@@ -6,13 +6,14 @@
     border-bottom: 1px solid grey;
     width: 90vw;
     flex-wrap: none;
-    text-align: center;
+    /* text-align: center; */
 }
 .profile-container {
     display: flex;
     flex-direction: column;
-    justify-self: flex-end;
-    position: static;
+    justify-content: flex-start;
+
+    max-width: fit-content;
 }
 
 i {
@@ -21,7 +22,7 @@ i {
 }
 
 .dropdown-button {
-    min-width: 30px
+    min-width: 30px;
 }
 
 .fa-airbnb {
@@ -63,6 +64,7 @@ i {
 }
 
 .name {
-    max-width: 100px;
+    max-width: fit-content;
     margin-right: none;
+    padding-right: 0px;
 }

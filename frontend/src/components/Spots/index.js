@@ -25,14 +25,18 @@ const Spots = () => {
 
                                 {spot.previewImage && <img src={spot.previewImage['url']} alt='preview'/>}
                                 <div className='location'>
-                                    {spot.city + ', '}
-                                    {spot.state + ' '}
+                                    <div>{spot.city + ', '}
+                                        {spot.state + ' '}
+                                    </div>
                                     <i className="fa-solid fa-star"> {spot.avgRating?.toFixed(1) ?? 'new'}</i>
                                 </div>
                                 {spot.country + ' '}
                                 <div className='price'>
+                                    <div>
                                     {spot.price?.toFixed(2) + ' '}
                                     <label>night</label>
+                                    </div>
+
                                 </div>
                             </Link>
                         </div>

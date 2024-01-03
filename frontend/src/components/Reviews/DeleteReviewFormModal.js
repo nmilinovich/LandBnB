@@ -31,9 +31,12 @@ function DeleteReviewFormModal({ reviewId, spotId }) {
         <div onClick={handleDelete}>
             Yes (Delete Review)
         </div>
-        <div onClick={closeModal}>
+        <button onClick={closeModal}>
+        <div >
             No (Keep Review)
         </div>
+        </button>
+
     </>
   );
 }

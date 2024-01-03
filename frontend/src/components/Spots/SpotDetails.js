@@ -32,8 +32,9 @@ const SpotDetails = () => {
                     <h1>{spot.name}</h1>
                     <h3>{spot.city}, {spot.state}, {spot.country}</h3>
                     <ul className='img-container'>
-                        {spot.SpotImages?.map(image => {
-                            return <img key={image.url} className={image['preview'] ? 'previewImg' : 'otherImg'} src={`${image['url']}`} alt='image'/>
+                        {spot.SpotImages?.map((image, i = 0) => {
+                            i += 1
+                            return <img key={image.url} className={image['preview'] ? `previewImg ${i}` : `otherImg ${i}`} src={`${image['url']}`} alt='image'/>
                         })
                         }
                     </ul>
@@ -87,20 +88,27 @@ const SpotDetails = () => {
 
                         : null
                         }
+                    <div className='review-container'>
                         {spotsReviews?.length ?
                             spotsReviews.sort((a, b) => a.createdAt < b.createdAt ? 1 : -1).map(review => {
                                 return (
-                                    <div className='reviewCard' key={review.id}>
-                                        <div className='reviewOwner'>{review.User?.firstName}</div>
-                                        <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
-                                        <div className='review'>{review.review}</div>
-                                            {user === review.userId ? <button><DeleteReviewButton reviewId={review.id} spotId={id} /></button> : null}
+                                    <div>
+                                        <div className='reviewCard' key={review.id}>
+                                            <div className='reviewOwner'>{review.User?.firstName}</div>
+                                            <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
+                                            <div className='review'>{review.review}</div>
+                                                {user === review.userId ? <button><DeleteReviewButton reviewId={review.id} spotId={id} /></button> : null}
+                                        </div>
+                                        <p></p>
                                     </div>
+
                                 )
                             })
                             :
                             user && user !== spot.Owner?.id && <div>Be the first to Post a review</div>
                         }
+                    </div>
+
                     </section>
                 </div>
 

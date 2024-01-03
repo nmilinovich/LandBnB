@@ -12,7 +12,14 @@
 .location {
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 i {
     align-self: flex-end;
+}
+
+.price {
+    display: flex;
+    justify-content: left;
+    width: 100%;
 }
