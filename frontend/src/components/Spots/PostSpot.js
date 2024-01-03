@@ -124,49 +124,57 @@ function PostSpotForm() {
                             value={address}
                         />
                     </label>
-                <div className='cityStateDiv'>City: {errors.city && <p className='error'>{errors.city}</p>}
-                    State: {errors.state && <p className='error'>{errors.state}</p>}
+                <div className='cityStateDiv'>
+                    <div>City: {errors.city && <p className='error'>{errors.city}</p>}</div>
+                    <div>State: {errors.state && <p className='error'>{errors.state}</p>}</div>
                 </div>
-                <label htmlFor='city'>
-                    <input
-                    placeholder='City'
-                    id='city'
-                    type='text'
-                    onChange={e => setCity(e.target.value)}
-                    value={city}
-                />
-                </label>
-                {','}
-                <label htmlFor='state'>
-                    <input
-                    placeholder='State'
-                    id='state'
-                    type='text'
-                    onChange={e => setState(e.target.value)}
-                    value={state}
-                />
-                </label>
-                <div className='latLngDiv'>Latitude: {errors.lat && <p className='error'>{errors.lat}</p>}
-                    Longitude: {errors.lng && <p className='error'>{errors.lng}</p>}
+                <span className='cityStateDiv'>
+                    <label htmlFor='city'>
+                        <input
+                        placeholder='City'
+                        id='city'
+                        type='text'
+                        onChange={e => setCity(e.target.value)}
+                        value={city}
+                    />
+                    </label>
+                    {','}
+                    <label htmlFor='state'>
+                        <input
+                        placeholder='State'
+                        id='state'
+                        type='text'
+                        onChange={e => setState(e.target.value)}
+                        value={state}
+                    />
+                    </label>
+                </span>
+
+                <div className='latLngDiv'>
+                    <div>Latitude: {errors.lat && <p className='error'>{errors.lat}</p>}</div>
+                    <div>Longitude: {errors.lng && <p className='error'>{errors.lng}</p>}</div>
                 </div>
-                <label htmlFor='lat'>
-                    <input
-                    placeholder='latitude'
-                    id='lat'
-                    type='text'
-                    onChange={e => setLat(e.target.value)}
-                    value={lat}
-                />
-                </label>
-                <label htmlFor='lng'>
-                    <input
-                    placeholder='longitude'
-                    id='lng'
-                    type='text'
-                    onChange={e => setLng(e.target.value)}
-                    value={lng}
-                />
-                </label>
+                <span className='latLngDiv'>
+                    <label htmlFor='lat'>
+                        <input
+                        placeholder='latitude'
+                        id='lat'
+                        type='text'
+                        onChange={e => setLat(e.target.value)}
+                        value={lat}
+                    />
+                    </label>
+                    <label htmlFor='lng'>
+                        <input
+                        placeholder='longitude'
+                        id='lng'
+                        type='text'
+                        onChange={e => setLng(e.target.value)}
+                        value={lng}
+                    />
+                    </label>
+                </span>
+                <hr/>
                 <h2>Describe your place to guests:</h2>
                 <p>
                     Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.
@@ -184,6 +192,7 @@ function PostSpotForm() {
                 </label>
                 {errors.description && <p className='error'>{errors.description}</p>}
                 </div>
+                <hr/>
                 <h2>Create a title for your spot:</h2>
                 <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
                 <div>
@@ -198,6 +207,7 @@ function PostSpotForm() {
                 </label>
                 {errors.name && <p className='error'>{errors.name}</p>}
                 </div>
+                <hr/>
                 <h2>Set a base price for your spot:</h2>
                 <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
                 <div>
@@ -213,6 +223,7 @@ function PostSpotForm() {
                 </label>
                 {errors.price && <p className='error'>{errors.price}</p>}
                 </div>
+                <hr/>
                 <h2>Liven up your spot with photos</h2>
                 <div>Submit a link to at least one photo to publish your spot.</div>
                 <div className='imageTextAreas'>

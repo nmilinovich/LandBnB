@@ -36,6 +36,16 @@ form {
     max-width: 330px;
 }
 
+.postForm {
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    align-content: justify;
+    justify-content: justify;
+    text-align: justify;
+    max-width: 330px;
+}
+
 div {
     align-self: center;
     text-align: justify;
@@ -60,14 +70,23 @@ button {
     text-align: justify;
 }
 
+hr {
+    border-bottom: 1px black solid;
+    width: 100%;
+    margin-top: 25px;
+}
+
 .latLngDiv {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
+
 
 .cityStateDiv {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 #createButton {
