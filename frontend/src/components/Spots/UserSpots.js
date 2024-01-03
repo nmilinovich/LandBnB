@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getSpots } from '../../store/spots';
 import DeleteSpotButton from '../Navigation/DeleteSpotButton';
 import UpdateSpotButton from '../Navigation/UpdateSpotButton';
+import './Spots.css'
 const UserSpots = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -17,33 +18,36 @@ const UserSpots = () => {
     let userSpots = Object.values(spots).filter((spot) => spot.ownerId === user);
     console.log(userSpots)
     return (
-        userSpots.length ? userSpots.map((spot) =>
+        <ul>
+            <div className='spots-grid-container'>
+                {userSpots.length ? userSpots.map((spot) =>
+                        <div key={spot.id}>
+                            <Link className='tile' to={`/spots/${spot.id}`}>
+                                {spot.previewImage && <img src={spot.previewImage['url']} alt='preview'/>}
+                                <div className='location'>
+                                    {spot.city + ', '}
+                                    {spot.state + ' '}
+                                    <i className="fa-solid fa-star"> {spot.avgRating?.toFixed(1) ?? 'new'}</i>
 
-                <div key={spot.id}>
-                    <Link className='tile' to={`/spots/${spot.id}`}>
-                        {spot.previewImage && <img src={spot.previewImage['url']} alt='preview'/>}
-                        <div className='location'>
-                            {spot.city + ', '}
-                            {spot.state + ' '}
-                            <i className="fa-solid fa-star"> {spot.avgRating?.toFixed(1) ?? 'new'}</i>
-
+                                </div>
+                                {spot.country + ' '}
+                                <div className='price'>
+                                    {spot.price.toFixed(2) + ' '}
+                                    <label>night</label>
+                                </div>
+                            </Link>
+                            <UpdateSpotButton spotId={spot.id}/>
+                            <button>
+                            <DeleteSpotButton spotId={spot.id}/>
+                            </button>
                         </div>
-                        {spot.country + ' '}
-                        <div className='price'>
-                            {spot.price.toFixed(2) + ' '}
-                            <label>night</label>
-                        </div>
-                    </Link>
-                    <UpdateSpotButton spotId={spot.id}/>
-                    <button>
-                    <DeleteSpotButton spotId={spot.id}/>
-                    </button>
-                </div>
+                )
+                    : <NavLink to='/spots/new'>Create a New Spot</NavLink>
+                }
+            </div>
+        </ul>
 
 
-
-        )
-            : <NavLink to='/spots/new'>Create a New Spot</NavLink>
     )
 }
 

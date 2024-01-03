@@ -76,7 +76,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        url: "https://cdn.luxe.digital/media/20230123162705/most-expensive-houses-in-the-world-reviews-luxe-digital.jpg",
+        url: "https://static.vecteezy.com/system/resources/thumbnails/002/172/762/small/house-front-view-illustration-free-vector.jpg",
         preview: false,
       },
       {

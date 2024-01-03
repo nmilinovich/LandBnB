@@ -39,14 +39,14 @@ function CreateReviewFormModal({ spotId }) {
       <h1>How was Your Stay?</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Review:
-          <input
+          <textarea
             placeholder="Leave your review here..."
             type="text"
             value={review}
             onChange={(e) => setReview(e.target.value)}
             required
-          />
+          >
+          </textarea>
         </label>
         {errors.review && <p className="error">{errors.review}</p>}
         <label>

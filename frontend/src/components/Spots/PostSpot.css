@@ -11,3 +11,77 @@
 .error {
     color: red;
 }
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+h2 {
+    align-self: center;
+}
+
+h3 {
+    align-self: center;
+}
+
+form {
+    justify-content: center;
+    align-self: center;
+    justify-self: center;
+    align-content: justify;
+    justify-content: justify;
+    text-align: justify;
+    max-width: 330px;
+}
+
+div {
+    align-self: center;
+    text-align: justify;
+}
+
+label {
+    /* align-self: center; */
+    align-content: center;
+    text-align: justify;
+}
+
+p {
+    align-self: center;
+    text-align: justify;
+}
+
+button {
+
+}
+
+.address {
+    text-align: justify;
+}
+
+.latLngDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+.cityStateDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+#createButton {
+    display: flex;
+    align-self: center;
+    justify-self: center;
+}
+
+.createDiv {
+    text-align: center;
+}
+
+
+
+button:hover {
+    cursor: pointer;
+}

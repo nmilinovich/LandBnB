@@ -3,12 +3,21 @@
     align-content: end;
     flex-direction: row;
     justify-content: space-between;
+    border-bottom: 1px solid grey;
+    width: 90vw;
+    flex-wrap: none;
+    text-align: center;
 }
 .profile-container {
     display: flex;
     flex-direction: column;
     justify-self: flex-end;
     position: static;
+}
+
+i {
+    justify-content: center;
+    align-items: center;
 }
 
 .dropdown-button {
@@ -20,7 +29,8 @@
     align-self:flex-start;
     height: 50px;
     width: 75px;
-    position: sticky
+    position: sticky;
+    color: red;
 }
 .fas {
     display: flex;
@@ -32,18 +42,27 @@
 .createAndButton {
     display: flex;
     flex-direction: row;
-    justify-content:space-between ;
+    justify-self: center;
+    max-width: 120px;
 }
 
-ProfileButton {
+.button {
     width: 60px;
 }
+
 
 .profile-dropdown {
     border: 2px solid black;
     border-radius: 5px;
+    max-width: 106px;
 }
 
 .spotForm {
     max-height: 5px;
+    text-align: start;
+}
+
+.name {
+    max-width: 100px;
+    margin-right: none;
 }

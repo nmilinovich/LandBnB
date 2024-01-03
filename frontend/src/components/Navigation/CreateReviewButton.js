@@ -8,7 +8,7 @@ import PostSpot from '../Spots/PostSpot'
 import './Navigation.css'
 import { useParams } from "react-router-dom";
 
-function CreateReviewButton({ user }) {
+function  CreateReviewButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   let { spotId } = useParams();

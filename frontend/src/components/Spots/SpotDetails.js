@@ -37,30 +37,35 @@ const SpotDetails = () => {
                         })
                         }
                     </ul>
-
-                    <div>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</div>
-                    <p>{spot.description}</p>
-                    <div className='infoBox'>
-                        <div className='info'>
-                            <span>
-                                {'$'+spot.price.toFixed(2)+' night'}
-                            </span>
-                            {' '}
-                            <i className="fa-solid fa-star" />
-                            {' '}
-                            <span>
-                                {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
-                            </span>
-                            {' ˙ '}
-                            {spot.numReviews ?
-                                <span>
-                                    {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : ''}
-                                </span>
-                                : null
-                            }
-                        </div>
-                        <button onClick={() => alert('Feature coming soon.')}>Reserve</button>
+                    <div>
+                        <div className='name'>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</div>
                     </div>
+
+                    <div className='descriptionDiv'>
+                        <span className='description'>{spot.description}</span>
+                        <div className='infoBox'>
+                            <div className='info'>
+                                <span>
+                                    {'$'+spot.price.toFixed(2)+' night'}
+                                </span>
+                                {' '}
+                                <i className="fa-solid fa-star" />
+                                {' '}
+                                <span>
+                                    {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
+                                </span>
+                                {' ˙ '}
+                                {spot.numReviews ?
+                                    <span>
+                                        {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : ''}
+                                    </span>
+                                    : null
+                                }
+                            </div>
+                            <button onClick={() => alert('Feature coming soon.')}>Reserve</button>
+                        </div>
+                    </div>
+
                 </div>
                 <div className='reviewSection'>
                     <header>
@@ -75,9 +80,11 @@ const SpotDetails = () => {
                         }
                     </header>
                     <section>
-
                         {(user && !userHasReview && user !== spot.Owner?.id) ?
-                        <CreateReviewButton />
+                        <button className='createRev'>
+                            <CreateReviewButton />
+                        </button>
+
                         : null
                         }
                         {spotsReviews?.length ?
@@ -87,8 +94,7 @@ const SpotDetails = () => {
                                         <div className='reviewOwner'>{review.User?.firstName}</div>
                                         <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
                                         <div className='review'>{review.review}</div>
-
-                                            {user === review.userId ? <DeleteReviewButton reviewId={review.id} spotId={id} /> : null}
+                                            {user === review.userId ? <button><DeleteReviewButton reviewId={review.id} spotId={id} /></button> : null}
                                     </div>
                                 )
                             })
