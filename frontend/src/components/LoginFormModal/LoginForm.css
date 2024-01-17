@@ -6,3 +6,8 @@ h1 {
 .error {
     color: red;
 }
+
+#DemoUser {
+    text-align: center;
+    text-decoration: underline;
+}
