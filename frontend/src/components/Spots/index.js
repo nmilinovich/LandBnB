@@ -23,7 +23,11 @@ const Spots = () => {
                         <div key={spot.id}>
                             <Link className='tile' to={`/spots/${spot.id}`}>
 
-                                {spot.previewImage && <img src={spot.previewImage['url']} alt='preview'/>}
+                                {spot.previewImage &&
+                                <div> <img src={spot.previewImage['url']} className='homeSpotImage' alt='preview'/>
+                                </div>
+                                }
+
                                 <div className='location'>
                                     <div>{spot.city + ', '}
                                         {spot.state + ' '}

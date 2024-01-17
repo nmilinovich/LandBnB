@@ -23,3 +23,8 @@ i {
     justify-content: left;
     width: 100%;
 }
+
+.homeSpotImage {
+    height: 24vh;
+    width: 24vw;
+}

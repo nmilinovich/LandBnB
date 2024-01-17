@@ -58,7 +58,7 @@ const SpotDetails = () => {
                                 {' ˙ '}
                                 {spot.numReviews ?
                                     <span>
-                                        {spot.numReviews + ' review'}{spot.numReviews !== 1 ? 's' : ''}
+                                        {spot.numReviews + ' review'}{spot.numReviews == 1 ? '' : 's'}
                                     </span>
                                     : null
                                 }
