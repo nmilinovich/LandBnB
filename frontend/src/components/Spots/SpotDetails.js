@@ -56,7 +56,7 @@ const SpotDetails = () => {
                                     {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
                                 </span>
 
-                                {spot.numReviews.length ?
+                                {spot.numReviews > 0 ?
                                     <span>
                                         {' · ' + spot.numReviews + ' review'}{spot.numReviews == 1 ? '' : 's'}
                                     </span>
@@ -75,7 +75,7 @@ const SpotDetails = () => {
                         <span>
                             {spot.avgStarRating?.toFixed(1) ?? 'new' + ' '}
                         </span>
-                        {spot.numReviews ?
+                        {spot.numReviews > 0 ?
                             <span> · {spot.numReviews + ' review'}{spot.numReviews == 1 ? '' : 's'}</span>
                             : null
                         }
