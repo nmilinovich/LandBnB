@@ -5,6 +5,7 @@ import * as sessionActions from "../../store/session";
 import { getSpotDetails, getSpots } from "../../store/spots";
 import { getSpotReviews } from "../../store/reviews";
 import { removeReview } from "../../store/reviews";
+import './DeleteReviewFormModal.css'
 
 function DeleteReviewFormModal({ reviewId, spotId }) {
   const dispatch = useDispatch();
@@ -24,15 +25,15 @@ function DeleteReviewFormModal({ reviewId, spotId }) {
 
   return (
     <>
-        <h1>Confirm Delete?</h1>
+        <h1 className="confirm">Confirm Delete?</h1>
         <p>
             Are you sure you want to remove this review?
         </p>
         <div onClick={handleDelete}>
             Yes (Delete Review)
         </div>
-        <button onClick={closeModal}>
-        <div >
+        <button  onClick={closeModal}>
+        <div className="noButton">
             No (Keep Review)
         </div>
         </button>
