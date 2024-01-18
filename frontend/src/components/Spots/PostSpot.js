@@ -34,63 +34,48 @@ function PostSpotForm() {
             description,
             price
         };
-
-        // if (errors.keys) {
-        //     null;
-        // } else {
+        let errHits = {}
+        if (!country) {
+            errHits.country = "Country is required."
+        }
+        if (!urlImages[0]) {
+            errHits.urlImages = "You must provide a preview image for your spot.";
+        }
+        if (!address) {
+            errHits.address = "Address is required.";
+        }
+        if (!city) {
+            errHits.city = "City is required.";
+        }
+        if (!state) {
+            errHits.state = "State is required.";
+        }
+        if (lat > 90 || lat < -90 || !lat) {
+            errHits.lat = "Latitude is not valid.";
+        }
+        if (lng < -180 || lng > 180 || !lng) {
+            errHits.lng = "Longitude is not valid.";
+        }
+        if (description.length < 30) {
+            errHits.description = "Description must be more than 30 characters.";
+        }
+        if (!name || name.length > 50) {
+            errHits.name = "Name must be less than 50 characters.";
+        }
+        if (typeof price !== 'number' || price < 0.01) {
+            errHits.price = "Price per day is required.";
+        }
+        setErrors(errHits);
+        if (!Object.values(errHits).length) {
             return dispatch(postNewSpot(Spot, urlImages.filter((url) => url)))
             .then((newSpot) => history.push(`/spots/${newSpot.id}`))
             .catch(async (res) => {
                 const data = await res.json();
-                if (!country) {
-                    errors.country = "Country is required.";
-                }
-                if (!address) {
-                    errors.address = "Address is required.";
-                }
-                if (!city) {
-                    errors.city = "City is required.";
-                }
-                if (!state) {
-                    errors.state = "State is required.";
-                }
-                if (lat > 90 || lat < -90 || !lat) {
-                    errors.lat = "Latitude is not valid.";
-                } else {
-                    errors.lat = null;
-                }
-                if (lng < -180 || lng > 180 || !lng) {
-                    errors.lng = "Longitude is not valid.";
-                } else {
-                    errors.lng = null;
-                }
-                if (description.length < 30) {
-                    errors.description = "Description must be more than 30 characters.";
-                }
-                if (!name || name.length > 50) {
-                    errors.name = "Name must be less than 50 characters.";
-                }
-                if (typeof price !== 'number' || price < 0.01) {
-                    errors.price = "Price per day is required.";
-                }
-                if (!urlImages[0]) {
-                    errors.urlImages = "You must provide a preview image for your spot."
-                }
-                console.log(errors)
+                console.log(errors);
+                console.log(errHits)
                 return setErrors(errors)
             });
-
-            setCountry('');
-            setAddress('');
-            setCity('');
-            setState('');
-            setLat(0);
-            setLng(0);
-            setDescription('');
-            setName('');
-            setPrice(null);
-            setUrlImages([]);
-        // }
+        }
     };
 
     return (

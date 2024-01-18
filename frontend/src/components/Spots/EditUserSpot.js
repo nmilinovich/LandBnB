@@ -239,7 +239,7 @@ function EditSpotForm() {
                 {errors.urlImages && <p className='error'>{errors.urlImages}</p>}
             </div> */}
             <div className='createDiv'>
-                <button>Create Spot</button>
+                <button>Update your Spot</button>
             </div>
         </form>
         </section>
