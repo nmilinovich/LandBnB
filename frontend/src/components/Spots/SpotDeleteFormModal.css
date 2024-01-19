@@ -1,0 +1,31 @@
+#confirm {
+    text-align: center;
+}
+
+#YDeleteSpotDiv {
+    text-align: center;
+    align-self: center;
+}
+
+#NDeleteSpotDiv {
+    text-align: center;
+    align-self: center;
+}
+
+#YDeleteSpotBtn {
+    background-color: rgb(221, 7, 7);
+    border-radius: 4px;
+    width: 250px;
+    font-size: 14px;
+    height: 40px;
+}
+
+#NDeleteSpotBtn {
+    background-color: grey;
+    align-self: center;
+    border-radius: 4px;
+    width: 250px;
+    font-size: 14px;
+    height: 40px;
+
+}

@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import { getSpotDetails, getSpots } from "../../store/spots";
 import { removeSpot } from "../../store/spots";
+import './SpotDeleteFormModal.css';
 
 function SpotDeleteFormModal({ spotId }) {
   const dispatch = useDispatch();
@@ -11,9 +12,6 @@ function SpotDeleteFormModal({ spotId }) {
   console.log(window.location.href);
   spotId = parseInt(spotId);
   console.log(spotId);
-  const [review, setReview] = useState("");
-  const [stars, setStars] = useState(null);
-  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
   const handleDelete = (e) => {
@@ -27,15 +25,19 @@ function SpotDeleteFormModal({ spotId }) {
 
   return (
     <>
-        <h1>Confirm Delete?</h1>
+        <h1 id="confirm">Confirm Delete?</h1>
         <p>
-            Are you sure you want to remove this review from the listings?
+            Are you sure you want to remove this spot from the listings?
         </p>
-        <div onClick={handleDelete}>
-            Yes (Delete Spot)
+        <div id="YDeleteSpotDiv">
+          <button id='YDeleteSpotBtn' onClick={handleDelete}>
+              Yes (Delete Spot)
+          </button>
         </div>
-        <div onClick={closeModal}>
-            No (Keep Spot)
+        <div id="NDeleteSpotDiv">
+          <button id='NDeleteSpotBtn' onClick={closeModal}>
+              No (Keep Spot)
+          </button>
         </div>
     </>
   );

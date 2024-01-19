@@ -26,6 +26,10 @@ h3 {
     align-self: center;
 }
 
+.where {
+    text-align: center;
+}
+
 form {
     justify-content: center;
     align-self: center;
