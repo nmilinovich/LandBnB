@@ -1,7 +1,31 @@
-.noButton {
-    border: 1px solid black;
+#confirm {
+    text-align: center;
 }
 
-.confirm {
+#YDeleteRvwDiv {
     text-align: center;
+    align-self: center;
+}
+
+#NDeleteRvwDiv {
+    text-align: center;
+    align-self: center;
+}
+
+#YDeleteRvwBtn {
+    background-color: rgb(221, 7, 7);
+    border-radius: 4px;
+    width: 250px;
+    font-size: 14px;
+    height: 40px;
+}
+
+#NDeleteRvwBtn {
+    background-color: grey;
+    align-self: center;
+    border-radius: 4px;
+    width: 250px;
+    font-size: 14px;
+    height: 40px;
+
 }

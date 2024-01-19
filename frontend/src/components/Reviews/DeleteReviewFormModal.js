@@ -25,18 +25,20 @@ function DeleteReviewFormModal({ reviewId, spotId }) {
 
   return (
     <>
-        <h1 className="confirm">Confirm Delete?</h1>
+        <h1 id="confirm">Confirm Delete?</h1>
         <p>
             Are you sure you want to remove this review?
         </p>
-        <div onClick={handleDelete}>
-            Yes (Delete Review)
+        <div id="YDeleteRvwDiv">
+          <button id="YDeleteRvwBtn" onClick={handleDelete}>
+              Yes (Delete Review)
+          </button>
         </div>
-        <button  onClick={closeModal}>
-        <div className="noButton">
-            No (Keep Review)
+        <div id="NDeleteRvwDiv">
+          <button id="NDeleteRvwBtn" onClick={closeModal}>
+              No (Keep Review)
+          </button>
         </div>
-        </button>
 
     </>
   );
