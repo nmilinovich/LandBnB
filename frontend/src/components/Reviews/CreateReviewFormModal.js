@@ -14,16 +14,20 @@ function CreateReviewFormModal({ spotId }) {
   spotId = parseInt(spotId);
   console.log(spotId);
   const [review, setReview] = useState("");
-  const [stars, setStars] = useState(null);
+  const [currVal, setCurrVal] = useState(0);
+  const [hoverVal, setHoverVal] = useState(undefined)
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const stars = Array(5).fill(0);
+
   const handleSubmit = (e) => {
-    console.log(spotId);
+    console.log(stars);
+    console.log(currVal)
     e.preventDefault();
     // if (password === confirmPassword) {
       setErrors({});
-      return dispatch(postNewReview(review, stars, user, spotId))
+      return dispatch(postNewReview(review, currVal, user, spotId))
         .then(closeModal)
         .then(() => dispatch(getSpotDetails(spotId)))
         .catch(async (res) => {
@@ -33,6 +37,18 @@ function CreateReviewFormModal({ spotId }) {
           }
         });
   };
+
+  const handleClick = value => {
+    setCurrVal(value)
+  }
+
+  const handleMouseHover = value => {
+    setHoverVal(value)
+  }
+
+  const handleMouseLeave = () => {
+    setHoverVal(undefined)
+  }
 
   return (
     <>
@@ -51,13 +67,16 @@ function CreateReviewFormModal({ spotId }) {
         {errors.review && <p className="error">{errors.review}</p>}
         <label>
           Stars:
-          <input
-            placeholder=""
-            type="number"
-            value={stars}
-            onChange={(e) => setStars(e.target.value)}
-            required
-          />
+
+          <div
+          >
+            {stars.map((_, i) => {
+              return (
+                <i class={`fa-solid fa-star ${(hoverVal || currVal) > i ? 'filled' : 'unfilled'}`} key={i} onClick={() => handleClick(i + 1)} onMouseOver={() => handleMouseHover(i + 1)} onMouseLeave={handleMouseLeave} color={(hoverVal || currVal) > i ? 'orange' : 'grey'}>
+                </i>
+              )
+            })}
+          </div>
         </label>
         {errors.stars && <p className="error">{errors.stars}</p>}
         <button type="submit" disabled={review.length < 10 || !stars}>Submit Your Review</button>

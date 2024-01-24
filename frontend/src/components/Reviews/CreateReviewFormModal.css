@@ -5,3 +5,10 @@
 form {
     display: grid;
 }
+.filled {
+    color: yellow;
+}
+
+.unfilled {
+    color: grey;
+}
