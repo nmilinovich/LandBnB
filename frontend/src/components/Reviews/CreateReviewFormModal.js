@@ -67,12 +67,12 @@ function CreateReviewFormModal({ spotId }) {
         {errors.review && <p className="error">{errors.review}</p>}
         <label>
           Stars:
-
-          <div
-          >
+          <div>
             {stars.map((_, i) => {
               return (
-                <i class={`fa-solid fa-star ${(hoverVal || currVal) > i ? 'filled' : 'unfilled'}`} key={i} onClick={() => handleClick(i + 1)} onMouseOver={() => handleMouseHover(i + 1)} onMouseLeave={handleMouseLeave} color={(hoverVal || currVal) > i ? 'orange' : 'grey'}>
+                <i class={`fa-solid fa-star ${(hoverVal || currVal) > i ? 'filled' : 'unfilled'}`}
+                key={i} onClick={() => handleClick(i + 1)} onMouseOver={() => handleMouseHover(i + 1)}
+                onMouseLeave={handleMouseLeave} color={(hoverVal || currVal) > i ? 'orange' : 'grey'}>
                 </i>
               )
             })}
