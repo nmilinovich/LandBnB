@@ -19,7 +19,6 @@ section {
     grid-template-rows: 1fr 1fr; */
 }
 
-
 .infoBox {
     border: solid 1px;
     border-radius: 3px;
@@ -38,6 +37,7 @@ section {
     width: 100%;
     text-align: start;
     justify-content: start;
+    align-self: flex-start;
     padding-bottom: 5px;
 }
 button {
@@ -65,6 +65,9 @@ li {
     list-style-type: none;
 }
 
+.reserveBtn {
+    background-color: brown;
+}
 
 .createRev {
     border: 1px darkblue solid;

@@ -1,1 +1,9 @@
 /* TODO Add site wide styles */
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+* {
+    font-family: "Muli";
+}
+
+button {
+    background-color: grey;
+}

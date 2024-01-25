@@ -1,19 +1,25 @@
-.nav {
+/* .nav {
     display: flex;
-    align-content: end;
+    align-content: start;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-between start;
     border-bottom: 1px solid grey;
     width: 90vw;
     flex-wrap: none;
-    /* text-align: center; */
+    height: 10vh;
+    padding-top: 0px;
 }
 .profile-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
     max-width: fit-content;
+}
+
+.profile-btn {
+    display: flex;
+    width: 50px;
+    justify-content: center;
 }
 
 i {
@@ -40,14 +46,21 @@ i {
     width: 1vw;
 }
 
+#nav-profile-btn {
+    justify-self: center;
+}
+
 .createAndButton {
     display: flex;
     flex-direction: row;
-    justify-self: center;
+    justify-content: space-between;
+    align-items: start;
     max-width: 120px;
+    max-height: 5vh;
+    margin-left: calc(76vw);
 }
 
-.button {
+.profile-btn {
     width: 60px;
 }
 
@@ -61,10 +74,128 @@ i {
 .spotForm {
     max-height: 5px;
     text-align: start;
+    justify-self: start;
+    font-size: 14px;
+    width: 1000px;
+}
+
+.homeBtn {
+    width: 10vw;
+    margin-left: 10px;
 }
 
 .name {
     max-width: fit-content;
     margin-right: none;
     padding-right: 0px;
+} */
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
+    height: 18vh;
+    border-bottom: 1px solid grey;
+    margin-left: 0px;
+    padding: 0px;
+    padding-bottom: 3vh;
 }
+
+.profile-btn {
+    width: 40px;
+    margin: 0 10px 0 0;
+}
+.navUl {
+    padding: 0px;
+    margin: 0px
+}
+.leftHandNav {
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+.email {
+    font-size: 14px;
+    text-align: center;
+}
+
+.name {
+    font-size: 14px;
+    text-align: center;
+}
+
+.manage {
+    font-size: 14px;
+    text-align: center;
+}
+
+.logoutBtn {
+    font-size: 14px;
+    text-align: center;
+}
+
+.createAndButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: flex-end;
+    width: 20vw;
+    position: static;
+}
+
+.spotForm {
+    align-self: center;
+    justify-self: flex-end;
+    margin-right: 10px;
+}
+
+.profile-btn {
+    width: 100%;
+}
+
+.profile-container {
+    position: relative;
+    width: fit-content;
+}
+
+.profile-dropdown {
+    left: -44px;
+    position: absolute;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: fit-content;
+    margin: 0;
+    padding: 4px;
+}
+
+
+/* .nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid grey;
+    padding: 0px 0px 10vh 0px;
+    margin: 0px;
+    width: 98vw;
+    position: relative;
+}
+
+.profile-btn {
+    justify-content: end;
+    position: absolute
+}
+
+.profile-dropdown {
+    position: relative;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: fit-content;
+}
+.createAndButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 20vw;
+    position: static;
+    height: 10vh;
+} */

@@ -17,7 +17,7 @@ const Spots = () => {
     }
     return (
         <section>
-            <ul>
+            <ul className='spotUl'>
                 <div className='spots-grid-container'>
                     {spots?.filter(spot => typeof spot === 'object').map((spot) =>
                         <div key={spot.id}>

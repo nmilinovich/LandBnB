@@ -2,6 +2,11 @@
     text-align: center;
 }
 
+.deleteSpotP {
+    padding: 0px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 #YDeleteSpotDiv {
     text-align: center;
     align-self: center;
@@ -10,6 +15,7 @@
 #NDeleteSpotDiv {
     text-align: center;
     align-self: center;
+
 }
 
 #YDeleteSpotBtn {
@@ -27,5 +33,4 @@
     width: 250px;
     font-size: 14px;
     height: 40px;
-
 }

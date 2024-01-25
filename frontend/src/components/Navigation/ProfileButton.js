@@ -44,8 +44,8 @@ function ProfileButton({ user }) {
 
   return (
     <div className="profile-container">
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button onClick={openMenu} className="profile-btn">
+        <i className="fas fa-user-circle" id="nav-profile-btn"/>
       </button>
       <ul className={ulClassName} hidden={!showMenu} ref={ulRef}>
         {user ? (
@@ -53,7 +53,7 @@ function ProfileButton({ user }) {
             <li className="name">Hello {user.firstName}</li>
             <li className="email">{user.email}</li>
             <Link className="manage" to='/spots/current'>Manage Spots</Link>
-            <li className="logoutButton" onClick={logout}>
+            <li className="logoutBtn" onClick={logout}>
               <Link  to='/spots'>Log Out</Link>
             </li>
           </>

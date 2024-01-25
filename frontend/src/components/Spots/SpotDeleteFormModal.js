@@ -26,7 +26,7 @@ function SpotDeleteFormModal({ spotId }) {
   return (
     <>
         <h1 id="confirm">Confirm Delete?</h1>
-        <p>
+        <p className="deleteSpotP">
             Are you sure you want to remove this spot from the listings?
         </p>
         <div id="YDeleteSpotDiv">
