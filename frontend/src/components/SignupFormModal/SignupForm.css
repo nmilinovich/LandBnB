@@ -1,0 +1,33 @@
+.signupH1 {
+    justify-content: center;
+    text-align: center;
+}
+
+.signupForm {
+    justify-content: center;
+    padding: 0px 50px 20px 50px;
+}
+
+.emailLabel {
+    padding: 2px 0px;
+}
+
+.usernameLabel {
+    padding: 2px 0px;
+}
+
+.fNameLabel {
+    padding: 2px 0px;
+}
+
+.lNameLabel {
+    padding: 2px 0px;
+}
+
+.pwordLabel {
+    padding: 2px 0px;
+}
+
+.cPwordLabel {
+    padding: 2px 0px;
+}

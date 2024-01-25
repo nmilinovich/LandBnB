@@ -21,7 +21,7 @@ const SpotDetails = () => {
     let reviews = useSelector((state) => Object.values(state.reviews));
     let spotsReviews = reviews.filter(review => review.spotId === id);
     let userHasReview = Object.values(spotsReviews.filter(review => review.userId === user)).length > 0;
-
+    
     if(!spot) {
         return <div>Loading...</div>;
     }
@@ -39,9 +39,8 @@ const SpotDetails = () => {
                         }
                     </ul>
                     <div>
-                        <div className='name'>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</div>
+                        <div className='hostName'>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</div>
                     </div>
-
                     <div className='descriptionDiv'>
                         <span className='description'>{spot.description}</span>
                         <div className='infoBox'>

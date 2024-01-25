@@ -34,8 +34,8 @@ section {
     justify-content: end;
 }
 
-.name {
-    display: flex;
+.hostName {
+    width: 100%;
     text-align: start;
     justify-content: start;
     padding-bottom: 5px;
