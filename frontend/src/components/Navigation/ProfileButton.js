@@ -47,15 +47,17 @@ function ProfileButton({ user }) {
       <button onClick={openMenu} className="profile-btn">
         <i className="fas fa-user-circle" id="nav-profile-btn"/>
       </button>
-      <ul hidden={!showMenu} ref={ulRef}>
+      <div className='pfList' hidden={!showMenu} ref={ulRef}>
         {user ? (
           <div className="profile-dropdown">
-            <li className="name">Hello {user.firstName}</li>
-            <li className="email">{user.email}</li>
-            <Link className="manage" to='/spots/current'>Manage Spots</Link>
-            <li className="logoutBtn" onClick={logout}>
-              <Link to='/spots'>Log Out</Link>
-            </li>
+            <div className="name">Hello {user.firstName}</div>
+            <div className="email">{user.email}</div>
+            <div className="manageDiv">
+              <Link className="manage" to='/spots/current'>Manage Spots</Link>
+            </div>
+            <div className='logoutDiv' onClick={logout}>
+              <Link className="logoutBtn" to='/spots'>Log Out</Link>
+            </div>
           </div>
         ) : (
           <div className="login-dropdown">
@@ -73,7 +75,7 @@ function ProfileButton({ user }) {
             />
           </div>
         )}
-      </ul>
+      </div>
     </div>
   );
 }

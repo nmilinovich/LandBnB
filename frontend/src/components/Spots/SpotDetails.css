@@ -69,11 +69,6 @@ li {
     background-color: brown;
 }
 
-.createRev {
-    border: 1px darkblue solid;
-    border-radius: 4px;
-    padding-bottom: 3px;
-}
 
 .reviewSection {
     border-top: 2px solid black;

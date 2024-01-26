@@ -80,10 +80,7 @@ const SpotDetails = () => {
                     </header>
                     <section>
                         {(user && !userHasReview && user !== spot.Owner?.id) ?
-                        <button className='createRev'>
                             <CreateReviewButton />
-                        </button>
-
                         : null
                         }
                     <div className='review-container'>

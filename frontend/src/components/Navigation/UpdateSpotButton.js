@@ -12,9 +12,9 @@ function UpdateSpotButton({ user, spotId }) {
   let history = useHistory();
 
   return (
-        <button onClick={() => history.push(`/spots/${spotId}/edit`)}>
+        <div className='updateSpotBtn' onClick={() => history.push(`/spots/${spotId}/edit`)}>
             Update
-        </button>
+        </div>
   );
 }
 
