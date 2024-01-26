@@ -65,7 +65,7 @@ function CreateReviewFormModal({ spotId }) {
           </textarea>
         </label>
         {errors.review && <p className="error">{errors.review}</p>}
-        <label>
+        <label className="starsLabel">
           Stars:
           <div>
             {stars.map((_, i) => {

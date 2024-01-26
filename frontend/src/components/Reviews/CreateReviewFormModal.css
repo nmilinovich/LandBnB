@@ -12,3 +12,11 @@ form {
 .unfilled {
     color: grey;
 }
+
+.fa-star {
+    cursor: pointer;
+}
+
+.starsLabel {
+    display: flex;
+}

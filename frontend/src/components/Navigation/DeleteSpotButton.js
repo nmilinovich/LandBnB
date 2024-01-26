@@ -34,13 +34,14 @@ function DeleteSpotButton({ user, spotId }) {
 //   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-          <>
+          <button>
             <OpenModalMenuItem
               itemText="Delete"
               onItemClick={closeMenu}
               modalComponent={<SpotDeleteFormModal spotId={spotId} />}
+              customClass={'deleteUserSpotButton'}
             />
-          </>
+          </button>
   );
 }
 

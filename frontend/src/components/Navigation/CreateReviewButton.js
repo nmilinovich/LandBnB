@@ -44,6 +44,7 @@ function  CreateReviewButton({ user }) {
               itemText="Create Your Review"
               onItemClick={closeMenu}
               modalComponent={<CreateReviewFormModal spotId={spotId} />}
+              customClass={'createNewRvwBtn'}
             />
           </>
 

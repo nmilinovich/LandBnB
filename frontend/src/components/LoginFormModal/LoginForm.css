@@ -16,6 +16,11 @@
     text-align: center;
     justify-content: center;
     text-decoration: underline;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 2px;
+    background-color: gray;
+    cursor: pointer;
 }
 
 .credentialLabel {

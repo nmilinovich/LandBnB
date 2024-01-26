@@ -32,14 +32,15 @@ const UserSpots = () => {
                                 </div>
                                 {spot.country + ' '}
                                 <div className='price'>
-                                    {spot.price.toFixed(2) + ' '}
-                                    <label>night</label>
+                                    <div>{spot.price.toFixed(2) + ' '}night</div>
                                 </div>
                             </Link>
-                            <UpdateSpotButton spotId={spot.id}/>
-                            <button>
-                            <DeleteSpotButton spotId={spot.id}/>
-                            </button>
+                            <div className='userSpotsBtnDiv'>
+                                <UpdateSpotButton spotId={spot.id}/>
+                                <DeleteSpotButton spotId={spot.id}/>
+                            </div>
+
+
                         </div>
                 )
                     : <NavLink to='/spots/new'>Create a New Spot</NavLink>

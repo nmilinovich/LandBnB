@@ -1,110 +1,22 @@
-/* .nav {
-    display: flex;
-    align-content: start;
-    flex-direction: row;
-    justify-content: space-between start;
-    border-bottom: 1px solid grey;
-    width: 90vw;
-    flex-wrap: none;
-    height: 10vh;
-    padding-top: 0px;
-}
-.profile-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    max-width: fit-content;
-}
-
-.profile-btn {
-    display: flex;
-    width: 50px;
-    justify-content: center;
-}
-
-i {
-    justify-content: center;
-    align-items: center;
-}
-
-.dropdown-button {
-    min-width: 30px;
-}
-
-.fa-airbnb {
-    display: flex;
-    align-self:flex-start;
-    height: 50px;
-    width: 75px;
-    position: sticky;
-    color: red;
-}
-.fas {
-    display: flex;
-    justify-content: right;
-    height: 2vh;
-    width: 1vw;
-}
-
-#nav-profile-btn {
-    justify-self: center;
-}
-
-.createAndButton {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: start;
-    max-width: 120px;
-    max-height: 5vh;
-    margin-left: calc(76vw);
-}
-
-.profile-btn {
-    width: 60px;
-}
-
-
-.profile-dropdown {
-    border: 2px solid black;
-    border-radius: 5px;
-    max-width: 106px;
-}
-
-.spotForm {
-    max-height: 5px;
-    text-align: start;
-    justify-self: start;
-    font-size: 14px;
-    width: 1000px;
-}
-
-.homeBtn {
-    width: 10vw;
-    margin-left: 10px;
-}
-
-.name {
-    max-width: fit-content;
-    margin-right: none;
-    padding-right: 0px;
-} */
-
 .nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex: 1;
-    height: 18vh;
+    height: 2vh;
     border-bottom: 1px solid grey;
     margin-left: 0px;
     padding: 0px;
-    padding-bottom: 3vh;
+    padding-bottom: 11.2vh;
+}
+
+.fa-airbnb {
+    color: rgb(228, 7, 7);
 }
 
 .profile-btn {
     width: 40px;
-    margin: 0 10px 0 0;
+    margin: 5px 12px 0 0;
 }
 .navUl {
     padding: 0px;
@@ -116,22 +28,30 @@ i {
 }
 
 .email {
-    font-size: 14px;
+    font-size: 11px;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 .name {
-    font-size: 14px;
+    font-size: 11px;
     text-align: center;
 }
 
 .manage {
-    font-size: 14px;
-    text-align: center;
+    font-size: 11px;
+    text-align: end;
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
+    align-self: center;
+    padding: 0;
+    margin: 0;
 }
 
 .logoutBtn {
-    font-size: 14px;
+    font-size: 11px;
     text-align: center;
 }
 
@@ -140,14 +60,18 @@ i {
     flex-direction: row;
     justify-content: end;
     align-items: flex-end;
-    width: 20vw;
+    width: fit-content;
     position: static;
+    justify-self: flex-end;
 }
 
 .spotForm {
-    align-self: center;
-    justify-self: flex-end;
+    align-self: end;
     margin-right: 10px;
+    background-color: gray;
+    border: 1px solid black;
+    padding: 0 5px 0 5px;
+    border-radius: 5px;
 }
 
 .profile-btn {
@@ -160,42 +84,54 @@ i {
 }
 
 .profile-dropdown {
-    left: -44px;
+    left: -51px;
     position: absolute;
     border: 2px solid black;
     border-radius: 5px;
-    width: fit-content;
+    width: 81px;
     margin: 0;
     padding: 4px;
 }
 
-
-/* .nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-bottom: 1px solid grey;
-    padding: 0px 0px 10vh 0px;
-    margin: 0px;
-    width: 98vw;
-    position: relative;
-}
-
-.profile-btn {
-    justify-content: end;
-    position: absolute
-}
-
-.profile-dropdown {
-    position: relative;
+.login-dropdown {
+    position: absolute;
+    width: 59px;
+    left: -28px;
     border: 2px solid black;
     border-radius: 5px;
-    width: fit-content;
+    padding: 4px
 }
-.createAndButton {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    width: 20vw;
-    position: static;
-    height: 10vh;
-} */
+
+#signinDiv {
+    font-size: 8px;
+
+}
+
+#loginDiv {
+    font-size: 8px;
+}
+
+.openModalDiv {
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 4px 2px;
+    background-color: gray;
+    cursor: pointer;
+}
+
+.deleteUserSpotButton {
+    /* align-content: center;
+    background-color: gray;
+    cursor: pointer;
+    font-size: 14px;
+    margin: -2px 4px -2px 4px;
+    height: 30px;
+    border: 1px solid gray;
+    box-shadow: 1px; */
+}
+
+.createNewRvwBtn {
+
+}

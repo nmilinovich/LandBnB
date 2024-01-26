@@ -100,7 +100,6 @@ function PostSpotForm() {
                 <div>Street Address: {errors.address && <p className='error'>{errors.address}</p>}
                 </div>
                     <label className="address" htmlFor='address'>
-
                         <input
                             placeholder='Address'
                             id='address'
