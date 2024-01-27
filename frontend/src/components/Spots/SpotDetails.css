@@ -67,6 +67,8 @@ li {
 
 .reserveBtn {
     background-color: brown;
+    border-radius: 4px;
+    box-shadow: 2px 2px 2px brown;
 }
 
 
@@ -87,8 +89,13 @@ header {
     margin: 10px 0px;
 }
 
+.reviewOwner {
+    margin: 0 0 0 5px;
+}
+
 .reviewDate {
     color: rgba(84, 84, 84, 0.605);
+    margin: 0 0 4px 5px;
 }
 .descriptionDiv {
     display: flex;
@@ -98,21 +105,31 @@ header {
 .description {
     display: flex;
 }
-
+.border {
+    border-top: 1px dashed grey;
+}
 .review {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12px;
     margin-top: 3px;
     padding-top: 2px;
-    border-top: 1px dashed grey ;
+    margin-left: 10px;
+    margin-bottom: 5px;
 }
 
 .reviewCard {
-    border: 3px solid black;
-    border-radius: 3px;
-    padding-top: 5px
+    border: 3px solid rgb(110, 121, 151);
+    border-radius: 10px;
+    padding-top: 10px;
+    background-color: rgb(188, 202, 239);
+    box-shadow: -6px 6px 5px rgb(188, 202, 239);
 }
 
 .review-container {
     padding-top: 10px;
+}
+
+.delRvwBtnCont {
+    border-radius: 4px;
+    box-shadow: -2px 2px 2px black;
+    margin-bottom: 5px;
 }

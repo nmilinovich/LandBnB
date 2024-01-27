@@ -5,29 +5,49 @@
 
 .signupForm {
     justify-content: center;
+    text-align: center;
     padding: 0px 50px 20px 50px;
 }
 
 .emailLabel {
     padding: 2px 0px;
+    text-align: center;
 }
 
 .usernameLabel {
     padding: 2px 0px;
+    text-align: center;
 }
 
 .fNameLabel {
     padding: 2px 0px;
+    text-align: center;
 }
 
 .lNameLabel {
     padding: 2px 0px;
+    text-align: center;
 }
 
 .pwordLabel {
     padding: 2px 0px;
+    text-align: center;
 }
 
 .cPwordLabel {
     padding: 2px 0px;
+    text-align: center;
+}
+
+.modalSignupBtn {
+    justify-self: center;
+    width: 160px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 2px;
+    background-color: gray;
+    cursor: pointer;
+    box-shadow: -2px 2px 2px black;
 }

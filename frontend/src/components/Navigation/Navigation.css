@@ -6,8 +6,8 @@
     height: 2vh;
     border-bottom: 1px solid grey;
     margin-left: 0px;
-    padding: 0px;
-    padding-bottom: 11.2vh;
+    padding-top: 5px;
+    padding-bottom: 12px;
 }
 
 .fa-airbnb {
@@ -27,8 +27,6 @@
     margin-left: 0px;
 }
 
-
-
 .createAndButton {
     display: flex;
     flex-direction: row;
@@ -46,10 +44,12 @@
     border: 1px solid black;
     padding: 0 5px 0 5px;
     border-radius: 5px;
+    box-shadow: -2px 3px 2px black;
 }
 
 .profile-btn {
     width: 100%;
+    border-radius: 4px;
 }
 
 .profile-container {
@@ -135,7 +135,6 @@
 
 #signinDiv {
     font-size: 8px;
-
 }
 
 #loginDiv {
@@ -149,6 +148,7 @@
     border-radius: 5px;
     margin: 4px 2px;
     background-color: gray;
+    box-shadow: -2px 2px 2px black;
     cursor: pointer;
 }
 
@@ -171,7 +171,7 @@
     padding-bottom: 3px;
     width: 165px;
     background-color: gray;
-    box-shadow: 2px 2px 2px black;
+    box-shadow: -2px 2px 2px black;
     cursor: pointer;
 }
 
@@ -186,4 +186,16 @@
     font-size: 14px;
     margin-right: 5px;
     cursor: pointer;
+}
+
+.createNewRvwBtn {
+    /* border: 1px black;
+    text-align: center;
+    border-radius: 4px;
+    padding-bottom: 3px;
+    background-color: gray;
+    box-shadow: 2px 2px 2px black;
+    padding: 0 5px 0 5px;
+    font-size: 14px;
+    cursor: pointer; */
 }

@@ -19,11 +19,12 @@ const UserSpots = () => {
     console.log(userSpots)
     return (
         <ul>
+            <h1>Manage Spots</h1>
             <div className='spots-grid-container'>
                 {userSpots.length ? userSpots.map((spot) =>
                         <div key={spot.id}>
-                            <Link className='tile' to={`/spots/${spot.id}`}>
-                                {spot.previewImage && <img src={spot.previewImage['url']} alt='preview'/>}
+                            <Link className='userSpotTile' to={`/spots/${spot.id}`}>
+                                {spot.previewImage && <img className='homeSpotImage' src={spot.previewImage['url']} alt='preview'/>}
                                 <div className='location'>
                                     {spot.city + ', '}
                                     {spot.state + ' '}
@@ -43,7 +44,7 @@ const UserSpots = () => {
 
                         </div>
                 )
-                    : <NavLink to='/spots/new'>Create a New Spot</NavLink>
+                    : <NavLink className='MngSpotsCreateBtn' to='/spots/new'>Create a New Spot</NavLink>
                 }
             </div>
         </ul>

@@ -38,6 +38,7 @@ function DeleteSpotButton({ reviewId, spotId }) {
               itemText="Delete"
               onItemClick={closeMenu}
               modalComponent={<DeleteReviewFormModal reviewId={reviewId} spotId={spotId} />}
+              customClass={'deleteRvwBtn'}
             />
           </>
   );

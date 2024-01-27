@@ -37,17 +37,12 @@ form {
     align-content: justify;
     justify-content: justify;
     text-align: justify;
-    max-width: 330px;
+    max-width: 380px;
 }
 
-.postForm {
-    justify-content: center;
-    align-self: center;
-    justify-self: center;
-    align-content: justify;
-    justify-content: justify;
-    text-align: justify;
-    max-width: 330px;
+.guestsP {
+    width: 50%;
+    text-align: center;
 }
 
 div {
@@ -103,8 +98,14 @@ hr {
     text-align: center;
 }
 
-
-
 button:hover {
     cursor: pointer;
+}
+
+#country {
+    width: 100%;
+}
+
+#address {
+    width: 100%;
 }

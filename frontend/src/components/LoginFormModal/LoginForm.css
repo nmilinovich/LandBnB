@@ -11,16 +11,27 @@
 .error {
     color: red;
 }
-
-#DemoUser {
+#modalLoginBtn {
     text-align: center;
     justify-content: center;
-    text-decoration: underline;
     border: 1px solid black;
     border-radius: 5px;
     margin-top: 2px;
     background-color: gray;
     cursor: pointer;
+    box-shadow: -2px 2px 2px black;
+}
+#DemoUser {
+    text-align: center;
+    font-size: 14px;
+    justify-self: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 2px;
+    background-color: gray;
+    cursor: pointer;
+    width: 160px;
+    box-shadow: -2px 2px 2px black;
 }
 
 .credentialLabel {

@@ -82,7 +82,7 @@ function PostSpotForm() {
         <section className='page'>
             <h2>Create a new Spot</h2>
             <h3 className='where'>Where's your place located?</h3>
-            <p>
+            <p className='guestsP'>
                 Guests will only get your exact address once they booked a reservation.
             </p>
             <form onSubmit={onSubmit}>

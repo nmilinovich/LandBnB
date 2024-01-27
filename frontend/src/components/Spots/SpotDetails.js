@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react'
 import { getSpotDetails } from '../../store/spots';
+import { getSpots } from '../../store/spots';
 import './SpotDetails.css';
 import { getSpotReviews } from '../../store/reviews';
 import CreateReviewButton from '../Navigation/CreateReviewButton';
@@ -10,11 +11,10 @@ const SpotDetails = () => {
     const dispatch = useDispatch();
     const {spotId} = useParams();
     const id = parseInt(spotId);
-
     useEffect(async () => {
         await dispatch(getSpotDetails(id));
         await dispatch(getSpotReviews(id));
-
+        // dispatch(getSpots());
     }, [dispatch, id]);
     let user = useSelector((state) => state.session.user?.['id']);
     let spot = useSelector((state) => state.spots[id]);
@@ -91,8 +91,10 @@ const SpotDetails = () => {
                                         <div className='reviewCard' key={review.id}>
                                             <div className='reviewOwner'>{review.User?.firstName}</div>
                                             <div className='reviewDate'>{new Date(review.createdAt).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
+                                            <div className='border'>
+                                            </div>
                                             <div className='review'>{review.review}</div>
-                                                {user === review.userId ? <button><DeleteReviewButton reviewId={review.id} spotId={id} /></button> : null}
+                                                {user === review.userId ? <button className='delRvwBtnCont'><DeleteReviewButton reviewId={review.id} spotId={id} /></button> : null}
                                         </div>
                                         <p></p>
                                     </div>

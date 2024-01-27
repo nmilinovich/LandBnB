@@ -20,9 +20,9 @@ const Spots = () => {
             <ul className='spotUl'>
                 <div className='spots-grid-container'>
                     {spots?.filter(spot => typeof spot === 'object').map((spot) =>
-                        <div key={spot.id}>
+                        <div key={spot.id} className='tooltip'>
+                            <span className='tooltiptext'>{spot.name}</span>
                             <Link className='tile' to={`/spots/${spot.id}`}>
-
                                 {spot.previewImage &&
                                 <div> <img src={spot.previewImage['url']} className='homeSpotImage' alt='preview'/>
                                 </div>
