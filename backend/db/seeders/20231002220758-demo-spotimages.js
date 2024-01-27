@@ -86,7 +86,7 @@ module.exports = {
       },
       {
         spotId: 4,
-        url: "https://hips.hearstapps.com/hmg-prod/images/tiny-houses-1579284305.png?crop=1.00xw:0.397xh;0,0.332xh&resize=640:*",
+        url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTnMB6K_FEtiwrpIbLlsAN3RoGbsbuFEQ0Zg&usqp=CAU",
         preview: true,
       },
       {

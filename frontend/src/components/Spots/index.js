@@ -27,7 +27,6 @@ const Spots = () => {
                                 <div> <img src={spot.previewImage['url']} className='homeSpotImage' alt='preview'/>
                                 </div>
                                 }
-
                                 <div className='location'>
                                     <div>{spot.city + ', '}
                                         {spot.state + ' '}

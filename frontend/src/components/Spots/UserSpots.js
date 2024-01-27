@@ -18,13 +18,17 @@ const UserSpots = () => {
     let userSpots = Object.values(spots).filter((spot) => spot.ownerId === user);
     console.log(userSpots)
     return (
-        <ul>
+        <ul className='userSpotsUl'>
             <h1>Manage Spots</h1>
             <div className='spots-grid-container'>
                 {userSpots.length ? userSpots.map((spot) =>
-                        <div key={spot.id}>
+                        <div key={spot.id} className='tooltip'>
+                            <span className='tooltiptext'>{spot.name}</span>
                             <Link className='userSpotTile' to={`/spots/${spot.id}`}>
-                                {spot.previewImage && <img className='homeSpotImage' src={spot.previewImage['url']} alt='preview'/>}
+                                {spot.previewImage &&
+                                    <div> <img className='homeSpotImage' src={spot.previewImage['url']} alt='preview'/>
+                                    </div>
+                                }
                                 <div className='location'>
                                     {spot.city + ', '}
                                     {spot.state + ' '}

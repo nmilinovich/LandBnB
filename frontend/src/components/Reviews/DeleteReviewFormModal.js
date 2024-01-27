@@ -25,8 +25,8 @@ function DeleteReviewFormModal({ reviewId, spotId }) {
 
   return (
     <>
-        <h1 id="confirm">Confirm Delete?</h1>
-        <p>
+        <h1 id="delRvwH1">Confirm Delete?</h1>
+        <p id="delRvwP">
             Are you sure you want to remove this review?
         </p>
         <div id="YDeleteRvwDiv">

@@ -20,3 +20,12 @@ form {
 .starsLabel {
     display: flex;
 }
+
+.createRvwH1 {
+    padding: 0 10px 0 10px;
+    text-align: center;
+}
+
+.createRvwSubmit {
+    margin-bottom: 8px;
+}

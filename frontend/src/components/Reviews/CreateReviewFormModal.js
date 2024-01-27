@@ -52,7 +52,7 @@ function CreateReviewFormModal({ spotId }) {
 
   return (
     <>
-      <h1>How was Your Stay?</h1>
+      <h1 className="createRvwH1">How was Your Stay?</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <textarea
@@ -79,7 +79,7 @@ function CreateReviewFormModal({ spotId }) {
           </div>
         </label>
         {errors.stars && <p className="error">{errors.stars}</p>}
-        <button type="submit" disabled={review.length < 10 || !stars}>Submit Your Review</button>
+        <button className='createRvwSubmit' type="submit" disabled={review.length < 10 || !currVal}>Submit Your Review</button>
       </form>
     </>
   );

@@ -1,4 +1,4 @@
-#confirm {
+#delRvwH1 {
     text-align: center;
 }
 
@@ -10,6 +10,7 @@
 #NDeleteRvwDiv {
     text-align: center;
     align-self: center;
+    padding-bottom: 5px;
 }
 
 #YDeleteRvwBtn {
@@ -28,4 +29,8 @@
     font-size: 14px;
     height: 40px;
 
+}
+
+#delRvwP {
+    padding: 0 5px 0 5px;
 }

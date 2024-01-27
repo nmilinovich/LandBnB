@@ -34,7 +34,7 @@ const SpotDetails = () => {
                     <ul className='img-container'>
                         {spot.SpotImages?.map((image, i = 0) => {
                             i += 1
-                            return <img id={spot.previewImage?.url === image.url ? 'previewImg' : `${i}`} key={i} className={spot.previewImage?.url === image.url ? 'previewImg' : 'otherImg' || (image['preview'] ? `previewImg ${i}` : `otherImg ${i}`)} src={`${image['url']}`} alt='image'/>
+                            return <img id={image.preview === true ? 'previewImg' : `${i}`} key={i} className={image.preview === true ? 'previewImg' : 'otherImg' || (image['preview'] ? `previewImg ${i}` : `otherImg ${i}`)} src={`${image['url']}`} alt='image'/>
                         })
                         }
                     </ul>

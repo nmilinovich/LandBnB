@@ -36,7 +36,7 @@ module.exports = {
         price: 78,
       },
       {
-        ownerId: 3,
+        ownerId: 1,
         address: "123 Farm Lane",
         city: 'San Jose',
         state: "California",
@@ -48,7 +48,7 @@ module.exports = {
         price: 100,
       },
       {
-        ownerId: 4,
+        ownerId: 1,
         address: "1243 Frappy Tah Way",
         city: 'San Rafael',
         state: "California",
@@ -60,7 +60,7 @@ module.exports = {
         price: 100,
       },
       {
-        ownerId: 5,
+        ownerId: 1,
         address: "123 Zygote Phathom Lane",
         city: 'Los Angeles',
         state: "California",
