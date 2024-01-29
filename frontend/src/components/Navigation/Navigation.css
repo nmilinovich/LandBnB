@@ -15,8 +15,15 @@
 }
 
 .profile-btn {
+    align-self: start;
     width: 40px;
-    margin: 5px 12px 0 0;
+    padding: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    /* height: 25px; */
+    border-radius: 4px;
 }
 .navUl {
     padding: 0px;
@@ -30,35 +37,34 @@
 .createAndButton {
     display: flex;
     flex-direction: row;
-    justify-content: end;
-    align-items: flex-end;
+    justify-content: start;
+    align-items: start;
     width: fit-content;
     position: static;
-    justify-self: flex-end;
+    justify-self: flex-start;
 }
 
 .spotForm {
-    align-self: end;
-    margin-right: 10px;
+    /* align-self: end; */
+    margin-right: 5px;
     background-color: gray;
     border: 1px solid black;
     padding: 0 5px 0 5px;
     border-radius: 5px;
     box-shadow: -2px 3px 2px black;
+    height: 20px;
+    text-decoration: none;
 }
 
-.profile-btn {
-    width: 100%;
-    border-radius: 4px;
-}
 
 .profile-container {
     position: relative;
-    width: fit-content;
+    align-content: start;
 }
 
 .profile-dropdown {
-    right: calc(100% - 41px);
+    right: calc(100% - 45px);
+    top: 22px;
     position: absolute;
     border: 2px solid black;
     border-radius: 5px;
@@ -187,5 +193,3 @@
     margin-right: 5px;
     cursor: pointer;
 }
-
-

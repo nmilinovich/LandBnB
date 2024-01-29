@@ -80,11 +80,14 @@ function PostSpotForm() {
 
     return (
         <section className='page'>
-            <h2>Create a new Spot</h2>
-            <h3 className='where'>Where's your place located?</h3>
-            <p className='guestsP'>
-                Guests will only get your exact address once they booked a reservation.
-            </p>
+            <h2 className='createSpotH2'>Create a new Spot</h2>
+            <h2 className='where'>Where's your place located?</h2>
+            <div className='guestsDiv'>
+                <p className='guestsP'>
+                    Guests will only get your exact address once they booked a reservation.
+                </p>
+            </div>
+
             <form onSubmit={onSubmit}>
                 <div>Country: {errors.country && <p className='error'>{errors.country}</p>}
                 </div>
@@ -113,7 +116,7 @@ function PostSpotForm() {
                     <div>State: {errors.state && <p className='error'>{errors.state}</p>}</div>
                 </div>
                 <span className='cityStateDiv'>
-                    <label htmlFor='city'>
+                    <label htmlFor='city' className='cityLabel'>
                         <input
                         placeholder='City'
                         id='city'
@@ -123,7 +126,7 @@ function PostSpotForm() {
                     />
                     </label>
                     {','}
-                    <label htmlFor='state'>
+                    <label htmlFor='state' className='stateLabel'>
                         <input
                         placeholder='State'
                         id='state'
@@ -133,13 +136,12 @@ function PostSpotForm() {
                     />
                     </label>
                 </span>
-
                 <div className='latLngDiv'>
                     <div>Latitude: {errors.lat && <p className='error'>{errors.lat}</p>}</div>
                     <div>Longitude: {errors.lng && <p className='error'>{errors.lng}</p>}</div>
                 </div>
-                <span className='latLngDiv'>
-                    <label htmlFor='lat'>
+                <span className='latLngSpan'>
+                    <label htmlFor='lat' className='latLabel'>
                         <input
                         placeholder='latitude'
                         id='lat'
@@ -148,7 +150,8 @@ function PostSpotForm() {
                         value={lat}
                     />
                     </label>
-                    <label htmlFor='lng'>
+                    <span className='latLngCom'>,</span>
+                    <label htmlFor='lng' className='LngLabel'>
                         <input
                         placeholder='longitude'
                         id='lng'
@@ -158,12 +161,12 @@ function PostSpotForm() {
                     />
                     </label>
                 </span>
-                <hr/>
-                <h2>Describe your place to guests:</h2>
+                <hr className='hr'/>
+                <h2 className='describe'>Describe your place to guests</h2>
                 <p>
                     Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.
                 </p>
-                <div>
+                <div className='describeDiv'>
                 <label htmlFor='description'>
                     <textarea
                         placeholder='Please write at least 30 characters'
@@ -176,13 +179,14 @@ function PostSpotForm() {
                 </label>
                 {errors.description && <p className='error'>{errors.description}</p>}
                 </div>
-                <hr/>
-                <h2>Create a title for your spot:</h2>
+                <hr className='hr'/>
+                <h2 className='createH2'>Create a title for your spot</h2>
                 <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
                 <div>
-                <label htmlFor='name'>
+                <label htmlFor='name' >
                     <input
-                    placeholder='Name of your spot'
+                        className='nameInput'
+                        placeholder='Name of your spot'
                         id='name'
                         type='text'
                         onChange={e => setName(e.target.value)}
@@ -191,12 +195,12 @@ function PostSpotForm() {
                 </label>
                 {errors.name && <p className='error'>{errors.name}</p>}
                 </div>
-                <hr/>
-                <h2>Set a base price for your spot:</h2>
+                <hr className='hr'/>
+                <h2 className='setPriceH2'>Set a base price for your spot</h2>
                 <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
                 <div>
                 <label htmlFor='price' className='$'>
-                    $
+                    ${' '}
                     <input
                         placeholder="Price per night (USD)"
                         id='price'
@@ -207,8 +211,8 @@ function PostSpotForm() {
                 </label>
                 {errors.price && <p className='error'>{errors.price}</p>}
                 </div>
-                <hr/>
-                <h2>Liven up your spot with photos</h2>
+                <hr className='hr'/>
+                <h2 className='livenH2'>Liven up your spot with photos</h2>
                 <div>Submit a link to at least one photo to publish your spot.</div>
                 <div className='imageTextAreas'>
                     {[...Array(5)].map((_, i) => (
@@ -229,8 +233,9 @@ function PostSpotForm() {
                     ))}
                     {errors.urlImages && <p className='error'>{errors.urlImages}</p>}
                 </div>
+                <hr className='hr'/>
                 <div className='createDiv'>
-                    <button >Create Spot</button>
+                    <button id='spotCreateBtn'>Create Spot</button>
                 </div>
             </form>
         </section>

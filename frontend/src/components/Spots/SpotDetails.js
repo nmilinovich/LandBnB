@@ -34,7 +34,7 @@ const SpotDetails = () => {
                     <ul className='img-container'>
                         {spot.SpotImages?.map((image, i = 0) => {
                             i += 1
-                            return <img id={image.preview === true ? 'previewImg' : `${i}`} key={i} className={image.preview === true ? 'previewImg' : 'otherImg' || (image['preview'] ? `previewImg ${i}` : `otherImg ${i}`)} src={`${image['url']}`} alt='image'/>
+                            return <img id={image.preview === true ? 'previewImg' : `image${i}`} key={i} className={image.preview === true ? 'previewImg' : 'otherImg' || (image['preview'] ? `previewImg ${i}` : `otherImg ${i}`)} src={`${image['url']}`} alt='image'/>
                         })
                         }
                     </ul>
@@ -105,10 +105,8 @@ const SpotDetails = () => {
                             user && user !== spot.Owner?.id && <div>Be the first to Post a review</div>
                         }
                     </div>
-
                     </section>
                 </div>
-
             </section>
         );
     }

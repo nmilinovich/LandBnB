@@ -88,23 +88,26 @@ function EditSpotForm() {
 
     return (
         <section className='page'>
-        <h2>Update your  Spot</h2>
+        <h2 className='createSpotH2'>Update your  Spot</h2>
         <h3 className='where'>Where's your place located?</h3>
-        <p>
-            Guests will only get your exact address once they booked a reservation.
-        </p>
+        <div className='guestsDiv'>
+            <p className='guestsP'>
+                Guests will only get your exact address once they booked a reservation.
+            </p>
+        </div>
+
         <form onSubmit={onSubmit} className='postForm'>
             <div>
-            <label htmlFor='country'>
-                Country:
-                <input
-                    placeholder='country'
-                    id='country'
-                    type='text'
-                    onChange={e => setCountry(e.target.value)}
-                    value={country ? country : ''}
-                />
-            </label>
+                <label htmlFor='country'>
+                    Country:
+                    <input
+                        placeholder='country'
+                        id='country'
+                        type='text'
+                        onChange={e => setCountry(e.target.value)}
+                        value={country ? country : ''}
+                    />
+                </label>
             {errors.country && <p className='error'>{errors.country}</p>}
             </div>
             <div>
@@ -121,35 +124,35 @@ function EditSpotForm() {
             {errors.address && <p className='error'>{errors.address}</p>}
             </div>
             <div className='cityStateDiv'>
-                    <div>City: {errors.city && <p className='error'>{errors.city}</p>}</div>
-                    <div>State: {errors.state && <p className='error'>{errors.state}</p>}</div>
-                </div>
-                <span className='cityStateDiv'>
-                    <label htmlFor='city'>
-                        <input
-                        placeholder='City'
-                        id='city'
-                        type='text'
-                        onChange={e => setCity(e.target.value)}
-                        value={city}
-                    />
-                    </label>
-                    {','}
-                    <label htmlFor='state'>
-                        <input
-                        placeholder='State'
-                        id='state'
-                        type='text'
-                        onChange={e => setState(e.target.value)}
-                        value={state ? state : ''}
-                    />
-                    </label>
+                <div>City: {errors.city && <p className='error'>{errors.city}</p>}</div>
+                <div>State: {errors.state && <p className='error'>{errors.state}</p>}</div>
+            </div>
+            <span className='cityStateDiv'>
+                <label htmlFor='city' className='cityLabel'>
+                    <input
+                    placeholder='City'
+                    id='city'
+                    type='text'
+                    onChange={e => setCity(e.target.value)}
+                    value={city}
+                />
+                </label>
+                {','}
+                <label htmlFor='state' className='stateLabel'>
+                    <input
+                    placeholder='State'
+                    id='state'
+                    type='text'
+                    onChange={e => setState(e.target.value)}
+                    value={state ? state : ''}
+                />
+                </label>
                 </span>
             <div className='latLngDiv'>
                 <div>Latitude: {errors.lat && <p className='error'>{errors.lat}</p>}</div>
                 <div>Longitude: {errors.lng && <p className='error'>{errors.lng}</p>}</div>
             </div>
-            <span className='latLngDiv'>
+            <span className='latLngSpan'>
                 <label htmlFor='lat'>
                     <input
                     placeholder='latitude'
@@ -159,7 +162,8 @@ function EditSpotForm() {
                     value={lat}
                 />
                 </label>
-                <label htmlFor='lng'>
+                <span className='latLngCom'>,</span>
+                <label htmlFor='lng' className='LngLabel'>
                     <input
                     placeholder='longitude'
                     id='lng'
@@ -169,29 +173,31 @@ function EditSpotForm() {
                 />
                 </label>
             </span>
-            <hr/>
-            <h2>Describe your place to guests:</h2>
+            <hr className='hr'/>
+            <h2 className='describe'>Describe your place to guests:</h2>
             <p>
                 Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.
             </p>
-            <div>
+            <div className='describeDiv'>
             <label htmlFor='description'>
-            <input
-                placeholder='Please write at least 30 characters'
-                id='description'
-                type='text'
-                onChange={e => setDescription(e.target.value)}
-                value={description ? description : ''}
-            />
+                <textarea
+                    placeholder='Please write at least 30 characters'
+                    id='description'
+                    type='text'
+                    onChange={e => setDescription(e.target.value)}
+                    value={description ? description : ''}
+                >
+                </textarea>
             </label>
             {errors.description && <p className='error'>{errors.description}</p>}
             </div>
-            <hr/>
-            <h2>Create a title for your spot:</h2>
+            <hr className='hr'/>
+            <h2 className='createH2'>Create a title for your spot:</h2>
             <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
             <div>
             <label htmlFor='name'>
                 <input
+                className='nameInput'
                 placeholder='Name of your spot'
                     id='name'
                     type='text'
@@ -201,11 +207,12 @@ function EditSpotForm() {
             </label>
             {errors.name && <p className='error'>{errors.name}</p>}
             </div>
-            <hr/>
-            <h2>Set a base price for your spot:</h2>
-            <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
+                <hr className='hr'/>
+                <h2 className='setPriceH2'>Set a base price for your spot:</h2>
+                <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
             <div>
-            <label htmlFor='price'>
+            <label htmlFor='price' className='$'>
+                ${' '}
                 <input
                     placeholder="Price per night (USD)"
                     id='price'
@@ -216,10 +223,10 @@ function EditSpotForm() {
             </label>
             {errors.price && <p className='error'>{errors.price}</p>}
             </div>
-            <hr/>
+            <hr className='hr'/>
             {/* <h2>Liven up your spot with photos</h2>
-            <div>Submit a link to at least one photo to publish your spot.</div> */}
-            {/* <div className='imageTextAreas'>
+            <div>Submit a link to at least one photo to publish your spot.</div>
+            <div className='imageTextAreas'>
                 {[...Array(5)].map((_, i) => (
                     <div key={i} className='imageUrl'>
                         <label htmlFor={`image-${i}`}>
@@ -239,7 +246,7 @@ function EditSpotForm() {
                 {errors.urlImages && <p className='error'>{errors.urlImages}</p>}
             </div> */}
             <div className='createDiv'>
-                <button>Update your Spot</button>
+                <button id='spotCreateBtn'>Update Your Spot</button>
             </div>
         </form>
         </section>
