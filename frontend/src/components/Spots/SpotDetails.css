@@ -111,8 +111,8 @@ li {
     background-color: brown;
     border-radius: 4px;
     box-shadow: 2px 2px 2px brown;
+    margin: 2px 4px 4px 4px;
 }
-
 
 .reviewSection {
     border-top: 2px solid black;
